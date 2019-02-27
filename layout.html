@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GA Layout Selection</title>
+</head>
+<body>
+    <canvas id="mycanvas1" width="1000" height="200" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+    <canvas id="mycanvas2" width="1000" height="200" style="position: absolute; left: 0; top: 0; z-index: 0;"></canvas>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    <h2 id="coordinate">0 | 0</h2>
+
+    <script type="text/javascript">
+        var canvas1 = document.getElementById('mycanvas1');
+        var ctx1 = canvas1.getContext('2d');
+
+        var canvas2 = document.getElementById('mycanvas2');
+        var ctx2 = canvas2.getContext('2d');
+
+        var coordinate = document.getElementById('coordinate');
+        var cx = 0;
+        var cy = 0;
+
+        var img = new Image();
+        img.src = 'coach2.png';
+        img.onload = function () {
+            ctx2.drawImage(img,0,0,1000,200);
+        }
+
+        canvas1.addEventListener('click', function (event) {                       //https://www.youtube.com/watch?v=fGpQ0JK0fcI
+            ctx1.clearRect(cx-25, cy-25, 50, 50);
+
+            cx = event.pageX - ctx1.canvas.offsetLeft;   //https://www.youtube.com/watch?v=8pNzjUjvNsY
+            cy = event.pageY - ctx1.canvas.offsetTop;    //have to delete the offset in order positioning the rectangular in the middle
+            //alert("X,Y="+cx+','+cy);
+            coordinate.innerHTML = cx+" | "+cy;
+            ctx1.fillStyle = "#d70428";
+            ctx1.fillRect(cx-25, cy-25, 50, 50);
+        });
+
+    </script>
+</body>
+</html>
