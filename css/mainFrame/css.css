@@ -1,10 +1,18 @@
-body {
+body{
 
-    margin: 0px;
+    margin:0;
     font-family: Arial, Helvetica, sans-serif;
 
 }
 
-::-webkit-scrollbar {
-    display: none;
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+p{
+    font-weight:200;
+}
+
+select{
+    border-radius: 0;
 }
