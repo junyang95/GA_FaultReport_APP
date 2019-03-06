@@ -28,3 +28,11 @@ function unhideHomeSectionFooter(){
   $('#circleButtonUp').hide();
   $('#homeSectionFooter').css('background-color','white');   
 }
+
+function backToHomeSectionFromFaultReport(){
+
+    $("#homeSection").show();
+    $("#reportFaultFormSection").hide();
+    $('#navFooter').hide();
+
+}

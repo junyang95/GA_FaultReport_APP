@@ -1,0 +1,183 @@
+
+    <p>Please identify the location of the fault</p>
+
+    <a href="#reportFaultForm"><p class="redBox" id="coachBox" onclick="unhideCoach()"><i class='fas fa-train'></i>Train</p></a>
+    <a href="#reportFaultForm"><p class="redBox" id="stationBox" onclick="unhideStation()"><i class='fas fa-building'></i>Station</p></a>
+
+
+
+    <div id="coach">
+
+        <input class="inputBox" id="coachNumberInput" type="text" name="coachNumber" placeholder="Coach Number">
+
+    </div>
+
+
+    <div id="station">
+
+        <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search station name..">
+        <br>
+        <ul class="list-group" id="stationList" >
+
+            <a href="#"><li class="list-group-item" value="Acle">Acle</li></a>
+            <a href="#"><li class="list-group-item" value="Alresford (Essex)">Alresford (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="Althorne (Essex)">Althorne (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="Angel Road">Angel Road</li></a>
+            <a href="#"><li class="list-group-item" value="Attleborough">Attleborough</li></a>
+            <a href="#"><li class="list-group-item" value="Audley End">Audley End</li></a>
+            <a href="#"><li class="list-group-item" value="Battlesbridge">Battlesbridge</li></a>
+            <a href="#"><li class="list-group-item" value="Beccles">Beccles</li></a>
+            <a href="#"><li class="list-group-item" value="Berney Arms">Berney Arms</li></a>
+            <a href="#"><li class="list-group-item" value="Billericay">Billericay</li></a>
+            <a href="#"><li class="list-group-item" value="Bishops Stortford">Bishops Stortford</li></a>
+            <a href="#"><li class="list-group-item" value="Braintree">Braintree</li></a>
+            <a href="#"><li class="list-group-item" value="Braintree Freeport">Braintree Freeport</li></a>
+            <a href="#"><li class="list-group-item" value="Brampton (Suffolk)">Brampton (Suffolk)</li></a>
+            <a href="#"><li class="list-group-item" value="Brandon">Brandon</li></a>
+            <a href="#"><li class="list-group-item" value="Brimsdown">Brimsdown</li></a>
+            <a href="#"><li class="list-group-item" value="Broxbourne">Broxbourne</li></a>
+            <a href="#"><li class="list-group-item" value="Brundall">Brundall</li></a>
+            <a href="#"><li class="list-group-item" value="Brundall Gardens">Brundall Gardens</li></a>
+            <a href="#"><li class="list-group-item" value="Buckenham (Norfolk)">Buckenham (Norfolk)</li></a>
+            <a href="#"><li class="list-group-item" value="Bures">Bures</li></a>
+            <a href="#"><li class="list-group-item" value="Burnham-on-Crouch">Burnham-on-Crouch</li></a>
+            <a href="#"><li class="list-group-item" value="Bury St Edmunds">Bury St Edmunds</li></a>
+            <a href="#"><li class="list-group-item" value="Cambridge">Cambridge</li></a>
+            <a href="#"><li class="list-group-item" value="Cambridge North">Cambridge North</li></a>
+            <a href="#"><li class="list-group-item" value="Cantley">Cantley</li></a>
+            <a href="#"><li class="list-group-item" value="Chappel & Wakes Colne">Chappel & Wakes Colne</li></a>
+            <a href="#"><li class="list-group-item" value="Chelmsford">Chelmsford</li></a>
+            <a href="#"><li class="list-group-item" value="Cheshunt">Cheshunt</li></a>
+            <a href="#"><li class="list-group-item" value="Clacton-on-Sea">Clacton-on-Sea</li></a>
+            <a href="#"><li class="list-group-item" value="Colchester">Colchester</li></a>
+            <a href="#"><li class="list-group-item" value="Colchester Town">Colchester Town</li></a>
+            <a href="#"><li class="list-group-item" value="Cressing (Essex)">Cressing (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="Cromer">Cromer</li></a>
+            <a href="#"><li class="list-group-item" value="Darsham">Darsham</li></a>
+            <a href="#"><li class="list-group-item" value="Derby Road (Ipswich)">Derby Road (Ipswich)</li></a>
+            <a href="#"><li class="list-group-item" value="Diss">Diss</li></a>
+            <a href="#"><li class="list-group-item" value="Dovercourt">Dovercourt</li></a>
+            <a href="#"><li class="list-group-item" value="Downham Market">Downham Market</li></a>
+            <a href="#"><li class="list-group-item" value="Dullingham">Dullingham</li></a>
+            <a href="#"><li class="list-group-item" value="Eccles Road">Eccles Road</li></a>
+            <a href="#"><li class="list-group-item" value="Elmswell">Elmswell</li></a>
+            <a href="#"><li class="list-group-item" value="Elsenham (Essex)">Elsenham (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="Ely">Ely</li></a>
+            <a href="#"><li class="list-group-item" value="Enfield Lock">Enfield Lock</li></a>
+            <a href="#"><li class="list-group-item" value="Felixstowe">Felixstowe</li></a>
+            <a href="#"><li class="list-group-item" value="Frinton-on-Sea">Frinton-on-Sea</li></a>
+            <a href="#"><li class="list-group-item" value="Great Bentley">Great Bentley</li></a>
+            <a href="#"><li class="list-group-item" value="Great Chesterford">Great Chesterford</li></a>
+            <a href="#"><li class="list-group-item" value="Great Yarmouth">Great Yarmouth</li></a>
+            <a href="#"><li class="list-group-item" value="Gunton">Gunton</li></a>
+            <a href="#"><li class="list-group-item" value="Haddiscoe">Haddiscoe</li></a>
+            <a href="#"><li class="list-group-item" value="Halesworth">Halesworth</li></a>
+            <a href="#"><li class="list-group-item" value="Harling Road">Harling Road</li></a>
+            <a href="#"><li class="list-group-item" value="Harlow Mill">Harlow Mill</li></a>
+            <a href="#"><li class="list-group-item" value="Harlow Town">Harlow Town</li></a>
+            <a href="#"><li class="list-group-item" value="Harwich International">Harwich International</li></a>
+            <a href="#"><li class="list-group-item" value="Harwich Town">Harwich Town</li></a>
+            <a href="#"><li class="list-group-item" value="Hatfield Peverel">Hatfield Peverel</li></a>
+            <a href="#"><li class="list-group-item" value="Hertford East">Hertford East</li></a>
+            <a href="#"><li class="list-group-item" value="Hockley">Hockley</li></a>
+            <a href="#"><li class="list-group-item" value="Hoveton & Wroxham">Hoveton & Wroxham</li></a>
+            <a href="#"><li class="list-group-item" value="Hythe (Essex)">Hythe (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="Ingatestone">Ingatestone</li></a>
+            <a href="#"><li class="list-group-item" value="Ipswich">Ipswich</li></a>
+            <a href="#"><li class="list-group-item" value="Kelvedon">Kelvedon</li></a>
+            <a href="#"><li class="list-group-item" value="Kennett">Kennett</li></a>
+            <a href="#"><li class="list-group-item" value="Kings Lynn">Kings Lynn</li></a>
+            <a href="#"><li class="list-group-item" value="Kirby Cross">Kirby Cross</li></a>
+            <a href="#"><li class="list-group-item" value="Lakenheath">Lakenheath</li></a>
+            <a href="#"><li class="list-group-item" value="Lea Bridge">Lea Bridge</li></a>
+            <a href="#"><li class="list-group-item" value="Lingwood">Lingwood</li></a>
+            <a href="#"><li class="list-group-item" value="Littleport">Littleport</li></a>
+            <a href="#"><li class="list-group-item" value="London Liverpool Street">London Liverpool Street</li></a>
+            <a href="#"><li class="list-group-item" value="Lowestoft">Lowestoft</li></a>
+            <a href="#"><li class="list-group-item" value="Manea">Manea</li></a>
+            <a href="#"><li class="list-group-item" value="Manningtree">Manningtree</li></a>
+            <a href="#"><li class="list-group-item" value="March">March</li></a>
+            <a href="#"><li class="list-group-item" value="Marks Tey">Marks Tey</li></a>
+            <a href="#"><li class="list-group-item" value="Melton (Suffolk)">Melton (Suffolk)</li></a>
+            <a href="#"><li class="list-group-item" value="Meridian Water">Meridian Water</li></a>
+            <a href="#"><li class="list-group-item" value="Mistley">Mistley</li></a>
+            <a href="#"><li class="list-group-item" value="Needham Market">Needham Market</li></a>
+            <a href="#"><li class="list-group-item" value="Newmarket">Newmarket</li></a>
+            <a href="#"><li class="list-group-item" value="Newport (Essex)">Newport (Essex)</li></a>
+            <a href="#"><li class="list-group-item" value="North Fambridge">North Fambridge</li></a>
+            <a href="#"><li class="list-group-item" value="North Walsham">North Walsham</li></a>
+            <a href="#"><li class="list-group-item" value="Northumberland Park">Northumberland Park</li></a>
+            <a href="#"><li class="list-group-item" value="Norwich">Norwich</li></a>
+            <a href="#"><li class="list-group-item" value="Oulton Broad North">Oulton Broad North</li></a>
+            <a href="#"><li class="list-group-item" value="Oulton Broad South">Oulton Broad South</li></a>
+            <a href="#"><li class="list-group-item" value="Peterborough">Peterborough</li></a>
+            <a href="#"><li class="list-group-item" value="Ponders End">Ponders End</li></a>
+            <a href="#"><li class="list-group-item" value="Prittlewell">Prittlewell</li></a>
+            <a href="#"><li class="list-group-item" value="Rayleigh">Rayleigh</li></a>
+            <a href="#"><li class="list-group-item" value="Reedham (Norfolk)">Reedham (Norfolk)</li></a>
+            <a href="#"><li class="list-group-item" value="Rochford">Rochford</li></a>
+            <a href="#"><li class="list-group-item" value="Roughton Road">Roughton Road</li></a>
+            <a href="#"><li class="list-group-item" value="Roydon">Roydon</li></a>
+            <a href="#"><li class="list-group-item" value="Rye House">Rye House</li></a>
+            <a href="#"><li class="list-group-item" value="Salhouse">Salhouse</li></a>
+            <a href="#"><li class="list-group-item" value="Sawbridgeworth">Sawbridgeworth</li></a>
+            <a href="#"><li class="list-group-item" value="Saxmundham">Saxmundham</li></a>
+            <a href="#"><li class="list-group-item" value="Shelford (Cambs)">Shelford (Cambs)</li></a>
+            <a href="#"><li class="list-group-item" value="Shenfield">Shenfield</li></a>
+            <a href="#"><li class="list-group-item" value="Sheringham">Sheringham</li></a>
+            <a href="#"><li class="list-group-item" value="Shippea Hill">Shippea Hill</li></a>
+            <a href="#"><li class="list-group-item" value="Somerleyton">Somerleyton</li></a>
+            <a href="#"><li class="list-group-item" value="South Woodham Ferrers">South Woodham Ferrers</li></a>
+            <a href="#"><li class="list-group-item" value="Southend Airport">Southend Airport</li></a>
+            <a href="#"><li class="list-group-item" value="Southend Victoria">Southend Victoria</li></a>
+            <a href="#"><li class="list-group-item" value="Southminster">Southminster</li></a>
+            <a href="#"><li class="list-group-item" value="Spooner Row">Spooner Row</li></a>
+            <a href="#"><li class="list-group-item" value="St Margarets (Herts)">St Margarets (Herts)</li></a>
+            <a href="#"><li class="list-group-item" value="Stansted Airport">Stansted Airport</li></a>
+            <a href="#"><li class="list-group-item" value="Stansted Mountfitchet">Stansted Mountfitchet</li></a>
+            <a href="#"><li class="list-group-item" value="Stowmarket">Stowmarket</li></a>
+            <a href="#"><li class="list-group-item" value="Stratford (London)">Stratford (London)</li></a>
+            <a href="#"><li class="list-group-item" value="Sudbury (Suffolk)">Sudbury (Suffolk)</li></a>
+            <a href="#"><li class="list-group-item" value="Thetford">Thetford</li></a>
+            <a href="#"><li class="list-group-item" value="Thorpe-le-Soken">Thorpe-le-Soken</li></a>
+            <a href="#"><li class="list-group-item" value="Thurston">Thurston</li></a>
+            <a href="#"><li class="list-group-item" value="Tottenham Hale">Tottenham Hale</li></a>
+            <a href="#"><li class="list-group-item" value="Trimley">Trimley</li></a>
+            <a href="#"><li class="list-group-item" value="Waltham Cross">Waltham Cross</li></a>
+            <a href="#"><li class="list-group-item" value="Walton-on-the-Naze">Walton-on-the-Naze</li></a>
+            <a href="#"><li class="list-group-item" value="Ware (Herts)">Ware (Herts)</li></a>
+            <a href="#"><li class="list-group-item" value="Waterbeach">Waterbeach</li></a>
+            <a href="#"><li class="list-group-item" value="Watlington">Watlington</li></a>
+            <a href="#"><li class="list-group-item" value="Weeley">Weeley</li></a>
+            <a href="#"><li class="list-group-item" value="West Runton">West Runton</li></a>
+            <a href="#"><li class="list-group-item" value="Westerfield">Westerfield</li></a>
+            <a href="#"><li class="list-group-item" value="White Notley">White Notley</li></a>
+            <a href="#"><li class="list-group-item" value="Whittlesea">Whittlesea</li></a>
+            <a href="#"><li class="list-group-item" value="Whittlesford Parkway">Whittlesford Parkway</li></a>
+            <a href="#"><li class="list-group-item" value="Wickford">Wickford</li></a>
+            <a href="#"><li class="list-group-item" value="Wickham Market">Wickham Market</li></a>
+            <a href="#"><li class="list-group-item" value="Witham">Witham</li></a>
+            <a href="#"><li class="list-group-item" value="Wivenhoe">Wivenhoe</li></a>
+            <a href="#"><li class="list-group-item" value="Woodbridge">Woodbridge</li></a>
+            <a href="#"><li class="list-group-item" value="Worstead">Worstead</li></a>
+            <a href="#"><li class="list-group-item" value="Wrabness">Wrabness</li></a>
+            <a href="#"><li class="list-group-item" value="Wymondham">Wymondham</li></a>
+
+
+
+
+
+
+
+        </ul>
+
+
+        <select class="dropDownOption" id="issueTypeDropdown">
+            <option disabled selected value>Select an issue type</option>
+            <option value="Cleaning">Cleaning</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Maintenance">Maintenance</option>
+        </select>
+
+
+    </div>
