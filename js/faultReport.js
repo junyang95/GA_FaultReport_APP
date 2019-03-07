@@ -8,6 +8,7 @@ function unhideCoach(){
     $("#unhideStation").hide();
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
+    $('#stationInput').val("");
 
     coachNumberValidation(); //this function validate the coach number
 
@@ -47,6 +48,9 @@ function stationFilter(){
 
         //$('#issueTypeDropdown').hide();
         $('#unhideStationNameFilter').hide();
+    }else{
+
+        $('#unhideStationNameFilter').show();
     }
 
     //this function allows to select station from dropdown
@@ -128,5 +132,9 @@ function coachNumberValidation(){
     });
 }
 
+function unhideSeatNumber(){
+
+
+}
 
 

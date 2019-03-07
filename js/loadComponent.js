@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('#reportFaultFormSection').load("component/page/faultReport.html");
 
 
+
     //Components
     $('#navFooter').load("component/component/navFooter.html");
     $('#navbarComponent').load("component/component/navbar.html"); //dk if component/component is a good name for it
