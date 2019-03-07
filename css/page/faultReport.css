@@ -4,7 +4,15 @@
     margin-right: 10px;
 }
 
-#unhideCoach, #unhideStation, #unhideSeatRequest{
+.fa-question-circle{
+    font-size:20px;
+    color:#D70428;
+    margin-top:2px;
+    float:right;
+
+}
+
+#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter{
 
     display:none;
 

@@ -8,11 +8,11 @@
 
     <div id="unhideCoach">
 
-        <p>Please enter the coach Number</p>
+        <p>Please enter the coach Number<i class='fas fa-question-circle'></i></p>
         <input class="inputBox" id="coachNumberInput" maxlength="6" pattern="\d{6}" type="text" name="coachNumber" placeholder="Coach Number"required>
 
         <div id="unhideSeatRequest"><p></p>
-            <p>Is there a seat number near you?</p>
+            <p>Is there a seat number near you?<i class='fas fa-question-circle'></i></p>
             <p class="redBox"  onclick=""><i class='fas fa-check'></i>Yes</p>
             <p class="redBox"  onclick=""><i class='fas fa-times'></i>No</p>
         </div>
@@ -21,7 +21,7 @@
 
 
     <div id="unhideStation">
-
+        <p>Please enter the station name</p>
         <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search station name..">
         <br>
         <ul class="list-group" id="stationList" >
@@ -171,11 +171,14 @@
             <a href="#"><li class="list-group-item" value="Wymondham">Wymondham</li></a>
         </ul>
 
+        <div id="unhideStationNameFilter">
+        <p>Please select a fault type<i class='fas fa-question-circle'></i></p>
         <select class="dropDownOption" id="issueTypeDropdown">
+
             <option disabled selected value>Select an issue type</option>
             <option value="Cleaning">Cleaning</option>
             <option value="Engineering">Engineering</option>
             <option value="Maintenance">Maintenance</option>
         </select>
-
+        </div>
     </div>
