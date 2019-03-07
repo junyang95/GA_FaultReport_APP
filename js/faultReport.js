@@ -9,7 +9,7 @@ function unhideCoach(){
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
 
-    coaachNumberValidation(); //this function validate the coach number
+    coachNumberValidation(); //this function validate the coach number
 
 }
 
@@ -45,7 +45,8 @@ function stationFilter(){
 
     if (!regex.test(stationInputValue) || !stationInputValue || !text) {
 
-        $('#issueTypeDropdown').hide();
+        //$('#issueTypeDropdown').hide();
+        $('#unhideStationNameFilter').hide();
     }
 
     //this function allows to select station from dropdown
@@ -62,7 +63,8 @@ function stationDropdownSelect(){
         var text = $('#stationList').find("a li.selectedLi").text();
         $('#stationInput').val(text);
         $('#stationList li').hide();
-        $('#issueTypeDropdown').show();
+        //$('#issueTypeDropdown').show();
+        $('#unhideStationNameFilter').show();
         displayIssueType("http://localhost:8081/getIssueType","issueTypeDropdown");
         //alert("selected Value:"+text);
 
@@ -102,7 +104,7 @@ function displayIssueType(path,disp_id){
     });
 }
 
-function coaachNumberValidation(){
+function coachNumberValidation(){
 
     $("#coachNumberInput").on("keyup", function() {
 
