@@ -1,19 +1,26 @@
 
     <p>Please identify the location of the fault</p>
 
-    <a href="#reportFaultForm"><p class="redBox" id="coachBox" onclick="unhideCoach()"><i class='fas fa-train'></i>Train</p></a>
-    <a href="#reportFaultForm"><p class="redBox" id="stationBox" onclick="unhideStation()"><i class='fas fa-building'></i>Station</p></a>
+    <p class="redBox" id="coachBox" onclick="unhideCoach()"><i class='fas fa-train'></i>Train</p>
+    <p class="redBox" id="stationBox" onclick="unhideStation()"><i class='fas fa-building'></i>Station</p>
 
 
 
-    <div id="coach">
+    <div id="unhideCoach">
 
-        <input class="inputBox" id="coachNumberInput" type="text" name="coachNumber" placeholder="Coach Number">
+        <p>Please enter the coach Number</p>
+        <input class="inputBox" id="coachNumberInput" maxlength="6" pattern="\d{6}" type="text" name="coachNumber" placeholder="Coach Number"required>
+
+        <div id="unhideSeatRequest"><p></p>
+            <p>Is there a seat number near you?</p>
+            <p class="redBox"  onclick=""><i class='fas fa-check'></i>Yes</p>
+            <p class="redBox"  onclick=""><i class='fas fa-times'></i>No</p>
+        </div>
 
     </div>
 
 
-    <div id="station">
+    <div id="unhideStation">
 
         <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search station name..">
         <br>
@@ -162,15 +169,7 @@
             <a href="#"><li class="list-group-item" value="Worstead">Worstead</li></a>
             <a href="#"><li class="list-group-item" value="Wrabness">Wrabness</li></a>
             <a href="#"><li class="list-group-item" value="Wymondham">Wymondham</li></a>
-
-
-
-
-
-
-
         </ul>
-
 
         <select class="dropDownOption" id="issueTypeDropdown">
             <option disabled selected value>Select an issue type</option>
@@ -178,6 +177,5 @@
             <option value="Engineering">Engineering</option>
             <option value="Maintenance">Maintenance</option>
         </select>
-
 
     </div>

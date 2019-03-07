@@ -1,10 +1,10 @@
-.fa-building, .fa-train{
+.fa-building, .fa-train, .fa-times, .fa-check{
     font-size:20px;
     color:white;
     margin-right: 10px;
 }
 
-#coach, #station{
+#unhideCoach, #unhideStation, #unhideSeatRequest{
 
     display:none;
 
@@ -15,6 +15,11 @@
     width:100%;
     padding:10px;
     font-size:13pt;
+    border: 1px solid lightgray;
+}
+.inputBox:focus {
+
+    outline: 0;
 }
 
 .form-control-lg {
@@ -45,4 +50,5 @@
 
     border-radius: 0;
 }
+
 
