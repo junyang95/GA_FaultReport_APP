@@ -27,9 +27,10 @@ http.createServer(function (req, res) {
                     console.log("Body: " + body);
                     var json = JSON.parse(body)
                     //console.log("name is " + json.studentName) // get name
+                    console.log("not succesful yet ");
 
                     const {Client} = require('pg');
-                    const connectionString = 'postgres://sunghimlui:dbpassword@localhost:5432/GAfaultReportdb';
+                    const connectionString = 'postgresql://sunghimlui:dbpassword@localhost:5432/GAfaultReportdb';
 
                     const client = new Client({
                         connectionString: connectionString,
@@ -37,8 +38,6 @@ http.createServer(function (req, res) {
                     await client.connect(); // create a database connection
 
                     console.log("Successful");
-
-
 
                     // after the insertion, we return the complete table.
                     const res2 = await client.query('SELECT * FROM staff');
