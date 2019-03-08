@@ -88,24 +88,23 @@ function displayIssueType(path,disp_id){
 
             $('#'+disp_id).empty();
 
+            $('#'+disp_id).append($('<option disabled selected value>Select an issue type</option>'));
+
             $.each(json, function(i,val) {
 
-                console.log(val); //return first object
-                console.log(json); // returns all objects
-
-                var issueType = JSON.stringify(json);
-
-                //$('#'+disp_id).append(issueType + "<br/>");
-                $('#'+disp_id).append($('<option>', {
-                    value: issueType,
-                    text: issueType
-                }));
+                //here append the dropdown items to the dropdown
+                    $('#'+disp_id).append($('<option>', {
+                        value: val.roletype_id,
+                        text: val.roletype
+                    }));
             })
         },
         error: function(){
             alert("error");
         }
     });
+
+
 }
 
 function coachNumberValidation(){

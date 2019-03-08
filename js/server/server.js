@@ -32,51 +32,41 @@ http.createServer(function (req, res) {
     switch (req.url) {
         case '/getIssueType':
             if (req.method == 'POST') {
-                console.log("POST");
                 var body = '';
                 req.on('data', function (data) {
                     body += data;
-                    console.log("Partial body: " + body);
                 });
                 req.on('end', async function () {
-
-                    console.log("1");
-
-                    //var json = JSON.parse(body);
-
-                    //set to postgre
-                    //const {Client} = require('pg');
-
-                    //const connectionString = 'postgresql://sunghimlui:dbpassword@localhost:5432/GAfaultReportdb';
-
-                    //connect the connection string (URL)
-                    /*const client = new Client({
-                            connectionString: connectionString,
-
-                    });*/
-
-                    //the actual connection
                     await client.connect(); // create a database connection
-
-
-
-                    console.log("2");
-
-                    //to go to the 'faultreportapp' schema rather than public
-                    client.query('SET search_path to faultreportapp');
-
-                    console.log("Successful");
-
-                    // after the insertion, we return the complete table.
-                    const res2 = await client.query('SELECT * FROM roleType');
-                    console.log(res2);
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT * FROM roleType'); // after the insertion, we return the complete table.
+                    //console.log(res2);
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
                     console.log(json_str_new);
                     res.end(json_str_new);
                 });
+            }
 
+            //finish this later for getting the station
+        case '/getStation':
+            if (req.method == 'POST') {
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                });
+                req.on('end', async function () {
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT * FROM station'); // after the insertion, we return the complete table.
+                    //console.log(res2);
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    console.log(json_str_new);
+                    res.end(json_str_new);
+                });
             }
             break;
         default:
