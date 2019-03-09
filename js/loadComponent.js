@@ -5,8 +5,7 @@ $(document).ready(function () {
     //Pages (Section)
     $('#homeSectionComponent').load("component/page/homeSection.html");
     $('#reportFaultFormSection').load("component/page/faultReport.html");
-
-
+    $('#loginSection').load("component/page/logIn.html");
 
     //Components
     $('#navFooter').load("component/component/navFooter.html");

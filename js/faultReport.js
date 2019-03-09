@@ -1,13 +1,13 @@
 //show the coach number
 
 
-function unhideCoach(){
+function unhideCoach() {
 
     //show coach
     $("#unhideCoach").show();
     $("#unhideStation").hide();
-    $('#stationBox').css('background-color','lightgray');
-    $('#coachBox').css('background-color','#D70428');
+    $('#stationBox').css('background-color', 'lightgray');
+    $('#coachBox').css('background-color', '#D70428');
     $('#stationInput').val("");
 
     coachNumberValidation(); //this function validate the coach number
@@ -16,24 +16,25 @@ function unhideCoach(){
 
 //show the station dropdown
 
-function unhideStation(){
+function unhideStation() {
 
     //show station
     $("#unhideStation").show();
     $("#unhideCoach").hide();
-    $('#stationBox').css('background-color','#D70428');
-    $('#coachBox').css('background-color','lightgray');
+    $('#stationBox').css('background-color', '#D70428');
+    $('#coachBox').css('background-color', 'lightgray');
 
     stationFilter();
 
 }
+
 //this function is to filter the station name
 
-function stationFilter(){
+function stationFilter() {
 
-    $("#stationInput").on("keyup", function() {
+    $("#stationInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
-        $("#stationList li").filter(function() {
+        $("#stationList li").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
@@ -48,7 +49,7 @@ function stationFilter(){
 
         //$('#issueTypeDropdown').hide();
         $('#unhideStationNameFilter').hide();
-    }else{
+    } else {
 
         $('#unhideStationNameFilter').show();
     }
@@ -58,9 +59,9 @@ function stationFilter(){
     stationDropdownSelect();
 }
 
-function stationDropdownSelect(){
+function stationDropdownSelect() {
 
-    $("#stationList").find("a li").click(function(){
+    $("#stationList").find("a li").click(function () {
         $('.selectedLi').removeClass('selectedLi');
         $(this).addClass('selectedLi');
 
@@ -69,37 +70,37 @@ function stationDropdownSelect(){
         $('#stationList li').hide();
         //$('#issueTypeDropdown').show();
         $('#unhideStationNameFilter').show();
-        displayIssueType("http://localhost:8081/getIssueType","issueTypeDropdown");
+        displayIssueType("http://localhost:8081/getIssueType", "issueTypeDropdown");
         //alert("selected Value:"+text);
 
     });
 
 }
 
-function displayIssueType(path,disp_id){
+function displayIssueType(path, disp_id) {
 
     $.ajax({
         url: path,
         type: "POST",
         //data: json,
-        success: function(rt) {
+        success: function (rt) {
             console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
 
-            $('#'+disp_id).empty();
+            $('#' + disp_id).empty();
 
-            $('#'+disp_id).append($('<option disabled selected value>Select an issue type</option>'));
+            $('#' + disp_id).append($('<option disabled selected value>Select an issue type</option>'));
 
-            $.each(json, function(i,val) {
+            $.each(json, function (i, val) {
 
                 //here append the dropdown items to the dropdown
-                    $('#'+disp_id).append($('<option>', {
-                        value: val.roletype_id,
-                        text: val.roletype
-                    }));
+                $('#' + disp_id).append($('<option>', {
+                    value: val.roletype_id,
+                    text: val.roletype
+                }));
             })
         },
-        error: function(){
+        error: function () {
             alert("error");
         }
     });
@@ -107,22 +108,22 @@ function displayIssueType(path,disp_id){
 
 }
 
-function coachNumberValidation(){
+function coachNumberValidation() {
 
-    $("#coachNumberInput").on("keyup", function() {
+    $("#coachNumberInput").on("keyup", function () {
 
         var coachNumberInputValue = $('#coachNumberInput').val();
         //var regex = /\d\d\d\d\d\d/;
         var regex = /\d{6}/;
 
-        if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
+        if (!regex.test(coachNumberInputValue) || !coachNumberInputValue) {
 
-            $('#coachNumberInput').css('border','1px solid red');
+            $('#coachNumberInput').css('border', '1px solid red');
 
             $('#unhideSeatRequest').hide();
 
-        }else{
-            $('#coachNumberInput').css('border','1px solid lightgray');
+        } else {
+            $('#coachNumberInput').css('border', '1px solid lightgray');
 
             $('#unhideSeatRequest').show();
 
@@ -131,7 +132,7 @@ function coachNumberValidation(){
     });
 }
 
-function unhideSeatNumber(){
+function unhideSeatNumber() {
 
 
 }

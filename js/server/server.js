@@ -49,7 +49,7 @@ http.createServer(function (req, res) {
                 });
             }
 
-            //finish this later for getting the station
+        //finish this later for getting the station
         case '/getStation':
             if (req.method == 'POST') {
                 var body = '';
