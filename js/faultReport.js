@@ -1,3 +1,8 @@
+const getIssueTypePath = "http://localhost:8081/getIssueType";
+const getStationPath = "http://localhost:8081/getStation";
+const getFaultObjectPath = "";
+const getFaultConditiontPath = "";
+
 
 //show the coach number
 function unhideCoach(){
@@ -9,6 +14,7 @@ function unhideCoach(){
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
     coachNumberValidation(); //this function validate the coach number
+    seatNumberValidation();
 }
 
 //show the station dropdown
@@ -30,7 +36,8 @@ function unhideStation(){
 function stationFilter(){
 
     //get station name from database
-    //displayStation("http://localhost:8081/getStation","stationList");
+
+    //displayStation(getStationPath,"stationList");
 
     $("#stationInput").on("keyup", function() {
 
@@ -48,11 +55,11 @@ function stationFilter(){
 
     if (!regex.test(stationInputValue) || !stationInputValue || !text) {
 
-        $('#unhideStationNameFilter').hide();
+        $('#unhideStationLocation').hide();
 
     }else{
 
-        $('#unhideStationNameFilter').show();
+        $('#unhideStationLocation').show();
     }
 
     //this function allows to select station from dropdown
@@ -73,8 +80,8 @@ function stationDropdownSelect(){
         $('#stationInput').val(text);
         $('#stationList li').hide();
         //$('#issueTypeDropdown').show();
-        $('#unhideStationNameFilter').show();
-        displayIssueType("http://localhost:8081/getIssueType","issueTypeDropdown");
+        $('#unhideStationLocation').show();
+
     });
 }
 
@@ -155,8 +162,49 @@ function coachNumberValidation(){
 function unhideSeatNumber(){
 
     $('#unhideSeatNumber').show();
+    $('#unhideSeatMap').hide();
+    $('#seatNumberUnavailable').css('background-color','lightgray');
+    $('#seatNumberAvailable').css('background-color','#D70428');
+    $('#unhideFaultDescriptionDropdown').hide();
+}
+
+//this function shows the trainMap
+function unhideTrainMap(){
+
+    $('#unhideSeatMap').show();
+    $('#unhideSeatNumber').hide();
+    $('#seatNumberUnavailable').css('background-color','#D70428');
+    $('#seatNumberAvailable').css('background-color','lightgray');
+    $('#unhideFaultDescriptionDropdown').hide();
+}
+
+//this function validate the coach number
+function seatNumberValidation(){
+
+    $("#seatNumberInput").on("keyup", function() {
+
+        var coachNumberInputValue = $('#seatNumberInput').val();
+        var regex = /\d{2}/;
+
+        if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
+
+            $('#seatNumberInput').css('border','1px solid red');
+            $('#unhideFaultDescriptionDropdown').hide();
+            //$('#unhideSeatRequest').hide();
+
+        }else{
+            $('#seatNumberInput').css('border','1px solid lightgray');
+
+            displayIssueType(getIssueTypePath,"issueTypeDropdown");
+            //$('#unhideSeatRequest').show();
+            $('#unhideFaultDescriptionDropdown').show();
 
 
+
+
+
+        }
+    });
 }
 
 

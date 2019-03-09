@@ -13,7 +13,7 @@
     float:right;
 }
 
-#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber, #unhideSeatMap{
+#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber, #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown{
 
     display:none;
 }
