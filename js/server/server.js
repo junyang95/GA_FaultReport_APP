@@ -17,9 +17,6 @@ http.createServer(function (req, res) {
     //set to postgre
     const {Client} = require('pg');
 
-    //const connectionString = 'postgres://ehhhvbzcacarfb:eb2a4f3825b5a9d3763ca124ca27be1e7c28ebf11f0ff99498c4328a50b635e2@ec2-54-247-70-127.eu-west-1.compute.amazonaws.com:5432/dbq2fnkh4o7js8';
-
-
     const client = new Client({
         user: "ehhhvbzcacarfb",
         password: "eb2a4f3825b5a9d3763ca124ca27be1e7c28ebf11f0ff99498c4328a50b635e2",
