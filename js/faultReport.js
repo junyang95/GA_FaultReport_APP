@@ -1,3 +1,5 @@
+
+//put all the paths here, so it easily to change and add
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getFaultObjectPath = "";
@@ -198,11 +200,6 @@ function seatNumberValidation(){
             displayIssueType(getIssueTypePath,"issueTypeDropdown");
             //$('#unhideSeatRequest').show();
             $('#unhideFaultDescriptionDropdown').show();
-
-
-
-
-
         }
     });
 }
