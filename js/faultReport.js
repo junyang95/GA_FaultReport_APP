@@ -1,6 +1,5 @@
+
 //show the coach number
-
-
 function unhideCoach(){
 
     //show coach
@@ -9,13 +8,10 @@ function unhideCoach(){
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
-
     coachNumberValidation(); //this function validate the coach number
-
 }
 
 //show the station dropdown
-
 function unhideStation(){
 
     //show station
@@ -25,13 +21,19 @@ function unhideStation(){
     $('#coachBox').css('background-color','lightgray');
 
     stationFilter();
+    //displayStation("http://localhost:8081/getStation","stationList");
+
 
 }
-//this function is to filter the station name
 
+//this function is to filter the station name
 function stationFilter(){
 
+    //get station name from database
+    //displayStation("http://localhost:8081/getStation","stationList");
+
     $("#stationInput").on("keyup", function() {
+
         var value = $(this).val().toLowerCase();
         $("#stationList li").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -40,14 +42,14 @@ function stationFilter(){
 
     var stationInputValue = $('#stationInput').val();
     var regex = /^[0-9]{4,6}$/;
-    var text = $("a li.selectedLi").val();
+    var text = $("li.selectedStation").val();
 
     //when have time fix this here
 
     if (!regex.test(stationInputValue) || !stationInputValue || !text) {
 
-        //$('#issueTypeDropdown').hide();
         $('#unhideStationNameFilter').hide();
+
     }else{
 
         $('#unhideStationNameFilter').show();
@@ -58,24 +60,25 @@ function stationFilter(){
     stationDropdownSelect();
 }
 
+//click function to select the station from filter
 function stationDropdownSelect(){
 
-    $("#stationList").find("a li").click(function(){
-        $('.selectedLi').removeClass('selectedLi');
-        $(this).addClass('selectedLi');
+    //have a look where to move this may to station filter
 
-        var text = $('#stationList').find("a li.selectedLi").text();
+    $("#stationList").find("li").click(function(){
+
+        $('.selectedStation').removeClass('selectedStation');
+        $(this).addClass('selectedStation');
+        var text = $('#stationList').find("li.selectedStation").text();
         $('#stationInput').val(text);
         $('#stationList li').hide();
         //$('#issueTypeDropdown').show();
         $('#unhideStationNameFilter').show();
         displayIssueType("http://localhost:8081/getIssueType","issueTypeDropdown");
-        //alert("selected Value:"+text);
-
     });
-
 }
 
+//this function get issueType from database using AJAX
 function displayIssueType(path,disp_id){
 
     $.ajax({
@@ -87,9 +90,7 @@ function displayIssueType(path,disp_id){
             var json = JSON.parse(rt); // the returned data will be an array
 
             $('#'+disp_id).empty();
-
             $('#'+disp_id).append($('<option disabled selected value>Select an issue type</option>'));
-
             $.each(json, function(i,val) {
 
                 //here append the dropdown items to the dropdown
@@ -103,22 +104,41 @@ function displayIssueType(path,disp_id){
             alert("error");
         }
     });
-
-
 }
 
+//this function get stationName from database using AJAX
+function displayStation(path,disp_id){
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        //data: json,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $('#'+disp_id).empty();
+            $.each(json, function(i,val) {
+                $('#'+disp_id).append('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
+                //$('#'+disp_id).append('<li class="list-group-item" value="'+ val.stationname_id +'">'+ val.stationname +'</li>');
+            })
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+}
+
+//this function validate the coach number
 function coachNumberValidation(){
 
     $("#coachNumberInput").on("keyup", function() {
 
         var coachNumberInputValue = $('#coachNumberInput').val();
-        //var regex = /\d\d\d\d\d\d/;
         var regex = /\d{6}/;
 
         if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
 
             $('#coachNumberInput').css('border','1px solid red');
-
             $('#unhideSeatRequest').hide();
 
         }else{
@@ -131,7 +151,10 @@ function coachNumberValidation(){
     });
 }
 
+//this function shows the seat number
 function unhideSeatNumber(){
+
+    $('#unhideSeatNumber').show();
 
 
 }
