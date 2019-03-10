@@ -11,7 +11,7 @@
     <div id="unhideCoach">
 
         <p>2. Please enter the coach Number<i class='fas fa-question-circle'></i></p>
-        <input class="inputBox" id="coachNumberInput" maxlength="6" pattern="\d{6}" type="text" name="coachNumber" placeholder="Coach Number"required>
+        <input class="inputBox" id="coachNumberInput" maxlength="6"  type="text" name="coachNumber" placeholder="Coach Number"required>
 
         <div id="unhideSeatRequest"><p></p>
             <p>3. Is there a seat number near you?<i class='fas fa-question-circle'></i></p>
@@ -28,8 +28,10 @@
             <a name="trainMap">
             <div id="unhideSeatMap">
                 <p>4. Please location yourself within the map<i class='fas fa-question-circle'></i></p>
+                <p></p>
             </div>
             </a>
+
 
         </div>
     </div>
@@ -205,16 +207,18 @@
     <a name="faultDropdown">
     <div id="unhideFaultDescriptionDropdown"><p></p>
 
-        <p>Please select a fault type<i class='fas fa-question-circle'></i></p>
-        <select class="dropDownOption" id="issueTypeDropdown"></select>
+
+        <p>5. Please select a fault type<i class='fas fa-question-circle'></i></p>
+        <select class="dropDownOption" id="issueTypeDropdown" onclick="unhideFaultObject()"></select>
+
 
         <div id="unhideFaultObject"><p></p>
-            <p>What is the fault?<i class='fas fa-question-circle'></i></p>
+            <p>6. What is the fault?<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultObjectDropdown"></select>
         </div>
 
         <div id="unhideFaultCondition"><p></p>
-            <p>Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
+            <p>7. Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultConditionDropdown"></select>
         </div>
 

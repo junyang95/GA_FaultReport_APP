@@ -36,7 +36,7 @@ http.createServer(function (req, res) {
                 req.on('end', async function () {
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('SELECT * FROM roleType'); // after the insertion, we return the complete table.
+                    const res2 = await client.query('SELECT * FROM issueType'); // after the insertion, we return the complete table.
                     //console.log(res2);
                     await client.end();
                     json = res2.rows;
@@ -61,11 +61,52 @@ http.createServer(function (req, res) {
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    console.log(json_str_new);
+                    //console.log(json_str_new);
                     res.end(json_str_new);
                 });
             }
             break;
+
+        //finish this later for getting the station
+
+        case '/getCoachNumber':
+            if (req.method == 'POST') {
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                req.on('end', async function () {
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT * FROM coach WHERE coachNumber='+data+''); // after the insertion, we return the complete table.
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    console.log("json_str_new: "+json_str_new);
+                    res.end(json_str_new);
+                });
+                });
+            }
+            break;
+
+        case '/getCoachMap':
+            if (req.method == 'POST') {
+                var body = '';
+                req.on('data', function (data) {
+                    body += data;
+                    req.on('end', async function () {
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                        const res2 = await client.query('SELECT * FROM coachMap WHERE coachNumber='+data+''); // after the insertion, we return the complete table.
+                        await client.end();
+                        json = res2.rows;
+                        var json_str_new = JSON.stringify(json);
+                        console.log("json_str_new: "+json_str_new);
+                        res.end(json_str_new);
+                    });
+                });
+            }
+            break;
+
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});
             res.end('error');
