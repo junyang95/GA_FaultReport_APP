@@ -1,10 +1,11 @@
-
+var coachNumberInputValue;
+var outputCoachNumber;
 //put all the paths here, so it easily to change and add
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
-
+const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
 
 //show the coach number
 function unhideCoach(){
@@ -17,6 +18,8 @@ function unhideCoach(){
     $('#stationInput').val("");
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
+
+
 }
 
 //show the station dropdown
@@ -99,13 +102,13 @@ function displayIssueType(path,disp_id){
             var json = JSON.parse(rt); // the returned data will be an array
 
             $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option disabled selected value>Select an issue type</option>'));
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select an issue type</option>'));
             $.each(json, function(i,val) {
 
                 //here append the dropdown items to the dropdown
                     $('#'+disp_id).append($('<option>', {
-                        value: val.roletype_id,
-                        text: val.roletype
+                        value: val.issuetype_id,
+                        text: val.issuetype
                     }));
             })
         },
@@ -115,6 +118,7 @@ function displayIssueType(path,disp_id){
     });
 }
 
+//this function need to fix by displaying the station from database instead of frontend
 //this function get stationName from database using AJAX
 function displayStation(path,disp_id){
 
@@ -142,20 +146,30 @@ function coachNumberValidation(){
 
     $("#coachNumberInput").on("keyup", function() {
 
-        var coachNumberInputValue = $('#coachNumberInput').val();
-        var regex = /\d{6}/;
+        coachNumberInputValue = $('#coachNumberInput').val();
+        var regex = /^\d{5,6}$/;
 
-        if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
+        //coachNumberOutput=null;
 
-            $('#coachNumberInput').css('border','1px solid red');
+        var output = returnCoachNumber(getCoachNumberPath,coachNumberInputValue);
+
+        console.log("Coach Number Output: "+output+", INPUT: "+ coachNumberInputValue);
+
+        //fix this function tmr because it not get the correct true or false on validating the coach number
+
+        //what needs to be done tmr
+        //finish the coach number validating function, find if row > 0
+        //read paper
+        //finish the coach map
+
+        if(!regex.test(coachNumberInputValue) || !coachNumberInputValue || coachNumberInputValue != output){
+
+            $('#coachNumberInput').css('border','1px solid #D70428');
             $('#unhideSeatRequest').hide();
 
         }else{
             $('#coachNumberInput').css('border','1px solid lightgray');
-
             $('#unhideSeatRequest').show();
-
-
         }
     });
 }
@@ -190,18 +204,63 @@ function seatNumberValidation(){
 
         if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
 
-            $('#seatNumberInput').css('border','1px solid red');
+            $('#seatNumberInput').css('border','1px solid #D70428');
             $('#unhideFaultDescriptionDropdown').hide();
-            //$('#unhideSeatRequest').hide();
 
         }else{
             $('#seatNumberInput').css('border','1px solid lightgray');
-
             displayIssueType(getIssueTypePath,"issueTypeDropdown");
-            //$('#unhideSeatRequest').show();
             $('#unhideFaultDescriptionDropdown').show();
+            unhideFaultObject();
         }
     });
+}
+
+//this function is not finished, tried to make sure the dropdown is selected
+
+function unhideFaultObject(){
+
+    var index = $("select #issueTypeDropdown").val();
+
+
+    if (index == 0){
+
+        $('#unhideFaultObject').hide();
+
+    }else{
+
+        $('#unhideFaultObject').show();
+    }
+}
+
+function returnCoachNumber(path,coachNumberInput){
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        data: coachNumberInput,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            outputCoachNumber=null;
+                $.each(json, function(i,val) {
+
+                    outputCoachNumber = val.coachnumber;
+
+                    //console.log("From ajax: OUTPUT "+outputCoachNumber+" INPUT: "+coachNumberInputValue);
+
+                    if(outputCoachNumber==coachNumberInputValue){
+
+                        $('#coachNumberInput').css('border','1px solid lightgray');
+                        $('#unhideSeatRequest').show();
+                    }
+            })
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+    return outputCoachNumber;
 }
 
 
