@@ -1,3 +1,5 @@
+
+
 function setObject(keyword, value) {
     window.localStorage.setItem(keyword, JSON.stringify(value));
 }
@@ -8,6 +10,7 @@ function getObject(keyword) {
 }
 
 function submitLogInForm() {
+    $('#loginSubmitButton').css('background-color', 'lightgray');
     var logInFormData = {};
     logInFormData.userEmail = $('#userEmail').val();
     logInFormData.userPsw = $('#userPsw').val();
@@ -15,6 +18,8 @@ function submitLogInForm() {
 
     setObject('logInFormData', logInFormData);
 
-    $('#unencryptedForm').append(getObject(logInFormData));
+
+    $('#unencryptedForm').append(logInFormData.userEmail + logInFormData.userPsw + logInFormData.keepLogin);
+
 }
 
