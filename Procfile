@@ -1,2 +1,2 @@
 web: node index.js
-web: sh -c 'cd ./js/server && node server.js'
+web: cd ./js/server && node server.js
