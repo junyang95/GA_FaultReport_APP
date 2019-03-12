@@ -33,7 +33,7 @@ function unhideStation(){
     $('#coachBox').css('background-color','lightgray');
 
     stationFilter();
-    displayStation("http://localhost:8081/getStation","stationList");
+    displayStation(getStationPath,"stationList");
 
 
 }

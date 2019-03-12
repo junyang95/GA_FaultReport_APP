@@ -25,38 +25,14 @@ http.createServer(function (req, res) {
 
     switch (req.url) {
 
-        /*case '/getIssueType':
-            if (req.method == 'POST') {
-                console.log("hi: 1");
-                req.on('end', async function () {
-                    console.log("hi: 2");
-                    const {Client} = databaseType;
-                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
-                    await client.connect(); // create a database connection
-                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('SELECT * FROM issueType'); // after the insertion, we return the complete table.
-                    await client.end();
-                    json = res2.rows;
-                    var json_str_new = JSON.stringify(json);
-                    res.end(json_str_new);
-                });
-            }
-            break;*/
-
         case '/getIssueType':
             if (req.method == 'POST') {
-                console.log("POST");
-                var body = '';
+
                 req.on('data', function (data) {
-                    body += data;
-                    console.log("Partial body: " + body);
+
                 });
                 req.on('end', async function () {
-                    console.log("Body: " + body);
-                    //var json = JSON.parse(body)
-                    //console.log("name is " + json.studentName) // get name
-
-                    const {Client} = require('pg');
+                    const {Client} = databaseType;
                     const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
                     await client.connect(); // create a database connection
 
