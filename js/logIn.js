@@ -24,20 +24,22 @@ function pswCheck(password) {
     }
 }
 
-
-function submitLogInForm() {
-    $('#loginSubmitButton').css('background-color', 'lightgray');
-
-
-    //$('#logInError').css('display', 'block');
-
+function saveLogInForm() {
     var logInFormData = {};
     logInFormData.userEmail = $('#userEmail').val();
     logInFormData.userPsw = $('#userPsw').val();
     logInFormData.keepLogin = $('#keepLogin').is(':checked');
-
-
     setObject('logInFormData', logInFormData);
+}
+
+function submitLogInForm() {
+
+    saveLogInForm();
+    var logInFormData = getObject('logInFormData');
+
+    $('#loginSubmitButton').css('background-color', 'lightgray');
+
+    //$('#logInError').css('display', 'block');
 
     if (!isNotEmail(logInFormData.userEmail)) {
         $('#emailCheck').css('display', 'block');
@@ -57,15 +59,12 @@ function submitLogInForm() {
         $('#passwordCheck').css('display', 'none');
     }
 
-    $('#unencryptedForm').append(logInFormData.userEmail + logInFormData.userPsw + logInFormData.keepLogin);
-    postLoginForm("encryptedForm");
+    $('#unencryptedForm').empty();
+    $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
+
+    PostAjax('http://localhost:8081/login', logInFormData, 'encryptedForm', 'login');
 }
 
-function postLoginForm(html_position_id) {
-    saveUDIDs();
-    var storedData = getObject('ArrayData');
-    PostAjax('http://localhost:8081/insert_udid', storedData, html_position_id, 'insert_udid');
-}
 
 function PostAjax(http_node_server_path, data, html_position_id, page) {
     var json = JSON.stringify(data); // convert the parameters to a JSON data string
@@ -82,14 +81,16 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
             $('#select_identifier').empty();    //将选取是哪个developer的选取盒清空
 
             switch (page) {
-                case 'insert_sql':
-                    //var avaliableroomcontent = "";
+                case 'case1':
+
+                    break;
+                case 'case2':
+
+                    break;
+                case 'login':
                     $.each(Response_JavaScriptObject, function (i, val) {
-                        console.log(val);
-                        $('#' + html_position_id).append(JSON.stringify(val) + "<br/>");
-                        //avaliableroomcontent = "<tr><td>" + val.r_no + "" + val.r_class + "<br /></td></tr>" + avaliableroomcontent;
-                    })
-                    //$('#' + html_position_id).append(avaliableroomcontent);
+                        $('#' + html_position_id).append('encryptedForm: ' + 'userEmail: ' + val.userEmail + 'userPsw: ' + val.userPsw + 'keepLogin: ' + val.keepLogin);
+                    });
                     break;
             }
 

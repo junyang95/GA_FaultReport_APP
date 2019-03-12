@@ -1,4 +1,6 @@
 var http = require('http');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 // the quick and dirty trick which prevents crashing.
 process.on('uncaughtException', function (err) {
@@ -33,7 +35,14 @@ http.createServer(function (req, res) {
                 });
                 req.on('end', async function () {
                     const {Client} = databaseType;
-                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                    const client = new Client({
+                        user: user,
+                        password: password,
+                        database: database,
+                        port: port,
+                        host: host,
+                        ssl: ssl
+                    });
                     await client.connect(); // create a database connection
 
                     client.query('SET search_path to faultreportapp');
@@ -50,12 +59,18 @@ http.createServer(function (req, res) {
             break;
 
 
-
         case '/getStation':
             if (req.method == 'POST') {
                 req.on('end', async function () {
                     const {Client} = databaseType;
-                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                    const client = new Client({
+                        user: user,
+                        password: password,
+                        database: database,
+                        port: port,
+                        host: host,
+                        ssl: ssl
+                    });
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
                     const res2 = await client.query('SELECT * FROM station'); // after the insertion, we return the complete table.
@@ -73,18 +88,25 @@ http.createServer(function (req, res) {
                 var body = '';
                 req.on('data', function (data) {
                     body += data;
-                req.on('end', async function () {
-                    const {Client} = databaseType;
-                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
-                    await client.connect(); // create a database connection
-                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('SELECT * FROM coach WHERE coachNumber='+data+''); // after the insertion, we return the complete table.
-                    await client.end();
-                    json = res2.rows;
-                    var json_str_new = JSON.stringify(json);
-                    console.log("json_str_new: "+json_str_new);
-                    res.end(json_str_new);
-                });
+                    req.on('end', async function () {
+                        const {Client} = databaseType;
+                        const client = new Client({
+                            user: user,
+                            password: password,
+                            database: database,
+                            port: port,
+                            host: host,
+                            ssl: ssl
+                        });
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                        const res2 = await client.query('SELECT * FROM coach WHERE coachNumber=' + data + ''); // after the insertion, we return the complete table.
+                        await client.end();
+                        json = res2.rows;
+                        var json_str_new = JSON.stringify(json);
+                        console.log("json_str_new: " + json_str_new);
+                        res.end(json_str_new);
+                    });
                 });
             }
             break;
@@ -96,15 +118,55 @@ http.createServer(function (req, res) {
                     body += data;
                     req.on('end', async function () {
                         const {Client} = databaseType;
-                        const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                        const client = new Client({
+                            user: user,
+                            password: password,
+                            database: database,
+                            port: port,
+                            host: host,
+                            ssl: ssl
+                        });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                        const res2 = await client.query('SELECT mapSource FROM coachMap INNER JOIN coach ON coachMap.coachMap_id = coach.coachMap_id WHERE coach.coachNumber='+ data +';'); // after the insertion, we return the complete table.
+                        const res2 = await client.query('SELECT mapSource FROM coachMap INNER JOIN coach ON coachMap.coachMap_id = coach.coachMap_id WHERE coach.coachNumber=' + data + ';'); // after the insertion, we return the complete table.
                         await client.end();
                         json = res2.rows;
                         var json_str_new = JSON.stringify(json);
-                        //console.log("json_str_new: "+json_str_new);
+                        console.log("json_str_new: " + json_str_new);
                         res.end(json_str_new);
+                    });
+                });
+            }
+            break;
+        case '/login':
+            if (req.method == 'POST') {
+                console.log("POST /login");
+                var body = '';
+                var json_str_new = '';
+                req.on('data', function (data) {
+                    body += data;
+                    req.on('end', async function () {
+                        var jsObject = JSON.parse(body);
+
+                        bcrypt.hash(jsObject.userPsw, saltRounds, function (err, hash) {
+
+                            var logInFormData = {};
+                            //var key = 'key_logInFormData';
+                            logInFormData = [];
+
+                            var data = {
+                                userEmail: jsObject.userEmail,
+                                userPsw: hash,
+                                keepLogin: jsObject.keepLogin
+                            };
+                            logInFormData.push(data);
+
+                            console.log(logInFormData); //js object
+
+                            json_str_new = JSON.stringify(logInFormData);   //String js object
+                            console.log(json_str_new);
+                            res.end(json_str_new);
+                        });
                     });
                 });
             }
