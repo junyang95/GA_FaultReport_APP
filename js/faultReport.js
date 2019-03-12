@@ -1,11 +1,11 @@
 var coachNumberInputValue;
 var outputCoachNumber;
 //put all the paths here, so it easily to change and add
-const getIssueTypePath = "http://localhost:8081/getIssueType";
-const getStationPath = "http://localhost:8081/getStation";
+const getIssueTypePath = "http://localhost:5000/getIssueType";
+const getStationPath = "http://localhost:5000/getStation";
 const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
-const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
+const getCoachNumberPath = "http://localhost:5000/getCoachNumber";
 
 //show the coach number
 function unhideCoach(){
