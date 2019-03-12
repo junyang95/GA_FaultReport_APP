@@ -1,8 +1,8 @@
 body{
-
     margin:0;
     font-family: Arial, Helvetica, sans-serif;
-
+    font-size: 12pt;
+    font-weight: 200;
 }
 
 ::-webkit-scrollbar { 
@@ -13,6 +13,11 @@ p{
     font-weight:200;
 }
 
-select{
+select,ul,li{
     border-radius: 0;
+}
+
+select:focus, ul:focus, input:focus{
+
+    outline: none;
 }

@@ -1,21 +1,21 @@
 .fa-building, .fa-train, .fa-times, .fa-check{
+
     font-size:20px;
     color:white;
     margin-right: 10px;
 }
 
 .fa-question-circle{
+
     font-size:20px;
     color:#D70428;
     margin-top:2px;
     float:right;
-
 }
 
-#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter{
+#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber, #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultObject, #unhideFaultCondition{
 
     display:none;
-
 }
 
 .inputBox{
@@ -37,12 +37,11 @@
     width:100%;
     font-size:13pt;
     margin-bottom:15px;
-
 }
 
 .list-group, #stationList{
-    border-radius: 0;
 
+    border-radius: 0;
 }
 
 .dropDownOption{
@@ -59,4 +58,8 @@
     border-radius: 0;
 }
 
+.trainMap{
+
+    width:100%;
+}
 
