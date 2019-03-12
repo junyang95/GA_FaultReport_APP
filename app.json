@@ -1,8 +1,0 @@
-{
-  "name": "GA Fault APP",
-  "description": "GA Fault App Description",
-  "repository": "https://github.com/junyang95/GA_FaultReport_APP",
-  "logo": "image/gaLogo.jpg",
-  "keywords": ["node", "express", "heroku"],
-  "image": "image/gaLogo.jpg"
-}
