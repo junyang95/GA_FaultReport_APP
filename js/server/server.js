@@ -82,7 +82,7 @@ http.createServer(function (req, res) {
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    //console.log("json_str_new: "+json_str_new);
+                    console.log("json_str_new: "+json_str_new);
                     res.end(json_str_new);
                 });
                 });

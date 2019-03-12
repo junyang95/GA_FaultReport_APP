@@ -1,18 +1,18 @@
 <div class="container">
 
-    <div class="alert alert-warning" role="alert" id="emailCheck">
+    <div class="alert alert-warning" role="alert" id="emailCheck" style="display: none">
         The email you entered is invalid, please try again!
     </div>
 
-    <div class="alert alert-warning" role="alert" id="emailEmptyCheck">
+    <div class="alert alert-warning" role="alert" id="emailEmptyCheck" style="display: none">
         The email field cannot be empty!
     </div>
 
-    <div class="alert alert-warning" role="alert" id="passwordEmptyCheck">
-        The password field cannot be empty!
+    <div class="alert alert-warning" role="alert" id="passwordCheck" style="display: none">
+        The password must between 8~20 Characters!
     </div>
 
-    <div class="alert alert-danger" role="alert" id="logInError">
+    <div class="alert alert-danger" role="alert" id="logInError" style="display: none">
         The email and password do not match, please try again.
     </div>
 
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            <input id="loginSubmitButton" class="btn btn-primary" type="submit" value="Submit"
+            <input id="loginSubmitButton" class="btn btn-primary" type="button" value="Submit"
                    onclick="submitLogInForm()">
             <input id="loginResetButton" class="btn btn-primary" type="reset" value="Reset">
         </div>
