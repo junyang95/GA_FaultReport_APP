@@ -1,5 +1,3 @@
-
-
 //Loading all the components here (all html files in component folder)
 //it uses AJAX to load (.load()) the external html files in
 $(document).ready(function () {
