@@ -1,11 +1,13 @@
 var coachNumberInputValue;
 var outputCoachNumber;
 //put all the paths here, so it easily to change and add
-const getIssueTypePath = "http://localhost:5000/getIssueType";
-const getStationPath = "http://localhost:5000/getStation";
+const getIssueTypePath = "http://localhost:8081/getIssueType";
+const getStationPath = "http://localhost:8081/getStation";
+const getTrainMap = "http://localhost:8081/getCoachMap";
 const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
-const getCoachNumberPath = "http://localhost:5000/getCoachNumber";
+const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
+
 
 //show the coach number
 function unhideCoach(){
@@ -16,10 +18,9 @@ function unhideCoach(){
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
+
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
-
-
 }
 
 //show the station dropdown
@@ -32,8 +33,32 @@ function unhideStation(){
     $('#coachBox').css('background-color','lightgray');
 
     stationFilter();
-    //displayStation("http://localhost:8081/getStation","stationList");
+    displayStation("http://localhost:8081/getStation","stationList");
 
+
+}
+
+function displayLocationType(path,disp_id){
+    $.ajax({
+
+        url: path,
+        type: "POST",
+        success: function(rt) {
+
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $('#'+disp_id).empty();
+            $.each(json, function(i,val) {
+
+                console.log(val);
+
+                $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationType_id+'" onclick="'+ val.onclickFunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
+            })
+        },
+        error: function(){
+            alert("error");
+        }
+    });
 
 }
 
@@ -93,6 +118,8 @@ function stationDropdownSelect(){
 //this function get issueType from database using AJAX
 function displayIssueType(path,disp_id){
 
+    // fix this tmr morning because this is not working
+
     $.ajax({
         url: path,
         type: "POST",
@@ -149,18 +176,9 @@ function coachNumberValidation(){
         coachNumberInputValue = $('#coachNumberInput').val();
         var regex = /^\d{5,6}$/;
 
-        //coachNumberOutput=null;
-
         var output = returnCoachNumber(getCoachNumberPath,coachNumberInputValue);
 
         console.log("Coach Number Output: "+output+", INPUT: "+ coachNumberInputValue);
-
-        //fix this function tmr because it not get the correct true or false on validating the coach number
-
-        //what needs to be done tmr
-        //finish the coach number validating function, find if row > 0
-        //read paper
-        //finish the coach map
 
         if(!regex.test(coachNumberInputValue) || !coachNumberInputValue || coachNumberInputValue != output){
 
@@ -171,6 +189,8 @@ function coachNumberValidation(){
             $('#coachNumberInput').css('border','1px solid lightgray');
             $('#unhideSeatRequest').show();
         }
+
+        returnCoachMap(getTrainMap,coachNumberInputValue,"trainMap");
     });
 }
 
@@ -254,6 +274,27 @@ function returnCoachNumber(path,coachNumberInput){
                         $('#coachNumberInput').css('border','1px solid lightgray');
                         $('#unhideSeatRequest').show();
                     }
+            })
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+    return outputCoachNumber;
+}
+
+function returnCoachMap(path,coachNumberInput,disp_id){
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        data: coachNumberInput,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $.each(json, function(i,val) {
+
+                $('#'+disp_id).html('<img class="trainMap" src="image/trainMap/'+ val.mapsource +'">');
             })
         },
         error: function(){
