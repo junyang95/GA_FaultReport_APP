@@ -1,8 +1,12 @@
 
 <p><b>1.</b> Please identify the location of the fault</p>
 
-    <p class="redBox" id="coachBox" onclick="unhideCoach()"><i class='fas fa-train'></i>Train</p>
-    <p class="redBox" id="stationBox" onclick="unhideStation()"><i class='fas fa-building'></i>Station</p>
+
+
+<!--<div id="locationType"></div>-->
+
+    <p class="redBox" id="coachBox" value="2" onclick="unhideCoach()"><i class='fas fa-train'></i>Train</p>
+    <p class="redBox" id="stationBox" value="1" onclick="unhideStation()"><i class='fas fa-building'></i>Station</p>
 
 
 
@@ -11,7 +15,7 @@
     <div id="unhideCoach">
 
         <p>2. Please enter the coach Number<i class='fas fa-question-circle'></i></p>
-        <input class="inputBox" id="coachNumberInput" maxlength="6"  type="text" name="coachNumber" placeholder="Coach Number"required>
+        <input class="inputBox" id="coachNumberInput" maxlength="6"  type="number" name="coachNumber" placeholder="Coach Number"required>
 
         <div id="unhideSeatRequest"><p></p>
             <p>3. Is there a seat number near you?<i class='fas fa-question-circle'></i></p>
@@ -27,8 +31,10 @@
 
             <a name="trainMap">
             <div id="unhideSeatMap">
+                <p id="faultObject"></p>
                 <p>4. Please location yourself within the map<i class='fas fa-question-circle'></i></p>
-                <p></p>
+                <p id="trainMap"></p>
+
             </div>
             </a>
 
@@ -48,7 +54,7 @@
         <ul class="list-group" id="stationList">
 
             <!--Hidden list of station here because not using frontend to get station record anymore-->
-            <li class="list-group-item" value="Acle">Acle</li>
+            <!--<li class="list-group-item" value="Acle">Acle</li>
             <li class="list-group-item" value="Alresford (Essex)">Alresford (Essex)</li>
             <li class="list-group-item" value="Althorne (Essex)">Althorne (Essex)</li>
             <li class="list-group-item" value="Angel Road">Angel Road</li>
@@ -190,7 +196,7 @@
             <li class="list-group-item" value="Woodbridge">Woodbridge</li>
             <li class="list-group-item" value="Worstead">Worstead</li>
             <li class="list-group-item" value="Wrabness">Wrabness</li>
-            <li class="list-group-item" value="Wymondham">Wymondham</li>
+            <li class="list-group-item" value="Wymondham">Wymondham</li>-->
         </ul>
 
         <div id="unhideStationLocation">

@@ -1,10 +1,15 @@
 
+const getLocationType = "http://localhost:8081/getLocationType";
+
 //proceed to fault report page
   function toReportFault(){ 
     $("#homeSection").hide();
     $("#reportFaultFormSection").show(); 
     $('#navFooter').css('display','block');
+     // displayLocationType(getLocationType,"locationType");
 }
+
+
 
 //proceed to login page
    function toViewFault(){ 
