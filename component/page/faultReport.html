@@ -54,7 +54,7 @@
         <ul class="list-group" id="stationList">
 
             <!--Hidden list of station here because not using frontend to get station record anymore-->
-            <!--<li class="list-group-item" value="Acle">Acle</li>
+            <li class="list-group-item" value="Acle">Acle</li>
             <li class="list-group-item" value="Alresford (Essex)">Alresford (Essex)</li>
             <li class="list-group-item" value="Althorne (Essex)">Althorne (Essex)</li>
             <li class="list-group-item" value="Angel Road">Angel Road</li>
@@ -196,13 +196,28 @@
             <li class="list-group-item" value="Woodbridge">Woodbridge</li>
             <li class="list-group-item" value="Worstead">Worstead</li>
             <li class="list-group-item" value="Wrabness">Wrabness</li>
-            <li class="list-group-item" value="Wymondham">Wymondham</li>-->
+            <li class="list-group-item" value="Wymondham">Wymondham</li>
         </ul>
 
+        <!--ADD BUTTONS ETC HERE ********************************* -->
+
         <div id="unhideStationLocation">
-            <p>Please location the area within the station<i class='fas fa-question-circle'></i></p>
-            <select class="dropDownOption" id=""></select>
+            <p>3. Please identify the area within the station the fault can be found<i class='fas fa-question-circle'></i></p>
+
+
+            <select class="dropDownOption" id="">
+
+                <option value="" selected disabled hidden>Please Select a Location..</option>
+                <option value="Lobby">Lobby</option>
+                <option value="Waiting Area">Waiting Area</option>
+                <option value="Platform">Platform</option>
+                <option value="StationToilet">Toilets</option>
+
+            </select>
+
         </div>
+
+
     </div>
 
 

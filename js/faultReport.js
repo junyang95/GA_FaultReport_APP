@@ -7,6 +7,8 @@ const getTrainMap = "http://localhost:8081/getCoachMap";
 const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
 const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
+//ADD MY PATH HERE *********************************
+
 
 
 //show the coach number
