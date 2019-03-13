@@ -3,6 +3,7 @@ var outputCoachNumber;
 var locationType;
 var subLocation
 //put all the paths here, so it easily to change and add
+//yo
 
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
