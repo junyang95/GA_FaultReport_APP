@@ -7,6 +7,8 @@ $(document).ready(function () {
     //Pages (Section)
     $('#homeSectionComponent').load("component/page/homeSection.html");
     $('#reportFaultFormSection').load("component/page/faultReport.html");
+    $('#trainReport').load("trainReport.html");
+    $('#stationReport').load("stationReport.html");
 
 
     //Components

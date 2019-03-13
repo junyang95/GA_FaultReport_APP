@@ -6,10 +6,8 @@ const getLocationType = "http://localhost:8081/getLocationType";
     $("#homeSection").hide();
     $("#reportFaultFormSection").show(); 
     $('#navFooter').css('display','block');
-     // displayLocationType(getLocationType,"locationType");
+    displayLocationType(getLocationType,"locationType");
 }
-
-
 
 //proceed to login page
    function toViewFault(){ 

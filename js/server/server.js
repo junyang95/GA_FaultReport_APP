@@ -25,19 +25,32 @@ http.createServer(function (req, res) {
 
     switch (req.url) {
 
+        case '/getLocationType':
+            if (req.method == 'POST') {
+                req.on('data', function () {});
+                    req.on('end', async function () {
+                        const {Client} = databaseType;
+                        const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp');
+                        const res2 = await client.query('SELECT * FROM locationType');
+                        await client.end();
+                        json = res2.rows;
+                        var json_str_new = JSON.stringify(json);
+                        console.log(json_str_new);
+                        res.end(json_str_new);
+                    });
+            }
+            break;
+
         case '/getIssueType':
             if (req.method == 'POST') {
-
-                req.on('data', function (data) {
-
-                });
+                req.on('data', function () {});
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
                     await client.connect(); // create a database connection
-
                     client.query('SET search_path to faultreportapp');
-                    // after the insertion, we return the complete table.
                     const res2 = await client.query('SELECT * FROM issueType');
                     await client.end();
                     json = res2.rows;
@@ -45,34 +58,34 @@ http.createServer(function (req, res) {
                     console.log(json_str_new);
                     res.end(json_str_new);
                 });
-
             }
             break;
 
-
-
         case '/getStation':
             if (req.method == 'POST') {
-                req.on('end', async function () {
-                    const {Client} = databaseType;
-                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
-                    await client.connect(); // create a database connection
-                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('SELECT * FROM station'); // after the insertion, we return the complete table.
-                    await client.end();
-                    json = res2.rows;
-                    var json_str_new = JSON.stringify(json);
-                    res.end(json_str_new);
+
+                req.on('data', function () {
+                    req.on('end', async function () {
+                        const {Client} = databaseType;
+                        const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                        const res2 = await client.query('SELECT * FROM station'); // after the insertion, we return the complete table.
+                        await client.end();
+                        json = res2.rows;
+                        var json_str_new = JSON.stringify(json);
+                        console.log(json_str_new);
+                        res.end(json_str_new);
+                    });
                 });
             }
             break;
 
-
         case '/getCoachNumber':
             if (req.method == 'POST') {
-                var body = '';
+                //var body = '';
                 req.on('data', function (data) {
-                    body += data;
+                    //body += data;
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
@@ -91,9 +104,7 @@ http.createServer(function (req, res) {
 
         case '/getCoachMap':
             if (req.method == 'POST') {
-                var body = '';
                 req.on('data', function (data) {
-                    body += data;
                     req.on('end', async function () {
                         const {Client} = databaseType;
                         const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
@@ -109,6 +120,54 @@ http.createServer(function (req, res) {
                 });
             }
             break;
+
+        case '/getSubLocation':
+            if (req.method == 'POST') {
+                var body = '';
+                req.on('data', function (data) {
+                    body+=data;
+                });
+                console.log("BODY: "+body);
+                req.on('end', async function () {
+                    const {Client} = databaseType;
+                    const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT * FROM sublocation WHERE locationType_id = ' + body + ' ORDER BY sublocation ASC;'); // after the insertion, we return the complete table.
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    //console.log("json_str_new: "+json_str_new);
+                    res.end(json_str_new);
+                });
+
+            }
+            break;
+
+        case '/getfaultObjects':
+            if (req.method == 'POST') {
+                var body = '';
+                req.on('data', function (data) {
+                    body+=data;
+                });
+                console.log("BODY: "+body);
+                req.on('end', async function () {
+                    const {Client} = databaseType;
+                    const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT * FROM sublocation WHERE locationType_id = ' + body + ' ORDER BY sublocation ASC;'); // after the insertion, we return the complete table.
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    //console.log("json_str_new: "+json_str_new);
+                    res.end(json_str_new);
+                });
+
+            }
+            break;
+
+
 
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});

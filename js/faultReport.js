@@ -1,13 +1,16 @@
 var coachNumberInputValue;
 var outputCoachNumber;
+var locationType;
+var subLocation
 //put all the paths here, so it easily to change and add
+
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getTrainMap = "http://localhost:8081/getCoachMap";
 const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
 const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
-
+const getSubLocation = "http://localhost:8081/getSubLocation";
 
 //show the coach number
 function unhideCoach(){
@@ -18,9 +21,9 @@ function unhideCoach(){
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
-
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
+    locationType = $('#coachBox').attr("value");
 }
 
 //show the station dropdown
@@ -31,11 +34,9 @@ function unhideStation(){
     $("#unhideCoach").hide();
     $('#stationBox').css('background-color','#D70428');
     $('#coachBox').css('background-color','lightgray');
-
     stationFilter();
     displayStation(getStationPath,"stationList");
-
-
+    locationType = $('#coachBox').attr("value");
 }
 
 function displayLocationType(path,disp_id){
@@ -44,15 +45,12 @@ function displayLocationType(path,disp_id){
         url: path,
         type: "POST",
         success: function(rt) {
-
             console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $.each(json, function(i,val) {
 
-                console.log(val);
-
-                $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationType_id+'" onclick="'+ val.onclickFunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
+                $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationtype_id+'" onclick="'+ val.onclickfunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
             })
         },
         error: function(){
@@ -115,36 +113,6 @@ function stationDropdownSelect(){
     });
 }
 
-//this function get issueType from database using AJAX
-function displayIssueType(path,disp_id){
-
-    // fix this tmr morning because this is not working
-
-    $.ajax({
-        url: path,
-        type: "POST",
-        //data: json,
-        success: function(rt) {
-            console.log(rt); // returned data
-            var json = JSON.parse(rt); // the returned data will be an array
-
-            $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select an issue type</option>'));
-            $.each(json, function(i,val) {
-
-                //here append the dropdown items to the dropdown
-                    $('#'+disp_id).append($('<option>', {
-                        value: val.issuetype_id,
-                        text: val.issuetype
-                    }));
-            })
-        },
-        error: function(){
-            alert("error");
-        }
-    });
-}
-
 //this function need to fix by displaying the station from database instead of frontend
 //this function get stationName from database using AJAX
 function displayStation(path,disp_id){
@@ -158,7 +126,8 @@ function displayStation(path,disp_id){
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $.each(json, function(i,val) {
-                $('#'+disp_id).append('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
+                console.log(val);
+                $('#'+disp_id).html('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
                 //$('#'+disp_id).append('<li class="list-group-item" value="'+ val.stationname_id +'">'+ val.stationname +'</li>');
             })
         },
@@ -212,6 +181,7 @@ function unhideTrainMap(){
     $('#seatNumberUnavailable').css('background-color','#D70428');
     $('#seatNumberAvailable').css('background-color','lightgray');
     $('#unhideFaultDescriptionDropdown').hide();
+    returnSubLocation(getSubLocation,locationType,'subLocationList');
 }
 
 //this function validate the coach number
@@ -240,7 +210,7 @@ function seatNumberValidation(){
 
 function unhideFaultObject(){
 
-    var index = $("select #issueTypeDropdown").val();
+    var index = $("#subLocationList").attr("value");
 
 
     if (index == 0){
@@ -301,7 +271,97 @@ function returnCoachMap(path,coachNumberInput,disp_id){
             alert("error");
         }
     });
-    return outputCoachNumber;
+
+}
+
+function returnSubLocation(path,locationType,disp_id){
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        data: locationType,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $('#'+disp_id).empty();
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
+
+            $.each(json, function(i,val) {
+                $('#'+disp_id).append($('<option value="'+ val.locationtype_id +'">'+ val.sublocation +'</option>'));
+            })
+            $('#'+disp_id).append($('<option value="others">Others</option>'));
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+}
+
+function getFaultObjects(path,locationType,disp_id){
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        data: locationType,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $('#'+disp_id).empty();
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
+
+            $.each(json, function(i,val) {
+                $('#'+disp_id).append($('<option value="'+ val.locationtype_id +'">'+ val.sublocation +'</option>'));
+            })
+            $('#'+disp_id).append($('<option value="others">Others</option>'));
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//this function get issueType from database using AJAX
+/*function displayIssueType(path,disp_id){
+
+    // fix this tmr morning because this is not working
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        //data: json,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+
+            $('#'+disp_id).empty();
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select an issue type</option>'));
+            $.each(json, function(i,val) {
+
+                //here append the dropdown items to the dropdown
+                $('#'+disp_id).append($('<option>', {
+                    value: val.issuetype_id,
+                    text: val.issuetype
+                }));
+            })
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+}*/
