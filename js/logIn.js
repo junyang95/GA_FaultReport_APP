@@ -11,7 +11,7 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-function isNotEmail(email) {
+function isEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
 }
@@ -37,17 +37,19 @@ function submitLogInForm() {
     saveLogInForm();
     var logInFormData = getObject('logInFormData');
 
-    $('#loginSubmitButton').css('background-color', 'lightgray');
+    //$('#loginSubmitButton').css('background-color', 'lightgray');
 
     //$('#logInError').css('display', 'block');
 
-    if (!isNotEmail(logInFormData.userEmail)) {
+    if (!isEmail(logInFormData.userEmail)) {
+        //problem - pop up
         $('#emailCheck').css('display', 'block');
     } else {
         $('#emailCheck').css('display', 'none');
     }
 
     if (isEmpty(logInFormData.userEmail)) {
+        //problem - pop up
         $('#emailEmptyCheck').css('display', 'block');
     } else {
         $('#emailEmptyCheck').css('display', 'none');
@@ -59,10 +61,16 @@ function submitLogInForm() {
         $('#passwordCheck').css('display', 'none');
     }
 
-    $('#unencryptedForm').empty();
-    $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
+    // check everything before submit
+    if (isEmail(logInFormData.userEmail) == true && isEmpty(logInFormData.userEmail) == false && pswCheck(logInFormData.userPsw) == true) {
+        $('#unencryptedForm').empty();
+        $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
 
-    PostAjax('http://localhost:8081/login', logInFormData, 'encryptedForm', 'login');
+        PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'login');
+    }else {
+        $('#unencryptedForm').append('some problem with the form');
+    }
+
 }
 
 

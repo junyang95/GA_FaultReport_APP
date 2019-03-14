@@ -138,39 +138,119 @@ http.createServer(function (req, res) {
                 });
             }
             break;
-        case '/login':
+        case '/logincheck':
             if (req.method == 'POST') {
-                console.log("POST /login");
+                console.log("POST /logincheck");
                 var body = '';
                 var json_str_new = '';
                 req.on('data', function (data) {
                     body += data;
                     req.on('end', async function () {
+
                         var jsObject = JSON.parse(body);
 
-                        bcrypt.hash(jsObject.userPsw, saltRounds, function (err, hash) {
-
-                            var logInFormData = {};
-                            //var key = 'key_logInFormData';
-                            logInFormData = [];
-
-                            var data = {
-                                userEmail: jsObject.userEmail,
-                                userPsw: hash,
-                                keepLogin: jsObject.keepLogin
-                            };
-                            logInFormData.push(data);
-
-                            console.log(logInFormData); //js object
-
-                            json_str_new = JSON.stringify(logInFormData);   //String js object
-                            console.log(json_str_new);
-                            res.end(json_str_new);
+                        const {Client} = databaseType;
+                        const client = new Client({
+                            user: user,
+                            password: password,
+                            database: database,
+                            port: port,
+                            host: host,
+                            ssl: ssl
                         });
+
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+
+                        const res1 = await client.query('SELECT password FROM staff WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
+                        //console.log(res1);
+
+                        var returnFormDataArray = [];
+                        if(res1.rowCount >= 1){
+                            //there is the user in database
+                            const json_db_hash = res1.rows;
+                            //console.log(json_db_hash);
+                            const db_hash = json_db_hash[0].password;
+
+                            const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
+
+                            bcrypt.compare(jsObject.userPsw, db_hash, function (err, res) {
+                                if (res == true) {
+                                    console.log('success');
+                                    const json_db = res2.rows;
+
+                                    const staff_id = json_db[0].staff_id;
+                                    const roletype = json_db[0].roletype;
+                                    const firstname = json_db[0].firstname;
+                                    const lastname = json_db[0].lastname;
+                                    const email = json_db[0].email;
+
+                                    var data = {
+                                        authentication: 'success',
+                                        staff_id:   staff_id,
+                                        roletype:   roletype,
+                                        firstname:  firstname,
+                                        lastname:   lastname,
+                                        userEmail:  email,
+                                        userPsw:    db_hash,
+                                        keepLogin:  jsObject.keepLogin
+                                    };
+                                    returnFormDataArray.push(data);
+
+                                } else if (res == false) {
+                                    console.log('fail');
+                                    var data = {
+                                        authentication: 'fail',
+                                        staff_id:   'fail',
+                                        roletype:   'fail',
+                                        firstname:  'fail',
+                                        lastname:   'fail',
+                                        userEmail:  'fail',
+                                        userPsw:    'fail',
+                                        keepLogin:  jsObject.keepLogin
+                                    };
+                                    returnFormDataArray.push(data);
+                                }
+                            });
+                        }else if (res1.rowCount == 0){
+                            //the user does not exist in database
+                            console.log('no user in database');
+                            var data = {
+                                authentication: 'noUser',
+                                staff_id:   'noUser',
+                                roletype:   'noUser',
+                                firstname:  'noUser',
+                                lastname:   'noUser',
+                                userEmail:  'noUser',
+                                userPsw:    'noUser',
+                                keepLogin:  jsObject.keepLogin
+                            };
+                            returnFormDataArray.push(data);
+                        }
+                        await client.end();
+                        json_str_new = JSON.stringify(returnFormDataArray);
+                        res.end(json_str_new);
+
+
+                        //-------------------------try to get hash value in order to insert into database---------------
+                        // bcrypt.hash(jsObject.userPsw, saltRounds, function (err, hash) {
+                        //     //var logInFormData = {};
+                        //     //var key = 'key_logInFormData';
+                        //     var logInFormData = [];
+                        //     var data = {
+                        //         userEmail: jsObject.userEmail,
+                        //         userPsw: hash,
+                        //         keepLogin: jsObject.keepLogin
+                        //     };
+                        //     logInFormData.push(data);
+                        //     console.log(logInFormData); //json in array
+                        //     //json_str_new = JSON.stringify(logInFormData);   //String js object
+                        //     //console.log(json_str_new);
+                        // });
                     });
                 });
             }
-            break;
+            break
 
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});
