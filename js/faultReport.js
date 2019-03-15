@@ -3,17 +3,18 @@ var outputCoachNumber;
 var locationType;
 var xPercentage;
 var yPercentage;
+var subLocationListValue;
+var faultListValue;
 
 
 //put all the paths here, so it easily to change and add
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getTrainMap = "http://localhost:8081/getCoachMap";
-const getFaultObjectPath = "";
-const getFaultConditiontPath = "";
+const getFaultConditiontPath = "http://localhost:8081/getfaultCondition";
 const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
 const getSubLocation = "http://localhost:8081/getSubLocation";
-const getFaultObject = "http://localhost:8081/getfaultObjects";
+const getFaultObjectPath = "http://localhost:8081/getfaultObjects";
 
 //show the coach number
 function unhideCoach(){
@@ -176,6 +177,7 @@ function unhideSeatNumber(){
     $('#seatNumberUnavailable').css('background-color','lightgray');
     $('#seatNumberAvailable').css('background-color','#D70428');
     $('#unhideFaultDescriptionDropdown').hide();
+    $('#unhideFaultCondition').hide();
 }
 
 //this function shows the trainMap
@@ -196,19 +198,25 @@ function seatNumberValidation(){
 
     $("#seatNumberInput").on("keyup", function() {
 
-        var coachNumberInputValue = $('#seatNumberInput').val();
+        var seatNumberInput = $('#seatNumberInput').val();
+
         var regex = /\d{2}/;
 
-        if(!regex.test(coachNumberInputValue)||!coachNumberInputValue ){
+        if(!regex.test(seatNumberInput)||!seatNumberInput ){
 
             $('#seatNumberInput').css('border','1px solid #D70428');
             $('#unhideFaultDescriptionDropdown').hide();
+            $('#unhideFaultCondition').hide();
 
         }else{
             $('#seatNumberInput').css('border','1px solid lightgray');
-            displayIssueType(getIssueTypePath,"issueTypeDropdown");
+
+
+            //tmr fix here becuae it not getting the nunmber 4 properly
+            getFaultObjects(getFaultObjectPath,4,'faultObjectDropdown');
             $('#unhideFaultDescriptionDropdown').show();
-            //unhideFaultObject();
+            unhideFaultObject();
+
         }
     });
 }
@@ -219,44 +227,89 @@ function unhideFaultObject(){
 
     $("#subLocationList").change(function () {
 
-        var value = $(this).find('option:selected').attr("value"); // get value (attribute) of "subLocationList"
+        subLocationListValue = $(this).find('option:selected').attr("value"); // get value (attribute) of "subLocationList"
 
-        if (value == 0){
+        $('#faultLocationPoint').hide();//hide the coordinate pointer when option changes
+        $('#unhideFaultCondition').hide();
+
+        if (subLocationListValue == 0){ // if the list was not selected
 
             $('#unhideFaultDescriptionDropdown').hide();
 
-        }else if(value=="others"||value==4 ){ // 4 is fault id for Seating area in coach
+        }else if(subLocationListValue=="others"){ // 4 is fault id for Seating area in coach
             $('#trainMap').show();
             unhideOtherOption();
             getCoordinateFromMap();
             $('#userLocateText').show();
-            //$('#faultLocationPoint').show();
+            $('#unhideFaultDescriptionDropdown').hide();
+            $('#faultObjectDropdown').hide();
+            unhideCondition();
+
+        }else if(subLocationListValue==4){ // if the list was 'seating area'
+            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
+            $('#trainMap').show();
+            unhideOtherOption();
+            getCoordinateFromMap();
+            $('#userLocateText').show();
+            $('#unhideFaultDescriptionDropdown').hide();
+            $('#otherFault').hide();
+            unhideCondition();
 
 
-        }else{
-            getFaultObjects(getFaultObject,value,'faultObjectDropdown');
+        }else{ // when selected any other option
+            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
             $('#unhideFaultDescriptionDropdown').show();
             $('#trainMap').hide();
+            $('#faultLocationPoint').hide();
+            $('#userLocateText').hide();
+            $('#otherFault').hide();
+            $('#faultObjectDropdown').show();
+            unhideCondition();
+        };
+
+    });
+
+}
+
+function unhideCondition(){
+
+
+    $("#faultObjectDropdown").change(function () {
+
+        faultListValue = $(this).find('option:selected').attr("value"); // get value (attribute) of "faultObjectDropdown"
+
+        if(faultListValue==0){
+            $('#unhideFaultCondition').hide();
+
+        }else if(faultListValue=="o"){
+
+            getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
+            $('#unhideFaultCondition').show();
+        }else{
+            getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
+            $('#unhideFaultCondition').show();
         }
+
     });
 }
 
 function unhideOtherOption(){
 
-    var faultObject = $('#faultObjectDropdown').find('option:selected').attr("value");
+    faultListValue = $('#faultObjectDropdown').find('option:selected').attr("value");
 
     //alert(faultObject);
 
-    if(faultObject == "o"){
-        $('#otherFault').show();
+    if(faultListValue==0){
+        $('#unhideFaultDescriptionDropdown').hide();
 
+    } else if(faultListValue == "o"){
+        $('#otherFault').show();
+        $('#unhideFaultCondition').hide();
 
     }else{
         $('#otherFault').hide();
-
     }
 }
-
 
 function returnCoachNumber(path,coachNumberInput){
 
@@ -351,9 +404,6 @@ function getFaultObjects(path,subLocation,disp_id){
 
             $.each(json, function(i,val) {
 
-                console.log("ID: "+val.fault_id);
-                console.log("Reference: "+val.faultreference);
-
                 $('#'+disp_id).append($('<option value="'+ val.fault_id +'">'+ val.faultreference +'</option>'));
             });
 
@@ -374,12 +424,48 @@ function getCoordinateFromMap(){
         var offset = $(this).offset();
         xPercentage = ((e.pageX - offset.left)/parseInt($(this).css("width")))*100;
         yPercentage = ((e.pageY - offset.top)/parseInt($(this).css("height")))*100;
-        //$('#faultLocationPoint').append('<i  class="far fa-circle">HIJI</i>');
         $('#faultLocationPoint').css({"top":yPercentage+'%'});
         $('#faultLocationPoint').css({'left':xPercentage+'%'});
+
         $('#faultLocationPoint').show();
-        //alert(xPercentage+","+yPercentage);
+        if(subLocationListValue==0) {
+
+            $('#unhideFaultCondition').hide();
+
+        }else if(subLocationListValue=="others"){
+
+                $('#otherFault').show();
+
+        }else if(subLocationListValue==4){
+
+            $('#unhideFaultDescriptionDropdown').show();
+            $('#faultObjectDropdown').show();
+
+        }
     });
+}
+
+function getFaultCondition(path,faultListValue,disp_id){
+    $.ajax({
+        url: path,
+        type: "POST",
+        data: faultListValue,
+        success: function(rt) {
+            console.log(rt); // returned data
+            var json = JSON.parse(rt); // the returned data will be an array
+            $('#'+disp_id).empty();
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select the condition</option>'));
+            $.each(json, function(i,val) {
+
+                $('#'+disp_id).append($('<option value="'+ val.condition_id +'">'+ val.condition +'</option>'));
+            })
+            $('#'+disp_id).append($('<option value="other">Others</option>'));
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+
 }
 
 

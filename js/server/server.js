@@ -146,6 +146,28 @@ http.createServer(function (req, res) {
 
         case '/getfaultObjects':
             if (req.method == 'POST') {
+                var body='';
+                req.on('data', function (data) {
+                    body+=data;
+                });
+                req.on('end', async function () {
+                    const {Client} = databaseType;
+                    const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                    const res2 = await client.query('SELECT fault_id,faultreference FROM faultreference INNER JOIN fault ON faultreference.faultreference_id=fault.faultreference_id WHERE sublocation_id = '+body+' ORDER BY faultreference ASC; '); // after the insertion, we return the complete table.
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    console.log("json_str_new: "+json_str_new);
+                    res.end(json_str_new);
+                });
+
+            }
+            break;
+
+        case '/getfaultCondition':
+            if (req.method == 'POST') {
                 var body = '';
                 req.on('data', function (data) {
                     body+=data;
@@ -155,7 +177,7 @@ http.createServer(function (req, res) {
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('select fault_id,faultreference from faultreference inner join fault on faultreference.faultreference_id=fault.faultreference_id where sublocation_id = '+body+' order by faultreference ASC; '); // after the insertion, we return the complete table.
+                    const res2 = await client.query('select condition from condition order by condition ASC;'); // after the insertion, we return the complete table.
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
@@ -170,7 +192,7 @@ http.createServer(function (req, res) {
 
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});
-            res.end('error');
+            res.end('Connection error');
     }
 }).listen(8081); // listen to port 8081
 

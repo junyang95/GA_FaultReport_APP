@@ -7,10 +7,11 @@
 
 .fa-circle{
     position: absolute;
-    font-size:40px;
+    font-size:6vw;
     color:#D70428;
-    top: -20px;
-    left: -20px;
+    top: -3vw;
+    left: -3vw;
+    overflow:hidden;
 }
 
 #faultLocationPoint{
