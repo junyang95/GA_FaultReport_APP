@@ -150,17 +150,16 @@ http.createServer(function (req, res) {
                 req.on('data', function (data) {
                     body+=data;
                 });
-                console.log("BODY: "+body);
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('SELECT * FROM sublocation WHERE locationType_id = ' + body + ' ORDER BY sublocation ASC;'); // after the insertion, we return the complete table.
+                    const res2 = await client.query('select fault_id,faultreference from faultreference inner join fault on faultreference.faultreference_id=fault.faultreference_id where sublocation_id = '+body+' order by faultreference ASC; '); // after the insertion, we return the complete table.
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    //console.log("json_str_new: "+json_str_new);
+                    console.log("json_str_new: "+json_str_new);
                     res.end(json_str_new);
                 });
 

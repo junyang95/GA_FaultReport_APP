@@ -5,15 +5,47 @@
     margin-right: 10px;
 }
 
-.fa-question-circle{
+.fa-circle{
+    position: absolute;
+    font-size:40px;
+    color:#D70428;
+    top: -20px;
+    left: -20px;
+}
 
+#faultLocationPoint{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#trainMapStyle{
+    width:100%;
+}
+
+.trainMapContainer{
+
+    position:relative;
+
+}
+
+.fa-question-circle{
     font-size:20px;
     color:#D70428;
     margin-top:2px;
     float:right;
 }
 
-#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber, #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultObject, #unhideFaultCondition{
+.smallFont{
+
+    font-size:11pt;
+    font-weight:200;
+    color:darkgray;
+}
+
+#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
+#unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
+#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint{
 
     display:none;
 }
@@ -58,8 +90,4 @@
     border-radius: 0;
 }
 
-.trainMap{
-
-    width:100%;
-}
 

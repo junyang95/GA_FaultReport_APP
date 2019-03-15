@@ -1,10 +1,11 @@
 var coachNumberInputValue;
 var outputCoachNumber;
 var locationType;
-var subLocation
-//put all the paths here, so it easily to change and add
-//yo
+var xPercentage;
+var yPercentage;
 
+
+//put all the paths here, so it easily to change and add
 const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getTrainMap = "http://localhost:8081/getCoachMap";
@@ -12,6 +13,7 @@ const getFaultObjectPath = "";
 const getFaultConditiontPath = "";
 const getCoachNumberPath = "http://localhost:8081/getCoachNumber";
 const getSubLocation = "http://localhost:8081/getSubLocation";
+const getFaultObject = "http://localhost:8081/getfaultObjects";
 
 //show the coach number
 function unhideCoach(){
@@ -49,6 +51,8 @@ function displayLocationType(path,disp_id){
             console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
+
+            $('#'+disp_id).append($('<p><b>1.</b> Please identify the location of the fault</p>'));
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationtype_id+'" onclick="'+ val.onclickfunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
@@ -183,6 +187,8 @@ function unhideTrainMap(){
     $('#seatNumberAvailable').css('background-color','lightgray');
     $('#unhideFaultDescriptionDropdown').hide();
     returnSubLocation(getSubLocation,locationType,'subLocationList');
+    unhideFaultObject();
+
 }
 
 //this function validate the coach number
@@ -202,7 +208,7 @@ function seatNumberValidation(){
             $('#seatNumberInput').css('border','1px solid lightgray');
             displayIssueType(getIssueTypePath,"issueTypeDropdown");
             $('#unhideFaultDescriptionDropdown').show();
-            unhideFaultObject();
+            //unhideFaultObject();
         }
     });
 }
@@ -211,18 +217,46 @@ function seatNumberValidation(){
 
 function unhideFaultObject(){
 
-    var index = $("#subLocationList").attr("value");
+    $("#subLocationList").change(function () {
+
+        var value = $(this).find('option:selected').attr("value"); // get value (attribute) of "subLocationList"
+
+        if (value == 0){
+
+            $('#unhideFaultDescriptionDropdown').hide();
+
+        }else if(value=="others"||value==4 ){ // 4 is fault id for Seating area in coach
+            $('#trainMap').show();
+            unhideOtherOption();
+            getCoordinateFromMap();
+            $('#userLocateText').show();
+            //$('#faultLocationPoint').show();
 
 
-    if (index == 0){
+        }else{
+            getFaultObjects(getFaultObject,value,'faultObjectDropdown');
+            $('#unhideFaultDescriptionDropdown').show();
+            $('#trainMap').hide();
+        }
+    });
+}
 
-        $('#unhideFaultObject').hide();
+function unhideOtherOption(){
+
+    var faultObject = $('#faultObjectDropdown').find('option:selected').attr("value");
+
+    //alert(faultObject);
+
+    if(faultObject == "o"){
+        $('#otherFault').show();
+
 
     }else{
+        $('#otherFault').hide();
 
-        $('#unhideFaultObject').show();
     }
 }
+
 
 function returnCoachNumber(path,coachNumberInput){
 
@@ -263,10 +297,15 @@ function returnCoachMap(path,coachNumberInput,disp_id){
         success: function(rt) {
             console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
-            $.each(json, function(i,val) {
 
-                $('#'+disp_id).html('<img class="trainMap" src="image/trainMap/'+ val.mapsource +'">');
-            })
+            $('#'+disp_id).empty();
+            //$('#'+disp_id).append('<p class="smallFont">Click on the map to location the fault</p>');
+
+
+            $.each(json, function(i,val) {
+                $('#'+disp_id).append('<img id="trainMapStyle" src="image/trainMap/'+ val.mapsource +'">');
+
+            });
         },
         error: function(){
             alert("error");
@@ -288,7 +327,7 @@ function returnSubLocation(path,locationType,disp_id){
             $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
 
             $.each(json, function(i,val) {
-                $('#'+disp_id).append($('<option value="'+ val.locationtype_id +'">'+ val.sublocation +'</option>'));
+                $('#'+disp_id).append($('<option value="'+ val.sublocation_id +'">'+ val.sublocation +'</option>'));
             })
             $('#'+disp_id).append($('<option value="others">Others</option>'));
         },
@@ -298,22 +337,27 @@ function returnSubLocation(path,locationType,disp_id){
     });
 }
 
-function getFaultObjects(path,locationType,disp_id){
+function getFaultObjects(path,subLocation,disp_id){
 
     $.ajax({
         url: path,
         type: "POST",
-        data: locationType,
+        data: subLocation,
         success: function(rt) {
             console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select the fault</option>'));
 
             $.each(json, function(i,val) {
-                $('#'+disp_id).append($('<option value="'+ val.locationtype_id +'">'+ val.sublocation +'</option>'));
-            })
-            $('#'+disp_id).append($('<option value="others">Others</option>'));
+
+                console.log("ID: "+val.fault_id);
+                console.log("Reference: "+val.faultreference);
+
+                $('#'+disp_id).append($('<option value="'+ val.fault_id +'">'+ val.faultreference +'</option>'));
+            });
+
+            $('#'+disp_id).append($('<option value="o">Others</option>'));
         },
         error: function(){
             alert("error");
@@ -322,7 +366,21 @@ function getFaultObjects(path,locationType,disp_id){
 
 }
 
+// this function puts the coordinates into % so different screen size will still give the same position
 
+function getCoordinateFromMap(){
+
+    $("#trainMap").click(function(e) {
+        var offset = $(this).offset();
+        xPercentage = ((e.pageX - offset.left)/parseInt($(this).css("width")))*100;
+        yPercentage = ((e.pageY - offset.top)/parseInt($(this).css("height")))*100;
+        //$('#faultLocationPoint').append('<i  class="far fa-circle">HIJI</i>');
+        $('#faultLocationPoint').css({"top":yPercentage+'%'});
+        $('#faultLocationPoint').css({'left':xPercentage+'%'});
+        $('#faultLocationPoint').show();
+        //alert(xPercentage+","+yPercentage);
+    });
+}
 
 
 

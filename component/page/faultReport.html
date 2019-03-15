@@ -1,5 +1,5 @@
 
-<p><b>1.</b> Please identify the location of the fault</p>
+
 
     <div id="locationType"></div>
 <!---------------------------This part is for the coach branch--------------------------->
@@ -24,11 +24,21 @@
             <a name="trainMap">
             <div id="unhideSeatMap">
 
-                <p>4. Please location yourself within the map<i class='fas fa-question-circle'></i></p>
+                <p  >4. Please location yourself within the map<i class='fas fa-question-circle'></i></p>
+
                 <select class="dropDownOption" id="subLocationList"></select><p></p>
-                <p id="trainMap"></p>
-                <p>5. Please identify the fault<i class='fas fa-question-circle'></i></p>
-                <select class="dropDownOption" id="faultObjectList"></select><p></p>
+                <p id="userLocateText" class="smallFont floatRight">Click on the map to location the fault</p>
+                <div class="trainMapContainer">
+
+
+
+                <div id="trainMap"></div>
+
+                <div id="faultLocationPoint"><i  class="far fa-circle"></i></div>
+
+                </div>
+
+
 
             </div>
             </a>
@@ -203,18 +213,19 @@
     <a name="faultDropdown">
     <div id="unhideFaultDescriptionDropdown"><p></p>
 
-
-        <p>5. Please select a fault type<i class='fas fa-question-circle'></i></p>
-        <select class="dropDownOption" id="issueTypeDropdown" onclick="unhideFaultObject()"></select>
-
-
-        <div id="unhideFaultObject"><p></p>
-            <p>6. What is the fault?<i class='fas fa-question-circle'></i></p>
+            <p>5. Please identify the fault?<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultObjectDropdown"></select>
+
+        <div id="otherFault"><p></p>
+
+            <p>6. Please specify the fault</p>
         </div>
 
+
+
+
         <div id="unhideFaultCondition"><p></p>
-            <p>7. Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
+            <p>6. Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultConditionDropdown"></select>
         </div>
 
