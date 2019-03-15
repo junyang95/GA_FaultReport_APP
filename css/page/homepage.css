@@ -21,7 +21,7 @@
 }
 
 
-#homeSection, #reportFaultFormSection, #loginSection{
+#homeSection, #reportFaultFormSection, #loginSection, #viewFaultSection{
     margin-top: 65px;
     margin-bottom:183px;
 }
@@ -78,7 +78,7 @@
     margin-right: 10px;
 }
 
-#reportFaultFormSection, #loginSection{
+#reportFaultFormSection, #loginSection, #viewFaultSection{
     display: none;
 }
 

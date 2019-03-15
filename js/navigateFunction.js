@@ -1,43 +1,44 @@
-
 const getLocationType = "http://localhost:8081/getLocationType";
 
 //proceed to fault report page
-  function toReportFault(){ 
+function toReportFault() {
     $("#homeSection").hide();
-    $("#reportFaultFormSection").show(); 
-    $('#navFooter').css('display','block');
-     // displayLocationType(getLocationType,"locationType");
+    $("#reportFaultFormSection").show();
+    $("#viewFaultSection").hide();
+    $('#navFooter').css('display', 'block');
+    // displayLocationType(getLocationType,"locationType");
 }
-
 
 
 //proceed to login page
-   function toViewFault(){ 
+function toViewFault() {
     $("#homeSection").hide();
-    $("#loginSection").show(); 
-    $('#navFooter').css('display','block');
+    $("#loginSection").show();
+    $("#viewFaultSection").hide();
+    $('#navFooter').css('display', 'block');
 }
 
 // function to hide the footer in the homepage
-function hideHomeSectionFooter(){ 
+function hideHomeSectionFooter() {
     $("#homeSectionFooterHide").hide();
     $('#circleButtonDown').hide();
     $('#circleButtonUp').show();
-    $('#homeSectionFooter').css('background-color','#6a717b');
+    $('#homeSectionFooter').css('background-color', '#6a717b');
 }
 
 //function to unhide the footer in the homepage
-function unhideHomeSectionFooter(){ 
-  $("#homeSectionFooterHide").show();
-  $('#circleButtonDown').show();
-  $('#circleButtonUp').hide();
-  $('#homeSectionFooter').css('background-color','white');   
+function unhideHomeSectionFooter() {
+    $("#homeSectionFooterHide").show();
+    $('#circleButtonDown').show();
+    $('#circleButtonUp').hide();
+    $('#homeSectionFooter').css('background-color', 'white');
 }
 
-function backToHomeSectionFromFaultReport(){
+function backToHomeSectionFromFaultReport() {
 
     $("#homeSection").show();
     $("#reportFaultFormSection").hide();
+    $("#viewFaultSection").hide();
     $('#navFooter').hide();
 
 }

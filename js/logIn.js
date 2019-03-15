@@ -110,6 +110,9 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#resultFromSQL').empty();
                             $('#resultFromSQL').append(json.authentication);
                             $('#logInSuccess').css('display', 'block');
+
+                            $("#loginSection").hide();
+                            $("#viewFaultSection").show();
                         }else if(json.authentication == 'fail'){
                             setAllAlertsNone();
                             $('#resultFromSQL').empty();
