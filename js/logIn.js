@@ -1,3 +1,12 @@
+function setAllAlertsNone() {
+    $('#emailCheck').css('display', 'none');
+    $('#emailEmptyCheck').css('display', 'none');
+    $('#passwordCheck').css('display', 'none');
+    $('#logInError').css('display', 'none');
+    $('#logInNoUser').css('display', 'none');
+    $('#logInSuccess').css('display', 'none');
+}
+
 function setObject(keyword, value) {
     window.localStorage.setItem(keyword, JSON.stringify(value));
 }
@@ -11,8 +20,8 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
-function isEmail(email) {
-    var re = /\S+@\S+\.\S+/;
+function isGAEmail(email) {
+    var re = /\S+@\S+\.+co+\.+uk+/;
     return re.test(email);
 }
 
@@ -41,7 +50,7 @@ function submitLogInForm() {
 
     //$('#logInError').css('display', 'block');
 
-    if (!isEmail(logInFormData.userEmail)) {
+    if (!isGAEmail(logInFormData.userEmail)) {
         //problem - pop up
         $('#emailCheck').css('display', 'block');
     } else {
@@ -62,11 +71,11 @@ function submitLogInForm() {
     }
 
     // check everything before submit
-    if (isEmail(logInFormData.userEmail) == true && isEmpty(logInFormData.userEmail) == false && pswCheck(logInFormData.userPsw) == true) {
+    if (isGAEmail(logInFormData.userEmail) == true && isEmpty(logInFormData.userEmail) == false && pswCheck(logInFormData.userPsw) == true) {
         $('#unencryptedForm').empty();
         $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
 
-        PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'login');
+        PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'logincheck');
     }else {
         $('#unencryptedForm').append('some problem with the form');
     }
@@ -81,9 +90,8 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
         url: http_node_server_path,
         type: "POST",
         data: json,
-        success: function (Response_StringJSONtext) {
-            console.log(Response_StringJSONtext);
-            var Response_JavaScriptObject = JSON.parse(Response_StringJSONtext);
+        success: function (json_str_new) {
+            var json_array = JSON.parse(json_str_new);
 
             $('#' + html_position_id).empty(); //empty the area before display
             $('#select_identifier').empty();    //将选取是哪个developer的选取盒清空
@@ -95,9 +103,26 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                 case 'case2':
 
                     break;
-                case 'login':
-                    $.each(Response_JavaScriptObject, function (i, val) {
-                        $('#' + html_position_id).append('encryptedForm: ' + 'userEmail: ' + val.userEmail + 'userPsw: ' + val.userPsw + 'keepLogin: ' + val.keepLogin);
+                case 'logincheck':
+                    $.each(json_array, function (i, json) {
+                        if(json.authentication == 'success'){
+                            setAllAlertsNone();
+                            $('#resultFromSQL').empty();
+                            $('#resultFromSQL').append(json.authentication);
+                            $('#logInSuccess').css('display', 'block');
+                        }else if(json.authentication == 'fail'){
+                            setAllAlertsNone();
+                            $('#resultFromSQL').empty();
+                            $('#resultFromSQL').append(json.authentication);
+                            $('#logInError').css('display', 'block');
+                        }else if(json.authentication == 'noUser'){
+                            setAllAlertsNone();
+                            $('#resultFromSQL').empty();
+                            $('#resultFromSQL').append(json.authentication);
+                            $('#logInNoUser').css('display', 'block');
+                        }
+                        console.log(i);
+                        $('#' + html_position_id).append('encryptedForm: ' + 'userEmail: ' + json.userEmail + 'userPsw: ' + json.firstname + 'keepLogin: ' + json.roletype);
                     });
                     break;
             }

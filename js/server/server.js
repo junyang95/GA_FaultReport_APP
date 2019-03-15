@@ -142,10 +142,12 @@ http.createServer(function (req, res) {
             if (req.method == 'POST') {
                 console.log("POST /logincheck");
                 var body = '';
-                var json_str_new = '';
+
                 req.on('data', function (data) {
                     body += data;
                     req.on('end', async function () {
+                        var json_str_new = '';
+                        var json_array = [];
 
                         var jsObject = JSON.parse(body);
 
@@ -165,17 +167,17 @@ http.createServer(function (req, res) {
                         const res1 = await client.query('SELECT password FROM staff WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
                         //console.log(res1);
 
-                        var returnFormDataArray = [];
-                        if(res1.rowCount >= 1){
+                        if (res1.rowCount >= 1) {
                             //there is the user in database
                             const json_db_hash = res1.rows;
                             //console.log(json_db_hash);
                             const db_hash = json_db_hash[0].password;
 
                             const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
+                            await client.end();
 
-                            bcrypt.compare(jsObject.userPsw, db_hash, function (err, res) {
-                                if (res == true) {
+                            bcrypt.compare(jsObject.userPsw, db_hash, function (err, result) {
+                                if (result == true) {
                                     console.log('success');
                                     const json_db = res2.rows;
 
@@ -187,50 +189,56 @@ http.createServer(function (req, res) {
 
                                     var data = {
                                         authentication: 'success',
-                                        staff_id:   staff_id,
-                                        roletype:   roletype,
-                                        firstname:  firstname,
-                                        lastname:   lastname,
-                                        userEmail:  email,
-                                        userPsw:    db_hash,
-                                        keepLogin:  jsObject.keepLogin
+                                        staff_id: staff_id,
+                                        roletype: roletype,
+                                        firstname: firstname,
+                                        lastname: lastname,
+                                        userEmail: email,
+                                        userPsw: db_hash,
+                                        keepLogin: jsObject.keepLogin
                                     };
-                                    returnFormDataArray.push(data);
+                                    json_array.push(data);
+                                    json_str_new = JSON.stringify(json_array);
+                                    console.log('success: ' + json_str_new);
+                                    res.end(json_str_new);
 
-                                } else if (res == false) {
+                                } else if (result == false) {
                                     console.log('fail');
                                     var data = {
                                         authentication: 'fail',
-                                        staff_id:   'fail',
-                                        roletype:   'fail',
-                                        firstname:  'fail',
-                                        lastname:   'fail',
-                                        userEmail:  'fail',
-                                        userPsw:    'fail',
-                                        keepLogin:  jsObject.keepLogin
+                                        staff_id: 'fail',
+                                        roletype: 'fail',
+                                        firstname: 'fail',
+                                        lastname: 'fail',
+                                        userEmail: 'fail',
+                                        userPsw: 'fail',
+                                        keepLogin: jsObject.keepLogin
                                     };
-                                    returnFormDataArray.push(data);
+                                    json_array.push(data);
+                                    json_str_new = JSON.stringify(json_array);
+                                    console.log('fail: ' + json_str_new);
+                                    res.end(json_str_new);
                                 }
                             });
-                        }else if (res1.rowCount == 0){
+                        } else if (res1.rowCount == 0) {
                             //the user does not exist in database
+                            await client.end();
                             console.log('no user in database');
                             var data = {
                                 authentication: 'noUser',
-                                staff_id:   'noUser',
-                                roletype:   'noUser',
-                                firstname:  'noUser',
-                                lastname:   'noUser',
-                                userEmail:  'noUser',
-                                userPsw:    'noUser',
-                                keepLogin:  jsObject.keepLogin
+                                staff_id: 'noUser',
+                                roletype: 'noUser',
+                                firstname: 'noUser',
+                                lastname: 'noUser',
+                                userEmail: 'noUser',
+                                userPsw: 'noUser',
+                                keepLogin: jsObject.keepLogin
                             };
-                            returnFormDataArray.push(data);
+                            json_array.push(data);
+                            json_str_new = JSON.stringify(json_array);
+                            console.log('else if: ' + json_str_new);
+                            res.end(json_str_new);
                         }
-                        await client.end();
-                        json_str_new = JSON.stringify(returnFormDataArray);
-                        res.end(json_str_new);
-
 
                         //-------------------------try to get hash value in order to insert into database---------------
                         // bcrypt.hash(jsObject.userPsw, saltRounds, function (err, hash) {
@@ -250,7 +258,7 @@ http.createServer(function (req, res) {
                     });
                 });
             }
-            break
+            break;
 
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});
