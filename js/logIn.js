@@ -113,6 +113,10 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                             $("#loginSection").hide();
                             $("#viewFaultSection").show();
+
+                            $('#viewFaultUserName').empty();
+                            $('#viewFaultRoleType').empty();
+                            $('#viewFaultUserName').append('Hello, ' +json.firstname+' '+json.lastname +' (' + json.userEmail+ ') - ' + json.roletype);
                         }else if(json.authentication == 'fail'){
                             setAllAlertsNone();
                             $('#resultFromSQL').empty();

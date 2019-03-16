@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="alert alert-warning" role="alert" id="emailCheck" style="display: none">
-        The email you entered is invalid, please try again!
+        The GA Email you entered is invalid, please check and try again!
     </div>
 
     <div class="alert alert-warning" role="alert" id="emailEmptyCheck" style="display: none">
@@ -13,16 +13,13 @@
     </div>
 
     <div class="alert alert-danger" role="alert" id="logInError" style="display: none">
-        Authentication failed! The email and password do not match, please try again.
+        Authentication failed! The GA Email and password do not match, please try again.
     </div>
 
     <div class="alert alert-danger" role="alert" id="logInNoUser" style="display: none">
-        The email you entered does not exist, please double check!
+        The GA Email you entered does not exist, please double check!
     </div>
 
-    <div class="alert alert-success" role="alert" id="logInSuccess" style="display: none">
-        Log In Successful!
-    </div>
 
 
     <form method="post">
@@ -45,8 +42,7 @@
         </div>
 
         <div class="form-group">
-            <input id="loginSubmitButton" class="btn btn-primary" type="button" value="Submit"
-                   onclick="submitLogInForm()">
+            <input id="loginSubmitButton" class="btn btn-primary" type="button" value="Submit" onclick="submitLogInForm()">
             <input id="loginResetButton" class="btn btn-primary" type="reset" value="Reset">
         </div>
 

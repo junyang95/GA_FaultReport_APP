@@ -1,3 +1,63 @@
 <div class="container">
-    <p>login successful</p>
+    <div class="alert alert-success" role="alert" id="logInSuccess" style="display: none">
+        Log In Successful!
+    </div>
+    <div class="card border-dark mb-3">
+
+        <div class="card-header">
+            <h5 id="viewFaultUserName">Hello, FirstName LastName (example@greateranglia.co.uk) - roletype</h5>
+        </div>
+
+        <div class="card-body">
+            <p class="card-text" style="font-size:110%;">You can view and edit all fault reports here.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tools
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="">Cleaning Issue</a>
+                <a class="dropdown-item" onclick="">Engineering Issue</a>
+                <a class="dropdown-item" onclick="">Maintenance Issue</a>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
+
+
