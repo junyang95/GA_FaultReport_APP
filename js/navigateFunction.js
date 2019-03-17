@@ -7,6 +7,8 @@ const getLocationType = "http://localhost:8081/getLocationType";
     $("#reportFaultFormSection").show(); 
     $('#navFooter').css('display','block');
     displayLocationType(getLocationType,"locationType");
+
+    $('#faultReport1').show(); //show the first nav footer
 }
 
 //proceed to login page
@@ -37,5 +39,18 @@ function backToHomeSectionFromFaultReport(){
     $("#homeSection").show();
     $("#reportFaultFormSection").hide();
     $('#navFooter').hide();
+
+    $('#faultReport2').hide();
+
+}
+
+function toFaultReport2(){
+
+      //hide location, coach number, seat number?
+
+}
+
+function backToReport1(){
+
 
 }

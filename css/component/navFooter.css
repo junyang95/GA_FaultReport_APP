@@ -32,15 +32,20 @@ button{
     font-weight:200;
 }
 
-#nextButton{
+#nextButtonToReport2,#nextButtonToCamera{
     padding:10px;
     float:right;
 }
 
-#backButton{
+#backButtonToHome,#backButtonToReport1{
     float:left;
     padding:10px;
     text-decoration: none;
+}
+
+#faultReport2{
+
+    display:none;
 }
 
 .fa-chevron-left{

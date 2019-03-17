@@ -190,6 +190,7 @@ function unhideTrainMap(){
     $('#unhideFaultDescriptionDropdown').hide();
     returnSubLocation(getSubLocation,locationType,'subLocationList');
     unhideFaultObject();
+    $('#unhideFaultCondition').hide();
 
 }
 
@@ -200,7 +201,7 @@ function seatNumberValidation(){
 
         var seatNumberInput = $('#seatNumberInput').val();
 
-        var regex = /\d{2}/;
+        var regex = /\d{1,2}/;
 
         if(!regex.test(seatNumberInput)||!seatNumberInput ){
 
@@ -210,13 +211,13 @@ function seatNumberValidation(){
 
         }else{
             $('#seatNumberInput').css('border','1px solid lightgray');
-
+            subLocationListValue= "4";
 
             //tmr fix here becuae it not getting the nunmber 4 properly
-            getFaultObjects(getFaultObjectPath,4,'faultObjectDropdown');
+            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
             $('#unhideFaultDescriptionDropdown').show();
             unhideFaultObject();
-
+            unhideCondition();
         }
     });
 }
