@@ -76,7 +76,7 @@ function submitLogInForm() {
         $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
 
         PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'logincheck');
-    }else {
+    } else {
         $('#unencryptedForm').append('some problem with the form');
     }
 
@@ -92,9 +92,7 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
         data: json,
         success: function (json_str_new) {
             var json_array = JSON.parse(json_str_new);
-
             $('#' + html_position_id).empty(); //empty the area before display
-            $('#select_identifier').empty();    //将选取是哪个developer的选取盒清空
 
             switch (page) {
                 case 'case1':
@@ -104,33 +102,40 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                     break;
                 case 'logincheck':
-                    $.each(json_array, function (i, json) {
-                        if(json.authentication == 'success'){
-                            setAllAlertsNone();
-                            $('#resultFromSQL').empty();
-                            $('#resultFromSQL').append(json.authentication);
-                            $('#logInSuccess').css('display', 'block');
 
-                            $("#loginSection").hide();
-                            $("#viewFaultSection").show();
 
-                            $('#viewFaultUserName').empty();
-                            $('#viewFaultRoleType').empty();
-                            $('#viewFaultUserName').append('Hello, ' +json.firstname+' '+json.lastname +' (' + json.userEmail+ ') - ' + json.roletype);
-                        }else if(json.authentication == 'fail'){
-                            setAllAlertsNone();
-                            $('#resultFromSQL').empty();
-                            $('#resultFromSQL').append(json.authentication);
-                            $('#logInError').css('display', 'block');
-                        }else if(json.authentication == 'noUser'){
-                            setAllAlertsNone();
-                            $('#resultFromSQL').empty();
-                            $('#resultFromSQL').append(json.authentication);
-                            $('#logInNoUser').css('display', 'block');
+                    if (json_array[0].authentication == 'success') {
+                        setAllAlertsNone();
+                        $('#resultFromSQL').empty();
+                        $('#resultFromSQL').append(json_array[0].authentication);
+                        $('#logInSuccess').css('display', 'block');
+
+                        $("#loginSection").hide();
+                        $("#viewFaultSection").show();
+
+                        $('#viewFaultUserName').empty();
+                        $('#viewFaultRoleType').empty();
+                        $('#viewFaultUserName').append('Hello, ' + json_array[0].firstname + ' ' + json_array[0].lastname + ' (' + json_array[0].userEmail + ') - ' + json_array[0].roletype);
+
+                        json_array.splice(0, 1); // remove the authentication info json
+
+                        $('#viewFaultTableBody').empty();   // empty the original table
+                        for (var i = 0; i< json_array.length; i++) {
+                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + json_array[i].issuetype + "</td><td>" + json_array[i].fault + " is " + json_array[i].condition + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                            $('#viewFaultTableBody').append(htmlFaultTable);
                         }
-                        console.log(i);
-                        $('#' + html_position_id).append('encryptedForm: ' + 'userEmail: ' + json.userEmail + 'userPsw: ' + json.firstname + 'keepLogin: ' + json.roletype);
-                    });
+                    } else if (json_array[0].authentication == 'fail') {
+                        setAllAlertsNone();
+                        $('#resultFromSQL').empty();
+                        $('#resultFromSQL').append(json_array[0].authentication);
+                        $('#logInError').css('display', 'block');
+                    } else if (json_array[0].authentication == 'noUser') {
+                        setAllAlertsNone();
+                        $('#resultFromSQL').empty();
+                        $('#resultFromSQL').append(json_array[0].authentication);
+                        $('#logInNoUser').css('display', 'block');
+                    }
+                    $('#' + html_position_id).append('encryptedForm: ' + 'userEmail: ' + json.userEmail + 'userPsw: ' + json.firstname + 'keepLogin: ' + json.roletype);
                     break;
             }
 
