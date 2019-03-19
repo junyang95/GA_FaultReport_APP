@@ -341,7 +341,7 @@ function unhideCondition(){
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
             $('#unhideFaultCondition').show();
             $('#otherFault').hide();
-            conditionDropdownChanges()
+            conditionDropdownChanges();
             isOtherFaultObject=false;
 
 
@@ -364,7 +364,7 @@ function conditionDropdownChanges(){
 
         }else{
 
-            $('#cameraSection').show();
+            $('#nextButtonToCamera').show();
         }
 
     });

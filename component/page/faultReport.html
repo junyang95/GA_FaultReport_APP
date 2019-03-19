@@ -7,7 +7,7 @@
         <p><b>2.</b> Please enter the coach Number<i class='fas fa-question-circle'></i></p>
         <input class="inputBox" id="coachNumberInput" maxlength="6"  type="number" name="coachNumber" placeholder="Coach Number"required>
 
-        <div id="unhideSeatRequest"><p></p>
+        <div id="unhideSeatRequest">
             <p><b>3.</b> Is there a seat number near or at the fault?<i class='fas fa-question-circle'></i></p>
             <a href="#seatNumber"><p class="redBox"  id="seatNumberAvailable" onclick="unhideSeatNumber()"><i class='fas fa-check'></i>Yes</p></a>
             <a href="#trainMap"><p class="redBox"  id="seatNumberUnavailable" onclick="unhideTrainMap()"><i class='fas fa-times'></i>No</p></a>
@@ -40,7 +40,6 @@
 
         </div>
     </a>
-
 
 
 <!---------------------------This part is for the station branch--------------------------->
@@ -232,6 +231,10 @@
     <div id="cameraSection">
 
         <input type="file" id="file" style="display:none;" />
-        <button id="button" name="button" value="Upload" onclick="thisFileUpload();">Upload</button>
+
+        <div id="uploadButton" name="uploadButton" value="Upload" onclick="thisFileUpload();">
+            <i class="fas fa-camera"></i>
+            <p>Upload</p>
+        </div>
 
     </div>

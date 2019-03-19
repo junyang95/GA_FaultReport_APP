@@ -55,6 +55,7 @@ function toFaultReport2(){
     $('#locationType').hide();
     $('#unhideCoach').hide();
 
+
     //$('#unhideSeatRequest').hide();
 
     if(isSeatNumber){
@@ -86,6 +87,8 @@ function toFaultReport2(){
     $('#nextButtonToReport2').hide();
     $('#nextButtonToCamera').show();
 
+
+
     //dont use this unless it's really not working
     //$('#unhideFaultDescriptionDropdown').hide();
     //$('#unhideFaultCondition').hide();
@@ -107,9 +110,42 @@ function backToReport1(){
     $('#backButtonToReport1').hide();
     $('#nextButtonToReport2').show();
     $('#nextButtonToCamera').hide();
+    $('#cameraSection').hide();
+}
+
+function backToReport2(){
+
+      $('#cameraSection').hide();
+      $('#nextButtonToReport2').hide();
+      $('#backButtonToHome').hide();
+
+
+      $('#unhideSeatMap').show();
+    $('#unhideFaultDescriptionDropdown').show();
+    $('#unhideFaultCondition').show();
+    $('#otherFault').show();
+
+    $('#backButtonToReport2').hide();
+    $('#submitButton').hide();
+
+    $('#backButtonToReport1').show();
+    $('#nextButtonToCamera').show();
+
 }
 
 function toCamera(){
 
       $('#cameraSection').show();
+      $('#unhideSeatMap').hide();
+      $('#unhideFaultDescriptionDropdown').hide();
+      $('#unhideFaultCondition').hide();
+      $('#otherFault').hide();
+      $('#unhideSeatNumber').hide();
+
+      $('#backButtonToReport1').hide();
+      $('#nextButtonToCamera').hide();
+
+      $('#backButtonToReport2').show();
+      $('#submitButton').show();
+
 }

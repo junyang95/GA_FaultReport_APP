@@ -14,6 +14,17 @@
     overflow:hidden;
 }
 
+.fa-camera{
+
+    color:lightgray;
+    font-size:100px;
+    text-align: center;
+}
+
+#uploadButton{
+    text-align: center;
+}
+
 #faultLocationPoint{
     position: absolute;
     top: 0px;
@@ -98,4 +109,8 @@
     border-radius: 0;
 }
 
+#unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition{
+
+    margin-top:30px;
+}
 
