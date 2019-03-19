@@ -4,7 +4,59 @@
 
     <div id="unhideCoach">
 
-        <p><b>2.</b> Please enter the coach Number<i class='fas fa-question-circle'></i></p>
+        <p><b>2.</b> Please enter the coach Number  <button type="button" class='fas fa-question-circle' data-toggle="modal" data-target="#coachNumberModal"></button>
+
+        <div id="coachNumberModal" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            I don't know the coach number?</a></p>
+
+                        <div class="collapse" id="collapse2a">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>Without the coach number you can not report a fault on a coach <br> This is because we must be able to identify the location of the fault to amend it</small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Where can I find the coach number?</a></p>
+
+                        <div class="collapse" id="collapse2b">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>Coach numbers can be found near each exit, printed on both the inside and outside of the coach</small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2c" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            How many digits is a coach number? </a></p>
+
+                        <div class="collapse" id="collapse2c">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>All coaches are assigned exactly 6 digits </small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2d" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            My coach number is not 6 digits </a></p>
+
+                        <div class="collapse" id="collapse2d">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>All coaches are assigned exactly 6 digits. Please look again for a 6 digit number printed on all coaches </small></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <input class="inputBox" id="coachNumberInput" maxlength="6"  type="number" name="coachNumber" placeholder="Coach Number"required>
 
         <div id="unhideSeatRequest">

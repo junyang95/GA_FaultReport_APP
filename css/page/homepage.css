@@ -20,6 +20,20 @@
     display: block;
 }
 
+.redBoxQuestion {
+    text-align: center;
+    background-color: #D70428;
+    padding: 10px;
+    margin-top: 10px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 10pt;
+    box-shadow: 0 0 5px lightgray;
+    border: none;
+    display: block;
+
+}
 
 #homeSection, #reportFaultFormSection, #loginSection{
     margin-top: 65px;
