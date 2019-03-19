@@ -5,7 +5,7 @@
     <div class="card border-dark mb-3">
 
         <div class="card-header">
-            <h5 id="viewFaultUserName">Hello, FirstName LastName (example@greateranglia.co.uk) - roletype</h5>
+            <h5 id="viewFaultUserName">Yo, get out! Back to homepage!</h5>
         </div>
 
         <div class="card-body">
@@ -13,14 +13,59 @@
         </div>
     </div>
 
+    <div class="accordion" id="sortAccordion">
+        <div class="card">
+            <div class="card-header" id="sortHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed text-muted text-decoration-none" type="button" data-toggle="collapse"
+                            data-target="#sortCollapse" aria-expanded="false" aria-controls="sortCollapse">
+                        FILTER <i class="fas fa-filter"></i>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="sortCollapse" class="collapse" aria-labelledby="sortHeading" data-parent="#sortAccordion">
+                <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">STATUS</li>
+                                    <li class="list-group-item py-1">Reported</li>
+                                    <li class="list-group-item border-less py-1">In Progress</li>
+                                    <li class="list-group-item border-less py-1">Completed</li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">LOCATION</li>
+                                    <li class="list-group-item py-1">Station</li>
+                                    <li class="list-group-item border-less py-1">Train</li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">SORT BY</li>
+                                    <li class="list-group-item py-1">Report ID</li>
+                                    <li class="list-group-item border-less py-1">Date</li>
+                                    <li class="list-group-item border-less py-1">Staff ID</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <table class="table table-hover" id="viewFaultTable">
         <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Issue Type</th>
-            <th scope="col">Fault Description</th>
-            <th scope="col">Status</th>
+            <th scope="col" id="IDScope">ID</th>
+            <th scope="col" id="issueTypeScope">Date</th>
+            <th scope="col" id="faultDescriptionScope">Fault Description</th>
+            <th scope="col" id="statusScope">Status</th>
         </tr>
         </thead>
         <tbody id="viewFaultTableBody">

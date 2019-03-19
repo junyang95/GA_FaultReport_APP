@@ -174,7 +174,19 @@ http.createServer(function (req, res) {
                             const db_hash = json_db_hash[0].password;
 
                             const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
-                            const res3 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, issuetype, fault, condition, coachmap_id, stationname, faultstatus, sublocation FROM report INNER JOIN staff ON report.staff_id = staff.staff_id INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id INNER JOIN fault ON report.fault_id = fault.fault_id INNER JOIN condition ON report.condition_id = condition.condition_id FULL JOIN coach ON report.coachnumber = coach.coachnumber INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id FULL JOIN station ON report.station_id = station.station_id INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id INNER JOIN sublocation ON report.sublocation_id = sublocation.sublocation_id ORDER BY report_id;;');
+                            const res3 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
+                                'FROM report\n' +
+                                'INNER JOIN staff ON report.staff_id = staff.staff_id\n' +
+                                'INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id\n' +
+                                'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
+                                'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                                'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
+                                'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
+                                'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
+                                'FULL JOIN station ON report.station_id = station.station_id\n' +
+                                'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
+                                'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                                'ORDER BY report_id;');
                             await client.end();
 
                             bcrypt.compare(jsObject.userPsw, db_hash, function (err, result) {
@@ -214,13 +226,15 @@ http.createServer(function (req, res) {
                                         const firstname = json_db[i].firstname;
                                         const lastname = json_db[i].lastname;
                                         const email = json_db[i].email;
-                                        const issuetype = json_db[i].issuetype;
-                                        const fault = json_db[i].fault;
+                                        //const issuetype = json_db[i].issuetype;
+                                        //const fault = json_db[i].fault;
                                         const condition = json_db[i].condition;
                                         const coachmap_id = json_db[i].coachmap_id;
                                         const stationname = json_db[i].stationname;
                                         const faultstatus = json_db[i].faultstatus;
                                         const sublocation = json_db[i].sublocation;
+                                        const locationtype = json_db[i].locationtype;
+                                        const faultreference = json_db[i].faultreference;
 
                                         var data = {
                                             report_id:      report_id,
@@ -233,13 +247,15 @@ http.createServer(function (req, res) {
                                             firstname:      firstname,
                                             lastname:       lastname,
                                             email:          email,
-                                            issuetype:      issuetype,
-                                            fault:          fault,
+                                            //issuetype:      issuetype,
+                                            //fault:          fault,
                                             condition:      condition,
                                             coachmap_id:    coachmap_id,
                                             stationname:    stationname,
                                             faultstatus:    faultstatus,
                                             sublocation:    sublocation,
+                                            locationtype:   locationtype,
+                                            faultreference: faultreference
                                         };
                                         json_array.push(data);
                                     }

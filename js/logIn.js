@@ -115,13 +115,13 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                         $('#viewFaultUserName').empty();
                         $('#viewFaultRoleType').empty();
-                        $('#viewFaultUserName').append('Hello, ' + json_array[0].firstname + ' ' + json_array[0].lastname + ' (' + json_array[0].userEmail + ') - ' + json_array[0].roletype);
+                        $('#viewFaultUserName').append('Hello, ' + json_array[0].firstname + ' ' + json_array[0].lastname + '!');
 
                         json_array.splice(0, 1); // remove the authentication info json
 
                         $('#viewFaultTableBody').empty();   // empty the original table
-                        for (var i = 0; i< json_array.length; i++) {
-                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + json_array[i].issuetype + "</td><td>" + json_array[i].fault + " is " + json_array[i].condition + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                        for (var i = 0; i < json_array.length; i++) {
+                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + json_array[i].timestamp + "</td><td>" + json_array[i].condition + " " +json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype +"</td><td>" + json_array[i].faultstatus + "</td></tr>";
                             $('#viewFaultTableBody').append(htmlFaultTable);
                         }
                     } else if (json_array[0].authentication == 'fail') {

@@ -1,0 +1,22 @@
+/*.fa-angle-double-down {*/
+/*font-size: 15px;*/
+/*color: gray;*/
+/*margin-left: 5px;*/
+/*}*/
+
+li.border-less {
+    border-top: 0 none;
+}
+
+.fa-filter{
+    color: #D70428;
+}
+
+.card-body{
+    margin-outside: 0;
+}
+
+.col-4{
+    padding-left: 0;
+    padding-right: 0;
+}
