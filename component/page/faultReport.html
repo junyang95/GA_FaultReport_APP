@@ -4,13 +4,13 @@
 
     <div id="unhideCoach">
 
-        <p><b>2.</b> Please enter the coach Number  <button type="button" class='fas fa-question-circle' data-toggle="modal" data-target="#coachNumberModal"></button>
+        <p><b>2.</b> Please enter the coach Number  <i class='fas fa-question-circle' data-toggle="modal" data-target="#coachNumberModal"></i></p>
 
         <div id="coachNumberModal" class="modal fade">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        <h4 class="modal-title">Need Help?<i class="close" data-dismiss="modal" aria-hidden="true">&times;</i></h4>
                     </div>
                     <div class="modal-body">
 
@@ -282,11 +282,33 @@
 
     <div id="cameraSection">
 
-        <input type="file" id="file" style="display:none;" />
-
-        <div id="uploadButton" name="uploadButton" value="Upload" onclick="thisFileUpload();">
+        <div id="addPhoto1" class="addPhoto">
+        <label for="imgInp" class="addPhotoIcon">
             <i class="fas fa-camera"></i>
-            <p>Upload</p>
+            <p>Add a photo</p>
+
+        </label>
+        <input id="imgInp" type="file"/>
+            <img id="imagePreview" src="#"  />
+        </div>
+
+
+       <!-- <div id="addPhoto1" class="addPhoto">
+
+        <div name="uploadButton" value="Upload"  for="imgInp" onclick="uploadImage()">
+            <i class="fas fa-camera"></i>
+            <p>Add a photo</p>
+            <img id="imagePreview" src="#"  />
+        </div>
+            <input type='file' id="imgInp" />
+        </div>-->
+
+
+        <!--<div id="appendImage"></div>-->
+
+
+        <div id="addMorePhoto" class="addPhotoButton" onclick="appendPhoto()">
+        <i class="fas fa-plus"></i>
         </div>
 
     </div>

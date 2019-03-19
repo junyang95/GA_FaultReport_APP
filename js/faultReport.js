@@ -8,7 +8,7 @@ var faultListValue;
 var isSeatNumber;
 var isOtherFaultObject;
 var conditionValue;
-
+var numberOfImage=1;
 
 //put all the paths here, so it easily to change and add
 const getStationPath = "http://localhost:8081/getStation";
@@ -34,6 +34,7 @@ function unhideCoach(){
     $('#unhideSeatRequest').hide();
     $('#seatNumberAvailable').css('background-color','#D70428');
     $('#seatNumberUnavailable').css('background-color','#D70428');
+    otherFaultDescValidation();
 
 }
 
@@ -343,11 +344,14 @@ function unhideCondition(){
             $('#otherFault').hide();
             conditionDropdownChanges();
             isOtherFaultObject=false;
-
-
         }
 
     });
+}
+
+function uploadImage(){
+
+    $('#imgInp')[0];
 }
 
 function conditionDropdownChanges(){
@@ -372,10 +376,6 @@ function conditionDropdownChanges(){
 
 
 }
-
-function thisFileUpload() {
-    document.getElementById("file").click();
-};
 
 function unhideOtherOption(){
 
@@ -559,5 +559,85 @@ function getFaultCondition(path,faultListValue,disp_id){
         }
     });
 
+}
+
+function otherFaultDescValidation(){
+
+    $("#otherFaultInput").on("keyup", function() {
+
+        var otherFaultInputValue = $('#otherFaultInput').val();
+
+        if(!otherFaultInputValue){
+
+            $('#nextButtonToCamera').hide();
+        }else{
+
+            $('#nextButtonToCamera').show();
+        }
+
+
+    });
+}
+
+function appendPhoto(){
+
+    var max=3;
+
+    if(numberOfImage<max){
+
+        numberOfImage++;
+            var html = `<div id="addPhoto${numberOfImage}" class="addPhoto">
+ <p class="fas fa-times-circle" class="removeImage" onclick="removePhoto()"></p>
+            <input type="file" id="file" style="display:none;" />
+            <div  name="uploadButton[]" value="Upload" onclick="uploadImage()">
+       
+                <i class="fas fa-camera"></i>
+                <p>Add a photo</p>
+            </div>
+        </div>`;
+            $('#appendImage').append(html);
+        }
+
+    if(numberOfImage!=3){
+        $('#addMorePhoto').show();
+
+    }else{
+        $('#addMorePhoto').hide();
+    }
+}
+
+function removePhoto(){
+
+    var min=1;
+
+    $("#appendImage").on('click','.removeImage',function() {
+
+        if (numberOfImage >= min) {
+
+
+            numberOfImage--;
+
+            $('#appendImage').parent('div').remove();
+
+        }
+
+    });
+
+}
+
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imagePreview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+
+        $('#imagePreview').show();
+        $('.addPhotoIcon').hide();
+    }
 }
 

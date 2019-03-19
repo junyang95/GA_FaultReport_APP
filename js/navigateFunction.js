@@ -119,16 +119,39 @@ function backToReport2(){
       $('#nextButtonToReport2').hide();
       $('#backButtonToHome').hide();
 
-
-      $('#unhideSeatMap').show();
-    $('#unhideFaultDescriptionDropdown').show();
-    $('#unhideFaultCondition').show();
-    $('#otherFault').show();
-
     $('#backButtonToReport2').hide();
     $('#submitButton').hide();
 
     $('#backButtonToReport1').show();
+    $('#nextButtonToCamera').show();
+
+    if(isSeatNumber){
+        $('#unhideSeatNumber').show();
+
+    }else{
+        $('#unhideSeatMap').show();
+    }
+
+    if(isOtherFaultObject){
+        $('#otherFault').show();
+
+        $('#faultConditionDropdown').hide();
+        $('#unhideFaultCondition').hide();
+        $('#unhideFaultDescriptionDropdown').show();
+        // $('#faultObjectDropdown').show();
+
+        //$('#unhideFaultDescriptionDropdown').hide();
+    }else{
+
+        $('#otherFault').hide();
+        $('#unhideFaultDescriptionDropdown').show();
+        $('#unhideFaultCondition').show();
+        $('#faultConditionDropdown').show();
+
+    }
+    $('#backButtonToHome').hide();
+    $('#backButtonToReport1').show();
+    $('#nextButtonToReport2').hide();
     $('#nextButtonToCamera').show();
 
 }
@@ -148,4 +171,7 @@ function toCamera(){
       $('#backButtonToReport2').show();
       $('#submitButton').show();
 
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
 }

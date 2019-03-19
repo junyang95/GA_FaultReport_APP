@@ -17,8 +17,10 @@
 .fa-camera{
 
     color:lightgray;
-    font-size:100px;
+    font-size:70px;
     text-align: center;
+    margin-bottom:10px;
+
 }
 
 #uploadButton{
@@ -58,7 +60,7 @@
 
 #unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
 #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
-#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint,#cameraSection{
+#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"]{
 
     display:none;
 }
@@ -119,3 +121,41 @@
     padding: 10px;
     border: 2px solid #ccc;
 }
+
+.fa-plus{
+
+    color:lightgray;
+    font-size: 20pt;
+    padding:10px;
+}
+
+.addPhoto{
+
+    border:none;
+    box-shadow: 0 0 5px lightgray;
+    padding:30px;
+    text-align: center;
+    margin-bottom:20px;
+
+}
+
+.addPhotoButton{
+
+    border:none;
+    box-shadow: 0 0 5px lightgray;
+    padding:5px;
+    text-align: center;
+}
+
+.fa-times-circle{
+    float:right;
+    font-size: 20pt;
+    color:black;
+    position:relative;
+
+}
+
+#imagePreview{
+    width:100%;
+}
+
