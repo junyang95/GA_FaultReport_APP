@@ -35,15 +35,17 @@ button{
 #nextButtonToReport2,#nextButtonToCamera{
     padding:10px;
     float:right;
+    cursor: pointer;
 }
 
 #backButtonToHome,#backButtonToReport1{
     float:left;
     padding:10px;
     text-decoration: none;
+    cursor: pointer;
 }
 
-#faultReport2{
+#backButtonToReport1,#nextButtonToCamera, #nextButtonToReport2{
 
     display:none;
 }

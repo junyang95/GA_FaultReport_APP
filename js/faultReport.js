@@ -5,10 +5,12 @@ var xPercentage;
 var yPercentage;
 var subLocationListValue;
 var faultListValue;
+var isSeatNumber;
+var isOtherFaultObject;
+var conditionValue;
 
 
 //put all the paths here, so it easily to change and add
-const getIssueTypePath = "http://localhost:8081/getIssueType";
 const getStationPath = "http://localhost:8081/getStation";
 const getTrainMap = "http://localhost:8081/getCoachMap";
 const getFaultConditiontPath = "http://localhost:8081/getfaultCondition";
@@ -28,6 +30,11 @@ function unhideCoach(){
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
     locationType = $('#coachBox').attr("value");
+    $('#nextButtonToReport2').hide();
+    $('#unhideSeatRequest').hide();
+    $('#seatNumberAvailable').css('background-color','#D70428');
+    $('#seatNumberUnavailable').css('background-color','#D70428');
+
 }
 
 //show the station dropdown
@@ -41,6 +48,8 @@ function unhideStation(){
     stationFilter();
     displayStation(getStationPath,"stationList");
     locationType = $('#coachBox').attr("value");
+    $('#nextButtonToReport2').hide();
+    $('#coachNumberInput').val("");
 }
 
 function displayLocationType(path,disp_id){
@@ -68,10 +77,6 @@ function displayLocationType(path,disp_id){
 
 //this function is to filter the station name
 function stationFilter(){
-
-    //get station name from database
-
-    //displayStation(getStationPath,"stationList");
 
     $("#stationInput").on("keyup", function() {
 
@@ -159,10 +164,13 @@ function coachNumberValidation(){
 
             $('#coachNumberInput').css('border','1px solid #D70428');
             $('#unhideSeatRequest').hide();
+            $('#nextButtonToReport2').hide();
 
         }else{
             $('#coachNumberInput').css('border','1px solid lightgray');
             $('#unhideSeatRequest').show();
+            $('#seatNumberAvailable').css('background-color','#D70428');
+            $('#seatNumberUnavailable').css('background-color','#D70428');
         }
 
         returnCoachMap(getTrainMap,coachNumberInputValue,"trainMap");
@@ -172,16 +180,35 @@ function coachNumberValidation(){
 //this function shows the seat number
 function unhideSeatNumber(){
 
+    isSeatNumber=true;
+
     $('#unhideSeatNumber').show();
     $('#unhideSeatMap').hide();
     $('#seatNumberUnavailable').css('background-color','lightgray');
     $('#seatNumberAvailable').css('background-color','#D70428');
     $('#unhideFaultDescriptionDropdown').hide();
     $('#unhideFaultCondition').hide();
+
+    $('#unhideCoach').hide();
+    $('#locationType').hide();
+
+    $('#faultReport1').hide();
+    $('#faultReport2').show();
+
+    $('#backButtonToHome').hide();
+    $('#backButtonToReport1').show();
+    $('#nextButtonToReport2').hide();
+    $('#faultLocationPoint').hide();
+
+
 }
 
 //this function shows the trainMap
 function unhideTrainMap(){
+
+    isSeatNumber=false;
+
+    $('#seatNumberInput').val("");
 
     $('#unhideSeatMap').show();
     $('#unhideSeatNumber').hide();
@@ -192,6 +219,18 @@ function unhideTrainMap(){
     unhideFaultObject();
     $('#unhideFaultCondition').hide();
 
+    $('#unhideCoach').hide();
+    $('#locationType').hide();
+
+    $('#faultReport1').hide();
+    $('#faultReport2').show();
+
+    $('#backButtonToHome').hide();
+    $('#backButtonToReport1').show();
+    $('#nextButtonToReport2').hide();
+    $('#trainMap').hide();
+    $('#userLocateText').hide();
+    $('#faultLocationPoint').hide();
 }
 
 //this function validate the coach number
@@ -200,7 +239,6 @@ function seatNumberValidation(){
     $("#seatNumberInput").on("keyup", function() {
 
         var seatNumberInput = $('#seatNumberInput').val();
-
         var regex = /\d{1,2}/;
 
         if(!regex.test(seatNumberInput)||!seatNumberInput ){
@@ -208,7 +246,6 @@ function seatNumberValidation(){
             $('#seatNumberInput').css('border','1px solid #D70428');
             $('#unhideFaultDescriptionDropdown').hide();
             $('#unhideFaultCondition').hide();
-
         }else{
             $('#seatNumberInput').css('border','1px solid lightgray');
             subLocationListValue= "4";
@@ -216,6 +253,7 @@ function seatNumberValidation(){
             //tmr fix here becuae it not getting the nunmber 4 properly
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
             $('#unhideFaultDescriptionDropdown').show();
+            $('#faultObjectDropdown').show();
             unhideFaultObject();
             unhideCondition();
         }
@@ -236,15 +274,21 @@ function unhideFaultObject(){
         if (subLocationListValue == 0){ // if the list was not selected
 
             $('#unhideFaultDescriptionDropdown').hide();
+            $('#unhideFaultCondition').hide();
 
         }else if(subLocationListValue=="others"){ // 4 is fault id for Seating area in coach
+            $('#otherFaultInput').val("");
             $('#trainMap').show();
+
             unhideOtherOption();
             getCoordinateFromMap();
             $('#userLocateText').show();
             $('#unhideFaultDescriptionDropdown').hide();
-            $('#faultObjectDropdown').hide();
+            //$('#faultObjectDropdown').hide();
             unhideCondition();
+            $('#unhideFaultCondition').hide();
+
+            isOtherFaultObject=true;
 
         }else if(subLocationListValue==4){ // if the list was 'seating area'
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
@@ -255,6 +299,7 @@ function unhideFaultObject(){
             $('#unhideFaultDescriptionDropdown').hide();
             $('#otherFault').hide();
             unhideCondition();
+            isOtherFaultObject=false;
 
 
         }else{ // when selected any other option
@@ -266,6 +311,8 @@ function unhideFaultObject(){
             $('#otherFault').hide();
             $('#faultObjectDropdown').show();
             unhideCondition();
+            isOtherFaultObject=false;
+
         };
 
     });
@@ -273,7 +320,6 @@ function unhideFaultObject(){
 }
 
 function unhideCondition(){
-
 
     $("#faultObjectDropdown").change(function () {
 
@@ -285,14 +331,51 @@ function unhideCondition(){
         }else if(faultListValue=="o"){
 
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
-            $('#unhideFaultCondition').show();
+            //$('#unhideFaultCondition').show();
+            $('#otherFault').show();
+            $('#unhideFaultCondition').hide();
+
+            isOtherFaultObject=true;
+
         }else{
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
             $('#unhideFaultCondition').show();
+            $('#otherFault').hide();
+            conditionDropdownChanges()
+            isOtherFaultObject=false;
+
+
         }
 
     });
 }
+
+function conditionDropdownChanges(){
+
+    $("#faultConditionDropdown").change(function () {
+
+        conditionValue = $(this).find('option:selected').attr("value"); // get value (attribute) of "faultObjectDropdown"
+
+        if(conditionValue==0){
+
+
+        }else if(conditionValue=="o"){
+
+
+        }else{
+
+            $('#cameraSection').show();
+        }
+
+    });
+
+
+
+}
+
+function thisFileUpload() {
+    document.getElementById("file").click();
+};
 
 function unhideOtherOption(){
 
@@ -432,16 +515,25 @@ function getCoordinateFromMap(){
         if(subLocationListValue==0) {
 
             $('#unhideFaultCondition').hide();
+            $('#otherFault').hide();
 
         }else if(subLocationListValue=="others"){
 
-                $('#otherFault').show();
+                //$('#otherFault').show();
 
         }else if(subLocationListValue==4){
 
             $('#unhideFaultDescriptionDropdown').show();
             $('#faultObjectDropdown').show();
+            $('#otherFault').hide();
 
+        }
+
+        if(isOtherFaultObject){
+
+            $('#otherFault').show();
+        }else{
+            $('#otherFault').hide();
         }
     });
 }
@@ -459,7 +551,7 @@ function getFaultCondition(path,faultListValue,disp_id){
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<option value="'+ val.condition_id +'">'+ val.condition +'</option>'));
-            })
+            });
             $('#'+disp_id).append($('<option value="other">Others</option>'));
         },
         error: function(){
@@ -469,45 +561,3 @@ function getFaultCondition(path,faultListValue,disp_id){
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//this function get issueType from database using AJAX
-/*function displayIssueType(path,disp_id){
-
-    // fix this tmr morning because this is not working
-
-    $.ajax({
-        url: path,
-        type: "POST",
-        //data: json,
-        success: function(rt) {
-            console.log(rt); // returned data
-            var json = JSON.parse(rt); // the returned data will be an array
-
-            $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select an issue type</option>'));
-            $.each(json, function(i,val) {
-
-                //here append the dropdown items to the dropdown
-                $('#'+disp_id).append($('<option>', {
-                    value: val.issuetype_id,
-                    text: val.issuetype
-                }));
-            })
-        },
-        error: function(){
-            alert("error");
-        }
-    });
-}*/

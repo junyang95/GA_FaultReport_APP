@@ -1,51 +1,47 @@
 
-
-
     <div id="locationType"></div>
 <!---------------------------This part is for the coach branch--------------------------->
 
     <div id="unhideCoach">
 
-        <p>2. Please enter the coach Number<i class='fas fa-question-circle'></i></p>
+        <p><b>2.</b> Please enter the coach Number<i class='fas fa-question-circle'></i></p>
         <input class="inputBox" id="coachNumberInput" maxlength="6"  type="number" name="coachNumber" placeholder="Coach Number"required>
 
         <div id="unhideSeatRequest"><p></p>
-            <p>3. Is there a seat number near or at the fault?<i class='fas fa-question-circle'></i></p>
+            <p><b>3.</b> Is there a seat number near or at the fault?<i class='fas fa-question-circle'></i></p>
             <a href="#seatNumber"><p class="redBox"  id="seatNumberAvailable" onclick="unhideSeatNumber()"><i class='fas fa-check'></i>Yes</p></a>
             <a href="#trainMap"><p class="redBox"  id="seatNumberUnavailable" onclick="unhideTrainMap()"><i class='fas fa-times'></i>No</p></a>
+        </div>
+    </div>
 
-            <a name="seatNumber">
-                <div id="unhideSeatNumber">
-                <p>4. Please enter the seat Number<i class='fas fa-question-circle'></i></p>
-                <input class="inputBox" id="seatNumberInput" maxlength="2" pattern="\d{2}" type="text" name="coachSeatNumber"  placeholder="Seat Number" required>
-                </div>
-            </a>
 
-            <a name="trainMap">
-            <div id="unhideSeatMap">
+    <a name="seatNumber">
+        <div id="unhideSeatNumber">
+            <p><b>4.</b> Please enter the seat Number<i class='fas fa-question-circle'></i></p>
+            <input class="inputBox" id="seatNumberInput" maxlength="2" pattern="\d{2}" type="text" name="coachSeatNumber"  placeholder="Seat Number" required>
+        </div>
+    </a>
 
-                <p>4. Please locate yourself within the map<i class='fas fa-question-circle'></i></p>
+    <a name="trainMap">
+        <div id="unhideSeatMap">
 
-                <select class="dropDownOption" id="subLocationList"></select><p></p>
-                <p id="userLocateText" class="smallFont floatRight">Click on the map to location the fault</p>
-                <div class="trainMapContainer">
+            <p><b>4.</b> Please locate yourself within the map<i class='fas fa-question-circle'></i></p>
 
+            <select class="dropDownOption" id="subLocationList"></select><p></p>
+            <p id="userLocateText" class="smallFont floatRight">Click on the map to location the fault</p>
+            <div class="trainMapContainer">
 
 
                 <div id="trainMap"></div>
 
                 <div id="faultLocationPoint"><i  class="far fa-circle"></i></div>
 
-                </div>
-
-
-
             </div>
-            </a>
-
 
         </div>
-    </div>
+    </a>
+
+
 
 <!---------------------------This part is for the station branch--------------------------->
 
@@ -213,20 +209,29 @@
     <a name="faultDropdown">
     <div id="unhideFaultDescriptionDropdown"><p></p>
 
-            <p>5. Please identify the fault?<i class='fas fa-question-circle'></i></p>
+            <p><b>5.</b> Please identify the fault?<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultObjectDropdown"></select>
 
     </div>
 
         <div id="otherFault"><p></p>
 
-            <p>5. Please specify the fault</p>
+            <p>Please specify the fault<i class='fas fa-question-circle'></i></p>
             <input class="inputBox" id="otherFaultInput" maxlength="500"  type="text" name="otherFaultInput" placeholder="Describe the fault"required>
         </div>
 
 
         <div id="unhideFaultCondition"><p></p>
-            <p>6. Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
+            <p><b>6.</b> Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultConditionDropdown"></select>
         </div>
     </a>
+
+    <!----------------------------------------------------------Camera page---------------------------------------------------->
+
+    <div id="cameraSection">
+
+        <input type="file" id="file" style="display:none;" />
+        <button id="button" name="button" value="Upload" onclick="thisFileUpload();">Upload</button>
+
+    </div>
