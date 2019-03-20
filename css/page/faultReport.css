@@ -60,7 +60,7 @@
 
 #unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
 #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
-#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"]{
+#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage{
 
     display:none;
 }
@@ -133,7 +133,7 @@
 
     border:none;
     box-shadow: 0 0 5px lightgray;
-    padding:30px;
+
     text-align: center;
     margin-bottom:20px;
 
@@ -148,14 +148,40 @@
 }
 
 .fa-times-circle{
-    float:right;
     font-size: 20pt;
     color:black;
-    position:relative;
+
+
+    z-index: 9;
 
 }
 
 #imagePreview{
     width:100%;
+
+
 }
 
+#replaceImageButton{
+
+    text-align: right;
+    font-size: 12pt;
+}
+
+.fa-exchange-alt{
+
+    font-size: 15pt;
+    color:black;
+}
+
+#removeImage{
+    float:right;
+    margin:15px;
+
+
+}
+
+.addPhotoIcon{
+
+    padding:30px;
+}

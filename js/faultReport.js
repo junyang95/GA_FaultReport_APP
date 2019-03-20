@@ -349,10 +349,6 @@ function unhideCondition(){
     });
 }
 
-function uploadImage(){
-
-    $('#imgInp')[0];
-}
 
 function conditionDropdownChanges(){
 
@@ -579,7 +575,7 @@ function otherFaultDescValidation(){
     });
 }
 
-function appendPhoto(){
+/*function appendPhoto(){
 
     var max=3;
 
@@ -587,13 +583,12 @@ function appendPhoto(){
 
         numberOfImage++;
             var html = `<div id="addPhoto${numberOfImage}" class="addPhoto">
- <p class="fas fa-times-circle" class="removeImage" onclick="removePhoto()"></p>
-            <input type="file" id="file" style="display:none;" />
-            <div  name="uploadButton[]" value="Upload" onclick="uploadImage()">
-       
-                <i class="fas fa-camera"></i>
-                <p>Add a photo</p>
-            </div>
+        <label for="imgInp${numberOfImage}" class="addPhotoIcon">
+            <i class="fas fa-camera"></i>
+            <p>Add a photo</p>
+        </label>
+            <label for="imgInp${numberOfImage}" id="replaceImageButton"><img   src="#" id="imagePreview" /><i class="fas fa-exchange-alt"></i> Replace Image</label>
+        <input id="imgInp${numberOfImage}" type="file"/>
         </div>`;
             $('#appendImage').append(html);
         }
@@ -604,9 +599,9 @@ function appendPhoto(){
     }else{
         $('#addMorePhoto').hide();
     }
-}
+}*/
 
-function removePhoto(){
+/*function removePhoto(){
 
     var min=1;
 
@@ -614,16 +609,14 @@ function removePhoto(){
 
         if (numberOfImage >= min) {
 
-
             numberOfImage--;
 
             $('#appendImage').parent('div').remove();
 
         }
-
     });
 
-}
+}*/
 
 
 function readURL(input) {
@@ -638,6 +631,22 @@ function readURL(input) {
 
         $('#imagePreview').show();
         $('.addPhotoIcon').hide();
+        $('#replaceImageButton').show();
+        $('#removeImage').show();
     }
+}
+
+function removeImage(){
+    $("#imgInp").val("");
+
+    $('#removeImage').hide();
+    $('.addPhotoIcon').show();
+    $('#imagePreview').hide();
+    $('#replaceImageButton').hide();
+}
+
+function uploadImage(){
+
+    $('#imgInp')[0];
 }
 
