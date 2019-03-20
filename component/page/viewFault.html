@@ -29,26 +29,26 @@
 
                         <div class="row">
                             <div class="col-4">
-                                <ul class="list-group list-group-flush">
+                                <ul class="list-group list-group-flush list-group-hover" id="statusListGroup">
                                     <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">STATUS</li>
-                                    <li class="list-group-item py-1">Reported</li>
-                                    <li class="list-group-item border-less py-1">In Progress</li>
-                                    <li class="list-group-item border-less py-1">Completed</li>
+                                    <li class="list-group-item py-1" value="Reported" id="opt1_status" onclick="filterSelection('statusListGroup', this.id)">Reported</li>
+                                    <li class="list-group-item border-less py-1" value="In Progress" id="opt2_status" onclick="filterSelection('statusListGroup', this.id)">In Progress</li>
+                                    <li class="list-group-item border-less py-1" value="Completed" id="opt3_status" onclick="filterSelection('statusListGroup', this.id)">Completed</li>
                                 </ul>
                             </div>
                             <div class="col-4">
-                                <ul class="list-group list-group-flush">
+                                <ul class="list-group list-group-flush list-group-hover" id="locationListGroup">
                                     <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">LOCATION</li>
-                                    <li class="list-group-item py-1">Station</li>
-                                    <li class="list-group-item border-less py-1">Train</li>
+                                    <li class="list-group-item py-1" value="Station" id="opt1_location" onclick="filterSelection('locationListGroup', this.id)">Station</li>
+                                    <li class="list-group-item border-less py-1" value="Train" id="opt2_location" onclick="filterSelection('locationListGroup', this.id)">Train</li>
                                 </ul>
                             </div>
                             <div class="col-4">
-                                <ul class="list-group list-group-flush">
+                                <ul class="list-group list-group-flush list-group-hover" id="sortByListGroup">
                                     <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">SORT BY</li>
-                                    <li class="list-group-item py-1">Report ID</li>
-                                    <li class="list-group-item border-less py-1">Date</li>
-                                    <li class="list-group-item border-less py-1">Staff ID</li>
+                                    <li class="list-group-item py-1" value="report_id" id="opt1_sort" onclick="filterSelection('sortByListGroup', this.id)">Report ID</li>
+                                    <li class="list-group-item border-less py-1" value="timestamp" id="opt2_sort" onclick="filterSelection('sortByListGroup', this.id)">Date</li>
+                                    <li class="list-group-item border-less py-1" value="staff_id" id="opt3_sort" onclick="filterSelection('sortByListGroup', this.id)">Staff ID</li>
                                 </ul>
                             </div>
                         </div>

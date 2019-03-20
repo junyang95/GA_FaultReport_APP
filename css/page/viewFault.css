@@ -8,15 +8,28 @@ li.border-less {
     border-top: 0 none;
 }
 
-.fa-filter{
+.fa-filter {
     color: #D70428;
 }
 
-.card-body{
+.card-body {
     margin-outside: 0;
 }
 
-.col-4{
+.col-4 {
     padding-left: 0;
     padding-right: 0;
 }
+
+.list-group-item.active {
+    color: #fff;
+    background-color: #D70428;
+    border-color: #dee2e6;
+}
+
+.list-group-hover .list-group-item:hover {
+    color: #fff;
+    background-color: #D70428;
+    border-color: #dee2e6;
+}
+

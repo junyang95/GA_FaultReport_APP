@@ -1,15 +1,4 @@
-function sortById() {
-    //sortByIdReverse
-    var value = $('#IDScope').val();
-    console.log(value);
-
+function filterSelection(ID_listGroup, ID_listGroupItem) {
+    $("#" + ID_listGroup + ">li.active").removeClass("active");
+    $('#' + ID_listGroupItem).addClass('active');
 }
-
-function sortByIssueType() {
-
-}
-
-function sortByStatus() {
-
-}
-
