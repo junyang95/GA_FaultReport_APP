@@ -43,7 +43,7 @@ function saveLogInForm() {
 
 function conertTimestamp(timestamp) {
     var dateObject = new Date(timestamp.replace(' ', 'T'));
-    var date = dateObject.getFullYear() + "-" + (dateObject.getMonth()+1) + "-" + dateObject.getDate();
+    var date = dateObject.getFullYear() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getDate();
     return date;
 }
 
@@ -102,8 +102,11 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
             $('#' + html_position_id).empty(); //empty the area before display
 
             switch (page) {
-                case 'case1':
-
+                case 'filter':
+                    for (var i = 0; i < json_array.length; i++) {
+                        let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                        $('#viewFaultTableBody').append(htmlFaultTable);
+                    }
                     break;
                 case 'case2':
 
@@ -128,7 +131,7 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                         $('#viewFaultTableBody').empty();   // empty the original table
                         for (var i = 0; i < json_array.length; i++) {
-                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " +json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype +"</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
                             $('#viewFaultTableBody').append(htmlFaultTable);
                         }
                     } else if (json_array[0].authentication == 'fail') {
