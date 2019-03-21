@@ -4,7 +4,7 @@ const getLocationType = "http://localhost:8081/getLocationType";
 //proceed to fault report page
   function toReportFault(){ 
     $("#homeSection").hide();
-    $("#reportFaultFormSection").show(); 
+    $("#reportFaultFormSection").fadeIn("slow");
     $('#navFooter').css('display','block');
     displayLocationType(getLocationType,"locationType");
 
@@ -37,15 +37,15 @@ function unhideHomeSectionFooter(){
 
 function backToHomeSectionFromFaultReport(){
 
-    $("#homeSection").show();
-    $("#reportFaultFormSection").hide();
+    $("#homeSection").fadeIn("slow");
+    $("#reportFaultFormSection").fadeOut("slow");
     $('#navFooter').hide();
 
     $('#faultReport2').hide();
 
 }
 
-function toFaultReport2(){
+/*function toFaultReport2(){
 
       //hide location, coach number, seat number?
 
@@ -55,14 +55,22 @@ function toFaultReport2(){
     $('#locationType').hide();
     $('#unhideCoach').hide();
 
+    $('#unhideSeatMap').hide();
 
-    //$('#unhideSeatRequest').hide();
 
     if(isSeatNumber){
+
+        $('#unhideSeatMap').hide();
         $('#unhideSeatNumber').show();
+        $('#trainMapContainer').hide();
+        $('#userLocateText').hide();
 
     }else{
-        $('#unhideSeatMap').show();
+
+        $('#unhideSeatNumber').hide();
+        $('#unhideSeatNumber').hide();
+        $('#userLocateText').show();
+
     }
 
     if(isOtherFaultObject){
@@ -71,29 +79,32 @@ function toFaultReport2(){
         $('#faultConditionDropdown').hide();
         $('#unhideFaultCondition').hide();
         $('#unhideFaultDescriptionDropdown').show();
-       // $('#faultObjectDropdown').show();
 
-        //$('#unhideFaultDescriptionDropdown').hide();
     }else{
 
         $('#otherFault').hide();
-        $('#unhideFaultDescriptionDropdown').show();
-        $('#unhideFaultCondition').show();
-        $('#faultConditionDropdown').show();
-
+        //$('#unhideFaultDescriptionDropdown').show();
+        //$('#unhideFaultCondition').show();
+       // $('#faultConditionDropdown').show();
     }
+
     $('#backButtonToHome').hide();
     $('#backButtonToReport1').show();
     $('#nextButtonToReport2').hide();
-    $('#nextButtonToCamera').show();
+    //$('#nextButtonToCamera').show();
 
 
+    if(!isSeatAreaFault){
+        $('#unhideSeatRequest').hide();
+        $('#unhideFaultDescriptionDropdown').show();
 
-    //dont use this unless it's really not working
-    //$('#unhideFaultDescriptionDropdown').hide();
-    //$('#unhideFaultCondition').hide();
+    }else{
+        $('#unhideSeatRequest').show();
+    }
 
 
+    //$('#unhideFaultDescriptionDropdown').show();
+    $('#userLocateText').hide();
 }
 
 function backToReport1(){
@@ -102,7 +113,7 @@ function backToReport1(){
     $('#locationType').show();
     $('#unhideCoach').show();
     $('#unhideSeatNumber').hide();
-    $('#unhideSeatMap').hide();
+
     $('#unhideFaultDescriptionDropdown').hide();
     $('#otherFault').hide();
     $('#unhideFaultCondition').hide();
@@ -111,54 +122,81 @@ function backToReport1(){
     $('#nextButtonToReport2').show();
     $('#nextButtonToCamera').hide();
     $('#cameraSection').hide();
-}
+
+    $('#unhideSeatMap').show();
+
+    $('#unhideSeatRequest').hide();
+    $('#trainMapContainer').hide();
+    $('#userLocateText').hide();
+
+}*/
 
 function backToReport2(){
 
-      $('#cameraSection').hide();
-      $('#nextButtonToReport2').hide();
-      $('#backButtonToHome').hide();
-
-    $('#backButtonToReport2').hide();
+    $('#cameraSection').hide();
     $('#submitButton').hide();
+    $('#backButtonToHome').fadeIn('slow');
+    $('#backButtonToReport2').hide();
+    $('#nextButtonToCamera').fadeIn('slow');
+    $('#nextButtonToReport2').hide();
+    $('#locationType').fadeIn('slow');
+    $('#unhideSeatMap').fadeIn('slow');
 
-    $('#backButtonToReport1').show();
-    $('#nextButtonToCamera').show();
 
-    if(isSeatNumber){
-        $('#unhideSeatNumber').show();
+    if(isSeatAreaFault){
+        $('#unhideSeatRequest').fadeIn('slow');
+
+        if(isSeatNumber){
+            $('#unhideSeatNumber').fadeIn('slow');
+            $('#unhideSeatMap').hide();
+            $('#trainMapContainer').hide();
+            $('#userLocateText').hide();
+
+        }else{
+
+            $('#unhideSeatNumber').hide();
+            $('#userLocateText').fadeIn('slow');
+            $('#trainMapContainer').fadeIn('slow');
+
+        }
 
     }else{
-        $('#unhideSeatMap').show();
+        $('#unhideSeatRequest').hide();
     }
 
+
     if(isOtherFaultObject){
-        $('#otherFault').show();
+        $('#otherFault').fadeIn('slow');
 
         $('#faultConditionDropdown').hide();
         $('#unhideFaultCondition').hide();
-        $('#unhideFaultDescriptionDropdown').show();
-        // $('#faultObjectDropdown').show();
+        $('#unhideFaultDescriptionDropdown').fadeIn('slow');
 
-        //$('#unhideFaultDescriptionDropdown').hide();
     }else{
 
         $('#otherFault').hide();
-        $('#unhideFaultDescriptionDropdown').show();
-        $('#unhideFaultCondition').show();
-        $('#faultConditionDropdown').show();
+        $('#unhideFaultDescriptionDropdown').fadeIn('slow');
+        $('#unhideFaultCondition').fadeIn('slow');
+        $('#faultConditionDropdown').fadeIn('slow');
 
     }
-    $('#backButtonToHome').hide();
-    $('#backButtonToReport1').show();
-    $('#nextButtonToReport2').hide();
-    $('#nextButtonToCamera').show();
 
+    if(isCoachFault){
+
+        $('#unhideCoach').fadeIn('slow');
+        $('#unhideStation').hide();
+    }else{
+        $('#unhideCoach').fadeIn('slow');
+        $('#unhideStation').hide();
+
+    }
 }
+
+
 
 function toCamera(){
 
-      $('#cameraSection').show();
+      $('#cameraSection').fadeIn("slow");
       $('#unhideSeatMap').hide();
       $('#unhideFaultDescriptionDropdown').hide();
       $('#unhideFaultCondition').hide();
@@ -167,9 +205,19 @@ function toCamera(){
 
       $('#backButtonToReport1').hide();
       $('#nextButtonToCamera').hide();
+      $('#backButtonToHome').hide();
 
       $('#backButtonToReport2').show();
       $('#submitButton').show();
+      $('#unhideSeatRequest').hide();
+      $('#trainMapContainer').hide();
+      $('#userLocateText').hide();
+
+      $('#locationType').hide();
+      $('#unhideCoach').hide();
+      $('#unhideStation').hide();
+
+
 
     $("#imgInp").change(function(){
         readURL(this);

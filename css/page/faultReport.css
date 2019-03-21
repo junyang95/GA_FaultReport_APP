@@ -7,10 +7,11 @@
 
 .fa-circle{
     position: absolute;
-    font-size:6vw;
+    font-size:40px;
+
     color:#D70428;
-    top: -3vw;
-    left: -3vw;
+    top: -20px;
+    left: -20px;
     overflow:hidden;
 }
 
@@ -37,7 +38,7 @@
     width:100%;
 }
 
-.trainMapContainer{
+#trainMapContainer{
 
     position:relative;
 
@@ -60,7 +61,7 @@
 
 #unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
 #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
-#unhideFaultObject, #otherFault, #trainMap, #userLocateText,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage{
+#unhideFaultObject, #otherFault,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage,#trainMapContainer,#userLocateText,#unhidePlatformNumber{
 
     display:none;
 }
@@ -83,7 +84,12 @@
     padding:10px;
     width:100%;
     font-size:13pt;
-    margin-bottom:15px;
+}
+
+.list-group-item:first-child{
+
+    border-radius:0;
+
 }
 
 .list-group, #stationList{
@@ -111,7 +117,7 @@
     border-radius: 0;
 }
 
-#unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition{
+#unhidePlatformNumber, #unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition,#unhideSeatNumber,#unhideSeatMap,#userLocateText,#unhideStation{
 
     margin-top:30px;
 }

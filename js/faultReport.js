@@ -1,14 +1,23 @@
-var coachNumberInputValue;
+//value to insert into report
+
 var outputCoachNumber;
 var locationType;
 var xPercentage;
 var yPercentage;
 var subLocationListValue;
 var faultListValue;
+var conditionValue;
+var stationValue;
+
+
+// variables for storing purpose
+var coachNumberInputValue;
 var isSeatNumber;
 var isOtherFaultObject;
-var conditionValue;
 var numberOfImage=1;
+var isSeatAreaFault;
+var isCoachFault;
+
 
 //put all the paths here, so it easily to change and add
 const getStationPath = "http://localhost:8081/getStation";
@@ -21,36 +30,60 @@ const getFaultObjectPath = "http://localhost:8081/getfaultObjects";
 //show the coach number
 function unhideCoach(){
 
+    isCoachFault = true;
+
     //show coach
-    $("#unhideCoach").show();
+    $("#unhideCoach").fadeIn("slow");
     $("#unhideStation").hide();
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
+    platformValidation();
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
+    otherFaultDescValidation();
+
     locationType = $('#coachBox').attr("value");
+
     $('#nextButtonToReport2').hide();
-    $('#unhideSeatRequest').hide();
     $('#seatNumberAvailable').css('background-color','#D70428');
     $('#seatNumberUnavailable').css('background-color','#D70428');
-    otherFaultDescValidation();
+    $('#unhideSeatMap').hide();
+    $('#unhideSeatRequest').hide();
+    $('#trainMapContainer').hide();
+    $('#unhideFaultDescriptionDropdown').hide();
+    $('#unhideFaultCondition').hide();
+    $('#unhideSeatNumber').hide();
+    $('#userLocateText').hide();
+    $('#unhidePlatformNumber').hide();
+
 
 }
 
 //show the station dropdown
 function unhideStation(){
 
+    isCoachFault = false;
+
     //show station
-    $("#unhideStation").show();
+    $("#unhideStation").fadeIn("slow");
     $("#unhideCoach").hide();
     $('#stationBox').css('background-color','#D70428');
     $('#coachBox').css('background-color','lightgray');
     stationFilter();
-    displayStation(getStationPath,"stationList");
-    locationType = $('#coachBox').attr("value");
+    //displayStation(getStationPath,"stationList");
+    locationType = $('#stationBox').attr("value");
     $('#nextButtonToReport2').hide();
     $('#coachNumberInput').val("");
+    $('#unhideSeatMap').hide();
+    $('#unhideSeatRequest').hide();
+    $('#trainMapContainer').hide();
+    $('#unhideFaultDescriptionDropdown').hide();
+    $('#unhideFaultCondition').hide();
+    $('#unhideSeatNumber').hide();
+    $('#userLocateText').hide();
+    $('#unhidePlatformNumber').hide();
+
 }
 
 function displayLocationType(path,disp_id){
@@ -63,7 +96,7 @@ function displayLocationType(path,disp_id){
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
 
-            $('#'+disp_id).append($('<p><b>1.</b> Please identify the location of the fault</p>'));
+            $('#'+disp_id).append($('<p>Please identify the location of the fault</p>'));
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationtype_id+'" onclick="'+ val.onclickfunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
@@ -87,20 +120,6 @@ function stationFilter(){
         });
     });
 
-    var stationInputValue = $('#stationInput').val();
-    var regex = /^[0-9]{4,6}$/;
-    var text = $("li.selectedStation").val();
-
-    //when have time fix this here
-
-    if (!regex.test(stationInputValue) || !stationInputValue || !text) {
-
-        $('#unhideStationLocation').hide();
-
-    }else{
-
-        $('#unhideStationLocation').show();
-    }
 
     //this function allows to select station from dropdown
 
@@ -120,7 +139,15 @@ function stationDropdownSelect(){
         $('#stationInput').val(text);
         $('#stationList li').hide();
         //$('#issueTypeDropdown').show();
-        $('#unhideStationLocation').show();
+        //$('#unhideStationLocation').show();
+
+        $('#unhideSeatMap').fadeIn("slow");
+
+        stationValue = $(this).attr("value");
+
+        returnSubLocation(getSubLocation,locationType,'subLocationList');
+
+        unhideSeatNumberRequest();
 
     });
 }
@@ -164,17 +191,22 @@ function coachNumberValidation(){
         if(!regex.test(coachNumberInputValue) || !coachNumberInputValue || coachNumberInputValue != output){
 
             $('#coachNumberInput').css('border','1px solid #D70428');
-            $('#unhideSeatRequest').hide();
+            //$('#unhideSeatRequest').hide();
             $('#nextButtonToReport2').hide();
+            $('#unhideSeatMap').hide();
 
         }else{
             $('#coachNumberInput').css('border','1px solid lightgray');
-            $('#unhideSeatRequest').show();
+            //$('#unhideSeatRequest').show();
+            //$('#unhideSeatMap').show();
             $('#seatNumberAvailable').css('background-color','#D70428');
             $('#seatNumberUnavailable').css('background-color','#D70428');
+
         }
 
-        returnCoachMap(getTrainMap,coachNumberInputValue,"trainMap");
+
+
+
     });
 }
 
@@ -183,25 +215,18 @@ function unhideSeatNumber(){
 
     isSeatNumber=true;
 
-    $('#unhideSeatNumber').show();
-    $('#unhideSeatMap').hide();
+    $('#unhideSeatNumber').fadeIn("slow");
     $('#seatNumberUnavailable').css('background-color','lightgray');
     $('#seatNumberAvailable').css('background-color','#D70428');
+
+    $('#trainMapContainer').hide();
     $('#unhideFaultDescriptionDropdown').hide();
     $('#unhideFaultCondition').hide();
+    $('#userLocateText').hide();
+    $('#unhideFaultCondition').hide();
+    $('#unhideFaultDescriptionDropdown').hide();
 
-    $('#unhideCoach').hide();
-    $('#locationType').hide();
-
-    $('#faultReport1').hide();
-    $('#faultReport2').show();
-
-    $('#backButtonToHome').hide();
-    $('#backButtonToReport1').show();
-    $('#nextButtonToReport2').hide();
-    $('#faultLocationPoint').hide();
-
-
+    scrollToId("#unhideSeatNumber");
 }
 
 //this function shows the trainMap
@@ -211,27 +236,23 @@ function unhideTrainMap(){
 
     $('#seatNumberInput').val("");
 
-    $('#unhideSeatMap').show();
     $('#unhideSeatNumber').hide();
     $('#seatNumberUnavailable').css('background-color','#D70428');
     $('#seatNumberAvailable').css('background-color','lightgray');
+
+    $('#userLocateText').fadeIn("slow");
+    $('#trainMapContainer').fadeIn("slow");
+    $('#faultLocationPoint').hide();
+
+
     $('#unhideFaultDescriptionDropdown').hide();
-    returnSubLocation(getSubLocation,locationType,'subLocationList');
-    unhideFaultObject();
     $('#unhideFaultCondition').hide();
 
-    $('#unhideCoach').hide();
-    $('#locationType').hide();
 
-    $('#faultReport1').hide();
-    $('#faultReport2').show();
+    //this scroll the page to an ID
+    scrollToId("#userLocateText");
 
-    $('#backButtonToHome').hide();
-    $('#backButtonToReport1').show();
-    $('#nextButtonToReport2').hide();
-    $('#trainMap').hide();
-    $('#userLocateText').hide();
-    $('#faultLocationPoint').hide();
+
 }
 
 //this function validate the coach number
@@ -247,29 +268,59 @@ function seatNumberValidation(){
             $('#seatNumberInput').css('border','1px solid #D70428');
             $('#unhideFaultDescriptionDropdown').hide();
             $('#unhideFaultCondition').hide();
+            $('#nextButtonToCamera').hide();
         }else{
             $('#seatNumberInput').css('border','1px solid lightgray');
             subLocationListValue= "4";
 
-            //tmr fix here becuae it not getting the nunmber 4 properly
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
-            $('#unhideFaultDescriptionDropdown').show();
-            $('#faultObjectDropdown').show();
-            unhideFaultObject();
+
+
+            $('#unhideFaultDescriptionDropdown').fadeIn("slow");
+
+
+            scrollToId("#unhideFaultDescriptionDropdown");
+
             unhideCondition();
         }
     });
 }
 
+function platformValidation(){
+
+    $("#platformNumberInput").on("keyup", function() {
+        alert("hi");
+
+        if(!$('#platformNumberInput').val()){
+
+            $('#unhideFaultDescriptionDropdown').hide();
+
+            $('#nextButtonToCamera').hide();
+
+            $('#platformNumberInput').css('border','1px solid #D70428');
+
+
+        }else{
+
+            $('#unhideFaultDescriptionDropdown').fadeIn('slow');
+
+            $('#platformNumberInput').css('border','1 px solid #ccc');
+
+            scrollToId("#unhideFaultDescriptionDropdown");
+
+        }
+    });
+
+}
+
 //this function is not finished, tried to make sure the dropdown is selected
 
-function unhideFaultObject(){
+function unhideSeatNumberRequest(){
 
     $("#subLocationList").change(function () {
 
         subLocationListValue = $(this).find('option:selected').attr("value"); // get value (attribute) of "subLocationList"
 
-        $('#faultLocationPoint').hide();//hide the coordinate pointer when option changes
         $('#unhideFaultCondition').hide();
 
         if (subLocationListValue == 0){ // if the list was not selected
@@ -277,45 +328,80 @@ function unhideFaultObject(){
             $('#unhideFaultDescriptionDropdown').hide();
             $('#unhideFaultCondition').hide();
 
+            $('#nextButtonToReport2').hide();
+
         }else if(subLocationListValue=="others"){ // 4 is fault id for Seating area in coach
             $('#otherFaultInput').val("");
-            $('#trainMap').show();
 
             unhideOtherOption();
             getCoordinateFromMap();
-            $('#userLocateText').show();
             $('#unhideFaultDescriptionDropdown').hide();
-            //$('#faultObjectDropdown').hide();
             unhideCondition();
             $('#unhideFaultCondition').hide();
 
+            $('#unhideSeatNumber').hide();
+            $('#trainMapContainer').hide();
+            $('#otherFault').fadeIn('slow');
+            $('#unhidePlatformNumber').hide();
+
             isOtherFaultObject=true;
+            isSeatAreaFault=false;
 
         }else if(subLocationListValue==4){ // if the list was 'seating area'
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
-            $('#trainMap').show();
+
             unhideOtherOption();
             getCoordinateFromMap();
-            $('#userLocateText').show();
             $('#unhideFaultDescriptionDropdown').hide();
             $('#otherFault').hide();
-            unhideCondition();
+
             isOtherFaultObject=false;
+            isSeatAreaFault=true;
 
+            $('#unhideSeatRequest').fadeIn('slow');
 
-        }else{ // when selected any other option
-            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
-            $('#unhideFaultDescriptionDropdown').show();
-            $('#trainMap').hide();
-            $('#faultLocationPoint').hide();
-            $('#userLocateText').hide();
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            $('#unhideFaultDescriptionDropdown').hide();
+            $('#unhidePlatformNumber').hide();
+
+            $('#seatNumberAvailable').css('background-color','#D70428');
+            $('#seatNumberUnavailable').css('background-color','#D70428');
+
+            scrollToId("#unhideSeatRequest");
+
+        }else if(subLocationListValue==3) {
+
+            $('#unhidePlatformNumber').fadeIn('slow');
+            $('#unhideFaultDescriptionDropdown').hide();
             $('#otherFault').hide();
-            $('#faultObjectDropdown').show();
+
+            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
+
+        }else { // when selected any other option
+            getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
+
+            $('#faultLocationPoint').hide();
+            $('#otherFault').hide();
+
             unhideCondition();
             isOtherFaultObject=false;
+            isSeatAreaFault=false;
+
+            $('#unhideSeatRequest').hide();
+            $('#userLocateText').hide();
+            $('#unhideFaultDescriptionDropdown').fadeOut("slow");
+            $('#unhideFaultDescriptionDropdown').fadeIn("slow");
+
+            $('#unhideSeatNumber').hide();
+            $('#trainMapContainer').hide();
+
+            $('#unhidePlatformNumber').hide();
+
+
+            scrollToId("#unhideFaultDescriptionDropdown");
 
         };
-
     });
 
 }
@@ -333,22 +419,36 @@ function unhideCondition(){
 
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
             //$('#unhideFaultCondition').show();
-            $('#otherFault').show();
+            $('#otherFault').fadeIn("slow");
             $('#unhideFaultCondition').hide();
+            //$('#unhideSeatNumber').hide();
+            //$('#trainMapContainer').hide();
+
 
             isOtherFaultObject=true;
 
+            scrollToId("#otherFault");
+
+        }else if(faultListValue==4){
+
+
         }else{
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
-            $('#unhideFaultCondition').show();
+            $('#unhideFaultCondition').fadeIn("slow");
             $('#otherFault').hide();
             conditionDropdownChanges();
             isOtherFaultObject=false;
+            //$('#unhideSeatNumber').hide();
+            //$('#trainMapContainer').hide();
+
+
+
+            scrollToId("#unhideFaultCondition");
         }
-
     });
-}
 
+
+}
 
 function conditionDropdownChanges(){
 
@@ -364,7 +464,7 @@ function conditionDropdownChanges(){
 
         }else{
 
-            $('#nextButtonToCamera').show();
+            $('#nextButtonToCamera').fadeIn("slow");
         }
 
     });
@@ -410,7 +510,14 @@ function returnCoachNumber(path,coachNumberInput){
                     if(outputCoachNumber==coachNumberInputValue){
 
                         $('#coachNumberInput').css('border','1px solid lightgray');
-                        $('#unhideSeatRequest').show();
+                        //$('#unhideSeatRequest').show();
+                        $('#unhideSeatMap').fadeIn("slow");
+
+                        returnSubLocation(getSubLocation,locationType,'subLocationList');
+
+                        returnCoachMap(getTrainMap,coachNumberInputValue,"trainMap");
+
+                        unhideSeatNumberRequest();
                     }
             })
         },
@@ -513,16 +620,13 @@ function getCoordinateFromMap(){
             $('#unhideFaultCondition').hide();
             $('#otherFault').hide();
 
-        }else if(subLocationListValue=="others"){
-
-                //$('#otherFault').show();
-
         }else if(subLocationListValue==4){
 
             $('#unhideFaultDescriptionDropdown').show();
             $('#faultObjectDropdown').show();
             $('#otherFault').hide();
 
+            scrollToId("#faultObjectDropdown");
         }
 
         if(isOtherFaultObject){
@@ -573,6 +677,15 @@ function otherFaultDescValidation(){
 
 
     });
+}
+
+function scrollToId(id){
+
+    $('html, body').animate({
+        scrollTop: $(id).offset().top
+    }, 1500);
+
+
 }
 
 /*function appendPhoto(){
