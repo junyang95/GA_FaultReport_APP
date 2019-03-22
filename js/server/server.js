@@ -37,11 +37,13 @@ http.createServer(function (req, res) {
                         await client.end();
                         json = res2.rows;
                         var json_str_new = JSON.stringify(json);
-                        console.log(json_str_new);
+                        //console.log(json_str_new);
                         res.end(json_str_new);
                     });
             }
             break;
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/getIssueType':
             if (req.method == 'POST') {
@@ -55,11 +57,13 @@ http.createServer(function (req, res) {
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    console.log(json_str_new);
+                    //console.log(json_str_new);
                     res.end(json_str_new);
                 });
             }
             break;
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/getStation':
             if (req.method == 'POST') {
@@ -74,12 +78,14 @@ http.createServer(function (req, res) {
                         await client.end();
                         json = res2.rows;
                         var json_str_new = JSON.stringify(json);
-                        console.log(json_str_new);
+                        //console.log(json_str_new);
                         res.end(json_str_new);
                     });
                 });
             }
             break;
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/getCoachNumber':
             if (req.method == 'POST') {
@@ -102,6 +108,8 @@ http.createServer(function (req, res) {
             }
             break;
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         case '/getCoachMap':
             if (req.method == 'POST') {
                 req.on('data', function (data) {
@@ -121,13 +129,15 @@ http.createServer(function (req, res) {
             }
             break;
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         case '/getSubLocation':
             if (req.method == 'POST') {
                 var body = '';
                 req.on('data', function (data) {
                     body+=data;
                 });
-                console.log("BODY: "+body);
+                //console.log("BODY: "+body);
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
@@ -144,12 +154,14 @@ http.createServer(function (req, res) {
             }
             break;
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         case '/getfaultObjects':
             if (req.method == 'POST') {
                 var body='';
                 req.on('data', function (data) {
                     body+=data;
-                });
+
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
@@ -159,19 +171,21 @@ http.createServer(function (req, res) {
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    console.log("json_str_new: "+json_str_new);
+                    //console.log("json_str_new: "+json_str_new);
                     res.end(json_str_new);
                 });
-
+                });
             }
             break;
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/getfaultCondition':
             if (req.method == 'POST') {
                 var body = '';
                 req.on('data', function (data) {
                     body+=data;
-                });
+
                 req.on('end', async function () {
                     const {Client} = databaseType;
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
@@ -181,14 +195,14 @@ http.createServer(function (req, res) {
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);
-                    console.log("json_str_new: "+json_str_new);
+                    //console.log("json_str_new: "+json_str_new);
                     res.end(json_str_new);
                 });
-
+                });
             }
             break;
 
-
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         default:
             res.writeHead(200, {'Content-Type': 'text/html'});

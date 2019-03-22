@@ -38,7 +38,7 @@ function unhideCoach(){
     $('#stationBox').css('background-color','lightgray');
     $('#coachBox').css('background-color','#D70428');
     $('#stationInput').val("");
-    platformValidation();
+
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
     otherFaultDescValidation();
@@ -84,6 +84,7 @@ function unhideStation(){
     $('#userLocateText').hide();
     $('#unhidePlatformNumber').hide();
 
+
 }
 
 function displayLocationType(path,disp_id){
@@ -92,7 +93,7 @@ function displayLocationType(path,disp_id){
         url: path,
         type: "POST",
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
 
@@ -161,11 +162,11 @@ function displayStation(path,disp_id){
         type: "POST",
         //data: json,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $.each(json, function(i,val) {
-                console.log(val);
+                //console.log(val);
                 $('#'+disp_id).html('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
                 //$('#'+disp_id).append('<li class="list-group-item" value="'+ val.stationname_id +'">'+ val.stationname +'</li>');
             })
@@ -186,7 +187,7 @@ function coachNumberValidation(){
 
         var output = returnCoachNumber(getCoachNumberPath,coachNumberInputValue);
 
-        console.log("Coach Number Output: "+output+", INPUT: "+ coachNumberInputValue);
+        //console.log("Coach Number Output: "+output+", INPUT: "+ coachNumberInputValue);
 
         if(!regex.test(coachNumberInputValue) || !coachNumberInputValue || coachNumberInputValue != output){
 
@@ -194,6 +195,8 @@ function coachNumberValidation(){
             //$('#unhideSeatRequest').hide();
             $('#nextButtonToReport2').hide();
             $('#unhideSeatMap').hide();
+            $('#unhideFaultDescriptionDropdown').hide();
+            $('#unhideFaultCondition').hide();
 
         }else{
             $('#coachNumberInput').css('border','1px solid lightgray');
@@ -289,7 +292,6 @@ function seatNumberValidation(){
 function platformValidation(){
 
     $("#platformNumberInput").on("keyup", function() {
-        alert("hi");
 
         if(!$('#platformNumberInput').val()){
 
@@ -299,12 +301,14 @@ function platformValidation(){
 
             $('#platformNumberInput').css('border','1px solid #D70428');
 
-
         }else{
+
+
+
 
             $('#unhideFaultDescriptionDropdown').fadeIn('slow');
 
-            $('#platformNumberInput').css('border','1 px solid #ccc');
+            $('#platformNumberInput').css('border','1px solid #ccc');
 
             scrollToId("#unhideFaultDescriptionDropdown");
 
@@ -317,7 +321,7 @@ function platformValidation(){
 
 function unhideSeatNumberRequest(){
 
-    $("#subLocationList").change(function () {
+    $("#subLocationList").on("change",function () {
 
         subLocationListValue = $(this).find('option:selected').attr("value"); // get value (attribute) of "subLocationList"
 
@@ -375,28 +379,32 @@ function unhideSeatNumberRequest(){
             $('#unhidePlatformNumber').fadeIn('slow');
             $('#unhideFaultDescriptionDropdown').hide();
             $('#otherFault').hide();
+            platformValidation();
 
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
 
         }else { // when selected any other option
             getFaultObjects(getFaultObjectPath,subLocationListValue,'faultObjectDropdown');
 
+            unhideCondition();
+
             $('#faultLocationPoint').hide();
             $('#otherFault').hide();
 
-            unhideCondition();
+
             isOtherFaultObject=false;
             isSeatAreaFault=false;
 
             $('#unhideSeatRequest').hide();
             $('#userLocateText').hide();
-            $('#unhideFaultDescriptionDropdown').fadeOut("slow");
+            //$('#unhideFaultDescriptionDropdown').fadeOut("slow");
             $('#unhideFaultDescriptionDropdown').fadeIn("slow");
 
             $('#unhideSeatNumber').hide();
             $('#trainMapContainer').hide();
 
             $('#unhidePlatformNumber').hide();
+
 
 
             scrollToId("#unhideFaultDescriptionDropdown");
@@ -424,24 +432,21 @@ function unhideCondition(){
             //$('#unhideSeatNumber').hide();
             //$('#trainMapContainer').hide();
 
-
             isOtherFaultObject=true;
 
             scrollToId("#otherFault");
 
         }else if(faultListValue==4){
+            isOtherFaultObject=false;
 
 
         }else{
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
-            $('#unhideFaultCondition').fadeIn("slow");
+
             $('#otherFault').hide();
-            conditionDropdownChanges();
             isOtherFaultObject=false;
-            //$('#unhideSeatNumber').hide();
-            //$('#trainMapContainer').hide();
-
-
+            $('#unhideFaultCondition').fadeIn("slow");
+            //conditionDropdownChanges();
 
             scrollToId("#unhideFaultCondition");
         }
@@ -498,7 +503,7 @@ function returnCoachNumber(path,coachNumberInput){
         type: "POST",
         data: coachNumberInput,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             outputCoachNumber=null;
                 $.each(json, function(i,val) {
@@ -535,7 +540,7 @@ function returnCoachMap(path,coachNumberInput,disp_id){
         type: "POST",
         data: coachNumberInput,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
 
             $('#'+disp_id).empty();
@@ -561,7 +566,7 @@ function returnSubLocation(path,locationType,disp_id){
         type: "POST",
         data: locationType,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
@@ -584,7 +589,7 @@ function getFaultObjects(path,subLocation,disp_id){
         type: "POST",
         data: subLocation,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $('#'+disp_id).append($('<option value="0" disabled selected>Select the fault</option>'));
@@ -644,7 +649,7 @@ function getFaultCondition(path,faultListValue,disp_id){
         type: "POST",
         data: faultListValue,
         success: function(rt) {
-            console.log(rt); // returned data
+            //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $('#'+disp_id).append($('<option value="0" disabled selected>Select the condition</option>'));
@@ -684,9 +689,28 @@ function scrollToId(id){
     $('html, body').animate({
         scrollTop: $(id).offset().top
     }, 1500);
-
-
 }
+
+/*function faultReportValidation(){
+
+    if(isCoachFault){
+
+     ;
+
+        if(!coachNumberInput&&!$('#subLocationList').attr("value"),){
+
+
+        }
+
+    }else{
+
+
+    }
+
+}*/
+
+
+
 
 /*function appendPhoto(){
 

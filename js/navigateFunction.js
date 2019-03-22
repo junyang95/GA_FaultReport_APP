@@ -216,6 +216,7 @@ function toCamera(){
       $('#locationType').hide();
       $('#unhideCoach').hide();
       $('#unhideStation').hide();
+     //$('#unhidePlatformNumber').hide();
 
 
 
