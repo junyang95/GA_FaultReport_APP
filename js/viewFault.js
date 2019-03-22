@@ -17,6 +17,29 @@ function filterSelection(ID_listGroup, ID_listGroupItem) {
     PostAjax('http://localhost:8081/filter', data, 'viewFaultTableBody', 'filter');
 }
 
-function tbodySelection() {
+function tableSelection(ID_TableBody) {
+    var currentRow = $("tbody#" + ID_TableBody + " > tr").closest('tr');
 
+    var id = currentRow.find('th').text();
+    alert(id);
 }
+
+$(document).ready(function () {
+    console.log('jy111111');
+    let htmlFaultTable = "<tr><th>" + '1' + "</th><td>" +'2' + "</td><td>" + '3' + "</td><td>" + '4' + "</td></tr>";
+    $('#viewFaultTableBody').append(htmlFaultTable);
+    console.log('jy222222');
+
+
+
+    $('#viewFaultTable > tbody').on('click', 'tr', function (event) {
+        console.log('jy22222222');
+        console.log($(this).text());
+    });
+
+    $('#viewFaultTable > tbody').on('click', 'tr', function (event) {
+        console.log('jy33333333');
+        console.log($(this).text());
+    });
+
+});
