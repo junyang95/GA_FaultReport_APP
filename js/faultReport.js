@@ -18,7 +18,7 @@ var numberOfImage=1;
 var isSeatAreaFault;
 var isCoachFault;
 
-
+//
 //A function will use these to check validation against each field
 
 //Train branch
