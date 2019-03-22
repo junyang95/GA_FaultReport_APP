@@ -17,13 +17,6 @@ function filterSelection(ID_listGroup, ID_listGroupItem) {
     PostAjax('http://localhost:8081/filter', data, 'viewFaultTableBody', 'filter');
 }
 
-function tableSelection(ID_TableBody) {
-    var currentRow = $("tbody#" + ID_TableBody + " > tr").closest('tr');
-
-    var id = currentRow.find('th').text();
-    alert(id);
-}
-
 $(document).ready(function () {
     //jQuery click not working for dynamically created items [duplicate], the ID must be the static part;
     //https://api.jquery.com/on/#on-events-selector-data-handler
