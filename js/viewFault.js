@@ -25,21 +25,11 @@ function tableSelection(ID_TableBody) {
 }
 
 $(document).ready(function () {
-    console.log('jy111111');
-    let htmlFaultTable = "<tr><th>" + '1' + "</th><td>" +'2' + "</td><td>" + '3' + "</td><td>" + '4' + "</td></tr>";
-    $('#viewFaultTableBody').append(htmlFaultTable);
-    console.log('jy222222');
-
-
-
-    $('#viewFaultTable > tbody').on('click', 'tr', function (event) {
-        console.log('jy22222222');
-        console.log($(this).text());
-    });
-
-    $('#viewFaultTable > tbody').on('click', 'tr', function (event) {
-        console.log('jy33333333');
-        console.log($(this).text());
+    //jQuery click not working for dynamically created items [duplicate], the ID must be the static part;
+    //https://api.jquery.com/on/#on-events-selector-data-handler
+    //event handler  for static element
+    $('#viewFaultSection').on('click', 'tbody > tr', function (event) {
+        var report_id =  $(this).find('th').text();
     });
 
 });
