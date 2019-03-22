@@ -11,8 +11,10 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "ejs": "^2.5.6",
     "express": "^4.16.4",
+    "moment": "^2.24.0",
     "pg": "^7.9.0"
   },
   "devDependencies": {

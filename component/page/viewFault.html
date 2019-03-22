@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="alert alert-success" role="alert" id="logInSuccess" style="display: none">
+        Log In Successful!
+    </div>
+    <div class="card border-dark mb-3">
+
+        <div class="card-header">
+            <h5 id="viewFaultUserName">Yo, get out! Back to homepage!</h5>
+        </div>
+
+        <div class="card-body">
+            <p class="card-text" style="font-size:110%;">You can view and edit all fault reports here.</p>
+        </div>
+    </div>
+
+    <div class="accordion" id="sortAccordion">
+        <div class="card">
+            <div class="card-header" id="sortHeading">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed text-muted text-decoration-none" type="button" data-toggle="collapse"
+                            data-target="#sortCollapse" aria-expanded="false" aria-controls="sortCollapse">
+                        FILTER <i class="fas fa-filter"></i>
+                    </button>
+                </h2>
+            </div>
+
+            <div id="sortCollapse" class="collapse" aria-labelledby="sortHeading" data-parent="#sortAccordion">
+                <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush list-group-hover" id="statusListGroup">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">STATUS</li>
+                                    <li class="list-group-item py-1" value="Reported" id="opt1_status" onclick="filterSelection('statusListGroup', this.id)">Reported</li>
+                                    <li class="list-group-item border-less py-1" value="In Progress" id="opt2_status" onclick="filterSelection('statusListGroup', this.id)">In Progress</li>
+                                    <li class="list-group-item border-less py-1" value="Completed" id="opt3_status" onclick="filterSelection('statusListGroup', this.id)">Completed</li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush list-group-hover" id="locationListGroup">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">LOCATION</li>
+                                    <li class="list-group-item py-1" value="Station" id="opt1_location" onclick="filterSelection('locationListGroup', this.id)">Station</li>
+                                    <li class="list-group-item border-less py-1" value="Train" id="opt2_location" onclick="filterSelection('locationListGroup', this.id)">Train</li>
+                                </ul>
+                            </div>
+                            <div class="col-4">
+                                <ul class="list-group list-group-flush list-group-hover" id="sortByListGroup">
+                                    <li class="list-group-item disabled font-weight-bold py-1" aria-disabled="true">SORT BY</li>
+                                    <li class="list-group-item py-1" value="report_id" id="opt1_sort" onclick="filterSelection('sortByListGroup', this.id)">Report ID</li>
+                                    <li class="list-group-item border-less py-1" value="timestamp" id="opt2_sort" onclick="filterSelection('sortByListGroup', this.id)">Date</li>
+                                    <li class="list-group-item border-less py-1" value="staff_id" id="opt3_sort" onclick="filterSelection('sortByListGroup', this.id)">Staff ID</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="table table-hover" id="viewFaultTable">
+        <thead>
+        <tr>
+            <th scope="col" id="IDScope">ID</th>
+            <th scope="col" id="issueTypeScope">Date</th>
+            <th scope="col" id="faultDescriptionScope">Fault Description</th>
+            <th scope="col" id="statusScope">Status</th>
+        </tr>
+        </thead>
+        <tbody id="viewFaultTableBody">
+        <tr>
+            <th>1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th>2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td>Larry the Bird</td>
+            <td>JOHN</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+

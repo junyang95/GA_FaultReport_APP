@@ -1,0 +1,53 @@
+<div class="container">
+
+    <div class="alert alert-warning" role="alert" id="emailCheck" style="display: none">
+        The GA Email you entered is invalid, please check and try again!
+    </div>
+
+    <div class="alert alert-warning" role="alert" id="emailEmptyCheck" style="display: none">
+        The email field cannot be empty!
+    </div>
+
+    <div class="alert alert-warning" role="alert" id="passwordCheck" style="display: none">
+        The password must between 8~20 Characters!
+    </div>
+
+    <div class="alert alert-danger" role="alert" id="logInError" style="display: none">
+        Authentication failed! The GA Email and password do not match, please try again.
+    </div>
+
+    <div class="alert alert-danger" role="alert" id="logInNoUser" style="display: none">
+        The GA Email you entered does not exist, please double check!
+    </div>
+
+
+
+    <form method="post">
+
+        <div class="form-group">
+            <label for="userEmail">GA Email Address</label>
+            <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp"
+                   placeholder="example@greateranglia.co.uk" autocomplete="username">
+            <small id="emailHelp" class="form-text text-muted">Please use your Greater Anglia Staff Email</small>
+        </div>
+
+        <div class="form-group">
+            <label for="userPsw">Password</label>
+            <input type="password" class="form-control" id="userPsw" placeholder="Password" autocomplete="current-password">
+        </div>
+
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="keepLogin">
+            <label class="form-check-label" for="keepLogin">Save password</label>
+        </div>
+
+        <div class="form-group">
+            <input id="loginSubmitButton" class="btn btn-primary" type="button" value="Submit" onclick="submitLogInForm()">
+            <input id="loginResetButton" class="btn btn-primary" type="reset" value="Reset">
+        </div>
+
+    </form>
+    <p id="unencryptedForm">unencryptedForm: </p>
+    <p id="encryptedForm">encryptedForm: </p>
+    <p id="resultFromSQL">resultFromSQL: </p>
+</div>

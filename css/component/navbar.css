@@ -1,5 +1,5 @@
-.navbar{
-    padding:5px;
+.navbar {
+    padding: 5px;
     text-align: center;
     box-shadow: 0px 0px 5px lightgray;
     background-color: white;
@@ -8,12 +8,12 @@
     position: fixed;
     top: 0;
     z-index: 999;
-    
+
 }
 
-.logo{
+.logo {
     text-align: center;
-    margin-top:3px;
-    padding:5px;
-    max-width:160px; 
+    margin-top: 3px;
+    padding: 5px;
+    max-width: 160px;
 }

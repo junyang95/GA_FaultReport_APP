@@ -6,6 +6,7 @@ const getLocationType = "http://localhost:8081/getLocationType";
     $("#homeSection").hide();
     $("#reportFaultFormSection").fadeIn("slow");
     $('#navFooter').css('display','block');
+    $("#viewFaultSection").hide();
     displayLocationType(getLocationType,"locationType");
 
     $('#faultReport1').show(); //show the first nav footer
@@ -16,34 +17,35 @@ const getLocationType = "http://localhost:8081/getLocationType";
 }
 
 //proceed to login page
-   function toViewFault(){ 
+function toViewFault() {
     $("#homeSection").hide();
-    $("#loginSection").show(); 
-    $('#navFooter').css('display','block');
+    $("#loginSection").show();
+    $("#viewFaultSection").hide();
+    $('#navFooter').css('display', 'block');
 }
 
 // function to hide the footer in the homepage
-function hideHomeSectionFooter(){ 
+function hideHomeSectionFooter() {
     $("#homeSectionFooterHide").hide();
     $('#circleButtonDown').hide();
     $('#circleButtonUp').show();
-    $('#homeSectionFooter').css('background-color','#6a717b');
+    $('#homeSectionFooter').css('background-color', '#6a717b');
 }
 
 //function to unhide the footer in the homepage
-function unhideHomeSectionFooter(){ 
-  $("#homeSectionFooterHide").show();
-  $('#circleButtonDown').show();
-  $('#circleButtonUp').hide();
-  $('#homeSectionFooter').css('background-color','white');   
+function unhideHomeSectionFooter() {
+    $("#homeSectionFooterHide").show();
+    $('#circleButtonDown').show();
+    $('#circleButtonUp').hide();
+    $('#homeSectionFooter').css('background-color', 'white');
 }
 
 function backToHomeSectionFromFaultReport(){
 
     $("#homeSection").fadeIn("slow");
     $("#reportFaultFormSection").fadeOut("slow");
+    $("#viewFaultSection").hide();
     $('#navFooter').hide();
-
     $('#faultReport2').hide();
 
 }
