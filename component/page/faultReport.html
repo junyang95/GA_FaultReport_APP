@@ -5,7 +5,48 @@
 
     <div id="unhideStation">
 
-        <p>Please Enter the Station Name</p>
+        <p>Please Enter the Station Name <i class='fas fa-question-circle' data-toggle="modal" data-target="#chooseStationModal"></i></p>
+
+        <div id="chooseStationModal" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse3a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            I can't find the station name</a></p>
+
+                        <div class="collapse" id="collapse3a">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>Please begin your search by typing in the first two letters of the station name <br> if the station does not appear your station may not be part of the Greater Anglia network</small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse3b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            What is considered part of the station?</a></p>
+
+                        <div class="collapse" id="collapse3b">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>If your fault is found beyond the entrance to the station, in the toilets, lobby, waiting room or on a platform, your fault is at a station</small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse3c" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            What if the fault is in a shop?</a></p>
+
+                        <div class="collapse" id="collapse3c">
+                            <div class="card card-body">
+                                <p class="text-dark"><small> Commercially owned stores and shops selling food, beverages and goods <br> are left accountable for their own premises </small></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search Station Name..">
         <ul class="list-group" id="stationList">
 
@@ -155,6 +196,7 @@
             <li class="list-group-item" value="143">Wymondham</li>-->
         </ul>
 
+
     </div>
 
 <!---------------------------This part is for the coach branch--------------------------->
@@ -234,7 +276,58 @@
 
         <div id="unhideSeatMap">
 
-            <p>Please Specify the Location<i class='fas fa-question-circle'></i></p>
+            <p>Please Specify the Location<i class='fas fa-question-circle' data-toggle="modal" data-target="#coachLocationSub"></i></p>
+
+            <div id="coachLocationSub" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse13a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is an Overhead Luggage Rack?</a></p>
+
+                            <div class="collapse" id="collapse13a">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/OverheadLuggageRack.jpg" alt=""></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse13b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is a Buffet?</a></p>
+
+                            <div class="collapse" id="collapse13b">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/CoachBuffet.jpg" alt=""></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse13c" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is a Drivers Cab?</a></p>
+
+                            <div class="collapse" id="collapse13c">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/DriversCab.jpg" alt=""></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse13d" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is a Luggage Rack?</a></p>
+
+                            <div class="collapse" id="collapse13d">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/LuggageRack.jpg" alt=""></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <select class="dropDownOption" id="subLocationList"></select><p></p>
 
@@ -249,18 +342,73 @@
     </div>
 
         <div id="unhideSeatRequest">
-            <p>Is there a Seat Number Nearby?<i class='fas fa-question-circle'></i></p>
+            <p>Is there a Seat Number Nearby?<i class='fas fa-question-circle' data-toggle="modal" data-target="#identifyBySeatModal"></i></p>
+
+            <div id="identifyBySeatModal" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse5a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                The fault is not near a seat</a></p>
+
+                            <div class="collapse" id="collapse5a">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small>If there is no seat in close proximity, please select 'No' </small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse5b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is nearby?</a></p>
+
+                            <div class="collapse" id="collapse5b">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small>Any seat in close proximity (within a metre) of the fault is sufficient </small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse5c" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Where is the seat number?</a></p>
+
+                            <div class="collapse" id="collapse5c">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/SeatNoExample1.jpg" alt=""></p><p><small>Seat numbers are usually on the head of the chair or printed above the window </small></p>
+                                    <img class="img-responsive" style="margin:0 auto;" src="image/SeatNoExample2.jpg" alt=""> </p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse5d" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                The nearest seat has no number?</a></p>
+
+                            <div class="collapse" id="collapse5d">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Please select 'No' and follow further instructions</small> </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <a href="#seatNumber"><p class="redBox"  id="seatNumberAvailable" onclick="unhideSeatNumber();"><i class='fas fa-check'></i>Yes</p></a>
             <a href="#trainMap"><p class="redBox"  id="seatNumberUnavailable" onclick="unhideTrainMap();"><i class='fas fa-times'></i>No</p></a>
         </div>
 
 
-        <p id="userLocateText"><i class="fas fa-map-pin"></i>  Pin the Fault Location on the Interactive Coach Map</p>
+        <p id="userLocateText"><i class="fas fa-map-pin" ></i>  Pin the Fault Location on the Interactive Coach Map <i  class="fas fa-circle"></i></p>
+
+
 
         <div id="trainMapContainer">
 
             <div id="trainMap"></div>
-            <div id="faultLocationPoint"><i  class="far fa-circle"></i></div>
+            <div id="faultLocationPoint"></div>
+
+
 
         </div>
 
@@ -270,7 +418,54 @@
 
     <a name="seatNumber">
         <div id="unhideSeatNumber">
-            <p>Please Enter the Seat Number<i class='fas fa-question-circle'></i></p>
+            <p>Please Enter the Seat Number<i class='fas fa-question-circle' data-toggle="modal" data-target="#enterSeatNoModal"></i></p>
+
+            <div id="enterSeatNoModal" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse6e" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Where is the seat number?</a></p>
+
+                            <div class="collapse" id="collapse6e">
+                                <div class="card card-body">
+                                    <p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/SeatNoExample1.jpg" alt=""></p><p><small>Seat numbers are usually on the head of the chair or printed above the window </small></p>
+                                    <img class="img-responsive" style="margin:0 auto;" src="image/SeatNoExample2.jpg" alt=""> </p>
+                                </div>
+                            </div>
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse6b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                There are no seat numbers available</a></p>
+
+                            <div class="collapse" id="collapse6b">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small>Please press back and answer 'No' when asked if you know the seat number</small></p>
+                                </div>
+                            </div>
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse6d" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is the seat number?</a></p>
+
+                            <div class="collapse" id="collapse6d">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Seat numbers consist of one or two numbers e.g. 12 </small></p>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <input class="inputBox" id="seatNumberInput" maxlength="2" pattern="\d{2}" type="text" name="coachSeatNumber"  placeholder="Seat Number" required>
         </div>
     </a>
@@ -285,20 +480,151 @@
     <a name="faultDropdown">
     <div id="unhideFaultDescriptionDropdown"><p></p>
 
-            <p>Please Specify the Property<i class='fas fa-question-circle'></i></p>
+            <p>Please Specify the Property<i class='fas fa-question-circle' data-toggle="modal" data-target="#identifyObjectModal"></i></p>
+
+        <div id="identifyObjectModal" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse8a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            What is the property of Greater Anglia?</a></p>
+
+                        <div class="collapse" id="collapse8a">
+                            <div class="card card-body">
+                                <p class="text-dark"><small> From floors, to walls to windows, chairs, doors and tables our stations and coaches consist of a variety of property we manage and take care of</small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse8b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            The property I want to report is unavailable</a></p>
+
+                        <div class="collapse" id="collapse8b">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>We apologise for any inconvenience, please select 'Other' and provide more details</small></p>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
             <select class="dropDownOption" id="faultObjectDropdown"></select>
 
     </div>
 
         <div id="otherFault"><p></p>
 
-            <p>Please Provide Details Required<i class='fas fa-question-circle'></i></p>
+            <p>Please Provide Details Required<i class='fas fa-question-circle' data-toggle="modal" data-target="#OtherInfoModal"></i></p>
+
+            <div id="OtherInfoModal" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse12a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What information should I provide?</a></p>
+
+                            <div class="collapse" id="collapse12a">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Any further details regarding the fault may be of use for us in identifying how to manage the fault</small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse12b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Do I need to write anything?</a></p>
+
+                            <div class="collapse" id="collapse12b">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small>To complete the fault report you are not obligated to write anything further</small></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <input class="inputBox" id="otherFaultInput" maxlength="500"  type="text" name="otherFaultInput" placeholder="e.g. The lift on the bridge is malfunctioning" required>
         </div>
 
 
         <div id="unhideFaultCondition"><p></p>
-            <p>Please Select a Suitable Condition<i class='fas fa-question-circle'></i></p>
+            <p>Please Select a Suitable Condition<i class='fas fa-question-circle' data-toggle="modal" data-target="#conditionModal"></i></p>
+
+            <div id="conditionModal" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse9c" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is a malfunction?</a></p>
+
+                            <div class="collapse" id="collapse9c">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Faults which are more technical or electrical are considered malfunctions. <br> E.g. unresponsive ticket machine, electronic display board glitch, train doors not opening </small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse9d" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is damaged?</a></p>
+
+                            <div class="collapse" id="collapse9d">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Faults considered damaged are more likely to be physical defects, broken seats, torn cloth etc, wobbly table </small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse9e" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                What is dirty?</a></p>
+
+                            <div class="collapse" id="collapse9e">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> Faults which can be amended with cleaning products are likely to be considered dirty </small></p>
+                                </div>
+                            </div>
+
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse9a" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Why do I need to specify a condition?</a></p>
+
+                            <div class="collapse" id="collapse9a">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small> The condition helps us to prioritise more serious faults and identify the staff required to respond to the fault</small></p>
+                                </div>
+                            </div>
+
+                            <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse9b" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                How do I determine condition?</a></p>
+
+                            <div class="collapse" id="collapse9b">
+                                <div class="card card-body">
+                                    <p class="text-dark"><small>Please select the most applicable condition listed. If unsure, or the condition isn't listed, please provide more details later</small></p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <select class="dropDownOption" id="faultConditionDropdown"></select>
         </div>
     </a>
