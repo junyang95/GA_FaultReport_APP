@@ -17,6 +17,7 @@ var isOtherFaultObject;
 var numberOfImage=1;
 var isSeatAreaFault;
 var isCoachFault;
+var isPlatform;
 
 //
 //A function will use these to check validation against each field
@@ -133,7 +134,7 @@ function displayLocationType(path,disp_id){
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
 
-            $('#'+disp_id).append($('<p>Please identify the location of the fault</p>'));
+            $('#'+disp_id).append($('<p>Where is the Fault?</p>'));
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<p class="redBox" id="'+val.html_id+'" value="'+val.locationtype_id+'" onclick="'+ val.onclickfunction +'"><i class="'+val.icon+'"></i>'+val.locationtype+'</p>'));
@@ -435,6 +436,7 @@ function unhideSeatNumberRequest(){
             isOtherFaultObject=true;
             isSeatAreaFault=false;
             validSublocation=true;
+            isPlatform=false;
 
 
         }else if(subLocationListValue==4){ // if the list was 'seating area'
@@ -450,6 +452,7 @@ function unhideSeatNumberRequest(){
             isOtherFaultObject=false;
             isSeatAreaFault=true;
             validSublocation=true;
+            isPlatform=false;
 
             $('#unhideSeatRequest').fadeIn('slow');
 
@@ -463,13 +466,14 @@ function unhideSeatNumberRequest(){
 
             scrollToId("#unhideSeatRequest");
 
-        }else if(subLocationListValue==3) {
+        }else if(subLocationListValue==3) { // this is platform option
 
             $('#unhidePlatformNumber').fadeIn('slow');
             $('#unhideFaultCondition').hide();
             $('#platformNumberInput').focus();
 
 
+            isPlatform=true;
             platformValidation();
 
             $('#nextButtonToCamera').hide();
@@ -477,7 +481,7 @@ function unhideSeatNumberRequest(){
             isSeatAreaFault=false;
             isOtherFaultObject=false;
             validSublocation=true;
-
+            isPlatform=true;
             //scrollToId("#unhidePlatformNumber");
 
 
@@ -492,6 +496,7 @@ function unhideSeatNumberRequest(){
             isOtherFaultObject=false;
             isSeatAreaFault=false;
             validSublocation=true;
+            isPlatform=false;
 
             $('#unhideSeatRequest').hide();
             $('#userLocateText').hide();
@@ -683,12 +688,12 @@ function returnSubLocation(path,locationType,disp_id){
             //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select a sub location</option>'));
+            $('#'+disp_id).append($('<option value="0" disabled selected>Specify Location</option>'));
 
             $.each(json, function(i,val) {
                 $('#'+disp_id).append($('<option value="'+ val.sublocation_id +'">'+ val.sublocation +'</option>'));
             })
-            $('#'+disp_id).append($('<option value="others">Others</option>'));
+            $('#'+disp_id).append($('<option value="others">Other</option>'));
         },
         error: function(){
             alert("error");
@@ -706,14 +711,14 @@ function getFaultObjects(path,subLocation,disp_id){
             //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select the fault</option>'));
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select Property</option>'));
 
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<option value="'+ val.fault_id +'">'+ val.faultreference +'</option>'));
             });
 
-            $('#'+disp_id).append($('<option value="o">Others</option>'));
+            $('#'+disp_id).append($('<option value="o">Other</option>'));
         },
         error: function(){
             alert("error");
@@ -771,12 +776,12 @@ function getFaultCondition(path,faultListValue,disp_id){
             //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select the condition</option>'));
+            $('#'+disp_id).append($('<option value="0" disabled selected>Select Condition</option>'));
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<option value="'+ val.condition_id +'">'+ val.condition +'</option>'));
             });
-            $('#'+disp_id).append($('<option value="other">Others</option>'));
+            $('#'+disp_id).append($('<option value="other">Other</option>'));
         },
         error: function(){
             alert("error");
@@ -815,6 +820,7 @@ function scrollToId(id){
     $('html, body').animate({
         scrollTop: $(id).offset().top
     }, 1500);
+
 }
 
 function faultReportValidation(){

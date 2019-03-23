@@ -86,6 +86,16 @@
     font-size:13pt;
 }
 
+.form-control{
+
+    border-radius: 0;
+}
+
+.form-group{
+
+    margin-bottom:0;
+}
+
 .list-group-item:first-child{
 
     border-radius:0;
@@ -117,7 +127,7 @@
     border-radius: 0;
 }
 
-#unhidePlatformNumber, #unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition,#unhideSeatNumber,#unhideSeatMap,#userLocateText,#unhideStation{
+#unhidePlatformNumber, #unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition,#unhideSeatNumber,#unhideSeatMap,#userLocateText,#unhideStation,#unhideStaffEmailInput{
 
     margin-top:30px;
 }
@@ -194,4 +204,14 @@
 
 textarea {
     resize:none;
+}
+
+.card-body{
+
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.img-responsive{
+    width:100%;
 }

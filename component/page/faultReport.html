@@ -5,8 +5,8 @@
 
     <div id="unhideStation">
 
-        <p>Please enter the station name</p>
-        <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search station name..">
+        <p>Please Enter the Station Name</p>
+        <input class="form-control-lg" id="stationInput" role="menu" type="text" placeholder="Search Station Name..">
         <ul class="list-group" id="stationList">
 
             <!--Hidden list of station here because not using frontend to get station record anymore-->
@@ -161,50 +161,62 @@
 
     <div id="unhideCoach">
 
-        <p>Please enter the coach Number  <i class='fas fa-question-circle' data-toggle="modal" data-target="#coachNumberModal"></i></p>
+        <p>Please Enter the Coach Number  <i class='fas fa-question-circle' data-toggle="modal" data-target="#coachNumberModal"></i></p>
+
 
         <div id="coachNumberModal" class="modal fade">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Need Help?<i class="close" data-dismiss="modal" aria-hidden="true">&times;</i></h4>
+                        <h4 class="modal-title">Need Help?<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></h4>
                     </div>
                     <div class="modal-body">
 
-
                         <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2a" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            I don't know the coach number?</a></p>
+                            Where can I find the coach number?</a></p>
 
                         <div class="collapse" id="collapse2a">
                             <div class="card card-body">
-                                <p class="text-dark"><small>Without the coach number you can not report a fault on a coach <br> This is because we must be able to identify the location of the fault to amend it</small></p>
+                                <p class="text-dark"><p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/CoachNoExample1.jpg" alt=""></p><small>Coach numbers can be found both ends of the coach, printed on the inside and outside</small></p>
+                                <p class="text-dark"><p class="text-dark"><img class="img-responsive" style="margin:0 auto;" src="image/CoachNoExample3.jpg" alt=""></p>
                             </div>
                         </div>
 
+
                         <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2b" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Where can I find the coach number?</a></p>
+                            I don't know the coach number</a></p>
 
                         <div class="collapse" id="collapse2b">
                             <div class="card card-body">
-                                <p class="text-dark"><small>Coach numbers can be found near each exit, printed on both the inside and outside of the coach</small></p>
+                                <p class="text-dark"><small>Without the coach number you can not report a fault on a coach</small></p>
                             </div>
                         </div>
+
 
                         <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2c" role="button" aria-expanded="false" aria-controls="collapseExample">
                             How many digits is a coach number? </a></p>
 
                         <div class="collapse" id="collapse2c">
                             <div class="card card-body">
-                                <p class="text-dark"><small>All coaches are assigned exactly 6 digits </small></p>
+                                <p class="text-dark"><small>All coaches are assigned a 5 or 6 digit long identification </small></p>
                             </div>
                         </div>
 
                         <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2d" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            My coach number is not 6 digits </a></p>
+                            My coach number is not 5 or 6 digits </a></p>
 
                         <div class="collapse" id="collapse2d">
                             <div class="card card-body">
-                                <p class="text-dark"><small>All coaches are assigned exactly 6 digits. Please look again for a 6 digit number printed on all coaches </small></p>
+                                <p class="text-dark"><small>Please check again. All coach numbers are 5 or 6 digits </small></p>
+                            </div>
+                        </div>
+
+                        <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse2e" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            What is a Coach? </a></p>
+
+                        <div class="collapse" id="collapse2e">
+                            <div class="card card-body">
+                                <p class="text-dark"><small>A coach is also known as a carriage and is one of the singular vessels which all trains consist of </small></p>
                             </div>
                         </div>
 
@@ -222,7 +234,7 @@
 
         <div id="unhideSeatMap">
 
-            <p>Where is the fault?<i class='fas fa-question-circle'></i></p>
+            <p>Please Specify the Location<i class='fas fa-question-circle'></i></p>
 
             <select class="dropDownOption" id="subLocationList"></select><p></p>
 
@@ -231,19 +243,19 @@
 
     <div id="unhidePlatformNumber">
 
-        <p>What is the platform number?<i class='fas fa-question-circle'></i></p>
+        <p>Please Enter the Platform Number<i class='fas fa-question-circle'></i></p>
         <input class="inputBox" id="platformNumberInput" maxlength="3"  type="text" name="platformNumber" placeholder="Platform Number"required>
 
     </div>
 
         <div id="unhideSeatRequest">
-            <p>Is there a seat number near or at the fault?<i class='fas fa-question-circle'></i></p>
+            <p>Is there a Seat Number Nearby?<i class='fas fa-question-circle'></i></p>
             <a href="#seatNumber"><p class="redBox"  id="seatNumberAvailable" onclick="unhideSeatNumber();"><i class='fas fa-check'></i>Yes</p></a>
             <a href="#trainMap"><p class="redBox"  id="seatNumberUnavailable" onclick="unhideTrainMap();"><i class='fas fa-times'></i>No</p></a>
         </div>
 
 
-        <p id="userLocateText">Click on the map to select the area of the fault</p>
+        <p id="userLocateText"><i class="fas fa-map-pin"></i>  Pin the Fault Location on the Interactive Coach Map</p>
 
         <div id="trainMapContainer">
 
@@ -258,7 +270,7 @@
 
     <a name="seatNumber">
         <div id="unhideSeatNumber">
-            <p>Please enter the seat Number<i class='fas fa-question-circle'></i></p>
+            <p>Please Enter the Seat Number<i class='fas fa-question-circle'></i></p>
             <input class="inputBox" id="seatNumberInput" maxlength="2" pattern="\d{2}" type="text" name="coachSeatNumber"  placeholder="Seat Number" required>
         </div>
     </a>
@@ -273,20 +285,20 @@
     <a name="faultDropdown">
     <div id="unhideFaultDescriptionDropdown"><p></p>
 
-            <p>Please identify the fault?<i class='fas fa-question-circle'></i></p>
+            <p>Please Specify the Property<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultObjectDropdown"></select>
 
     </div>
 
         <div id="otherFault"><p></p>
 
-            <p>Please specify the fault<i class='fas fa-question-circle'></i></p>
-            <input class="inputBox" id="otherFaultInput" maxlength="500"  type="text" name="otherFaultInput" placeholder="Describe the fault"required>
+            <p>Please Provide Details Required<i class='fas fa-question-circle'></i></p>
+            <input class="inputBox" id="otherFaultInput" maxlength="500"  type="text" name="otherFaultInput" placeholder="e.g. The lift on the bridge is malfunctioning" required>
         </div>
 
 
         <div id="unhideFaultCondition"><p></p>
-            <p>Please describe the condition of the fault<i class='fas fa-question-circle'></i></p>
+            <p>Please Select a Suitable Condition<i class='fas fa-question-circle'></i></p>
             <select class="dropDownOption" id="faultConditionDropdown"></select>
         </div>
     </a>
@@ -302,7 +314,7 @@
 
         <label for="imgInp" class="addPhotoIcon">
             <i class="fas fa-camera"></i>
-            <p>Add a photo</p>
+            <p>Add a Photo</p>
         </label>
 
         <input id="imgInp" type="file"/>
@@ -311,7 +323,7 @@
 
 
         <div class="form-group">
-            <label for="additionInformation">Addition Information</label>
+            <label for="additionInformation">Addition Information (Optional)</label>
             <textarea class="form-control" id="additionInformation" rows="4" maxlength="500"></textarea>
         </div>
 
@@ -323,6 +335,12 @@
         </div>-->
 
 
+        <div id="unhideStaffEmailInput">
+            <p>Please Enter Your Email</p>
+
+            <input class="inputBox" id="staffEmailInput" maxlength="100"  type="text" name="staffEmailInput" placeholder="Enter Email"required>
+
+        </div>
 
 
     </div>

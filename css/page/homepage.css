@@ -35,6 +35,19 @@
 
 }
 
+.redBoxQuestion:hover{
+
+    text-decoration: none;
+    color: white;
+}
+
+a.redBoxQuestion{
+
+    text-decoration: none;
+    color: white;
+}
+
+
 #homeSection, #reportFaultFormSection, #loginSection, #viewFaultSection{
     margin-top: 65px;
     margin-bottom:100px;

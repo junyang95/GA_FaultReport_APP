@@ -50,92 +50,6 @@ function backToHomeSectionFromFaultReport(){
 
 }
 
-/*function toFaultReport2(){
-
-      //hide location, coach number, seat number?
-
-    $('#faultReport2').show();
-    $('#faultReport1').hide();
-
-    $('#locationType').hide();
-    $('#unhideCoach').hide();
-
-    $('#unhideSeatMap').hide();
-
-
-    if(isSeatNumber){
-
-        $('#unhideSeatMap').hide();
-        $('#unhideSeatNumber').show();
-        $('#trainMapContainer').hide();
-        $('#userLocateText').hide();
-
-    }else{
-
-        $('#unhideSeatNumber').hide();
-        $('#unhideSeatNumber').hide();
-        $('#userLocateText').show();
-
-    }
-
-    if(isOtherFaultObject){
-        $('#otherFault').show();
-
-        $('#faultConditionDropdown').hide();
-        $('#unhideFaultCondition').hide();
-        $('#unhideFaultDescriptionDropdown').show();
-
-    }else{
-
-        $('#otherFault').hide();
-        //$('#unhideFaultDescriptionDropdown').show();
-        //$('#unhideFaultCondition').show();
-       // $('#faultConditionDropdown').show();
-    }
-
-    $('#backButtonToHome').hide();
-    $('#backButtonToReport1').show();
-    $('#nextButtonToReport2').hide();
-    //$('#nextButtonToCamera').show();
-
-
-    if(!isSeatAreaFault){
-        $('#unhideSeatRequest').hide();
-        $('#unhideFaultDescriptionDropdown').show();
-
-    }else{
-        $('#unhideSeatRequest').show();
-    }
-
-
-    //$('#unhideFaultDescriptionDropdown').show();
-    $('#userLocateText').hide();
-}
-
-function backToReport1(){
-
-    $('#faultReport1').show();
-    $('#locationType').show();
-    $('#unhideCoach').show();
-    $('#unhideSeatNumber').hide();
-
-    $('#unhideFaultDescriptionDropdown').hide();
-    $('#otherFault').hide();
-    $('#unhideFaultCondition').hide();
-    $('#backButtonToHome').show();
-    $('#backButtonToReport1').hide();
-    $('#nextButtonToReport2').show();
-    $('#nextButtonToCamera').hide();
-    $('#cameraSection').hide();
-
-    $('#unhideSeatMap').show();
-
-    $('#unhideSeatRequest').hide();
-    $('#trainMapContainer').hide();
-    $('#userLocateText').hide();
-
-}*/
-
 function backToReport2(){
 
     $('#cameraSection').hide();
@@ -155,7 +69,7 @@ function backToReport2(){
 
         if(isSeatNumber){
             $('#unhideSeatNumber').fadeIn('slow');
-            $('#unhideSeatMap').hide();
+            //$('#unhideSeatMap').hide();
             $('#trainMapContainer').hide();
             $('#userLocateText').hide();
 
@@ -164,7 +78,6 @@ function backToReport2(){
             $('#unhideSeatNumber').hide();
             $('#userLocateText').fadeIn('slow');
             $('#trainMapContainer').fadeIn('slow');
-
         }
 
     }else{
@@ -174,7 +87,6 @@ function backToReport2(){
 
     if(isOtherFaultObject){
         $('#otherFault').fadeIn('slow');
-
         $('#faultConditionDropdown').hide();
         $('#unhideFaultCondition').hide();
         $('#unhideFaultDescriptionDropdown').fadeIn('slow');
@@ -185,7 +97,6 @@ function backToReport2(){
         $('#unhideFaultDescriptionDropdown').fadeIn('slow');
         $('#unhideFaultCondition').fadeIn('slow');
         $('#faultConditionDropdown').fadeIn('slow');
-
     }
 
     if(isCoachFault){
@@ -193,9 +104,15 @@ function backToReport2(){
         $('#unhideCoach').fadeIn('slow');
         $('#unhideStation').hide();
     }else{
-        $('#unhideCoach').fadeIn('slow');
-        $('#unhideStation').hide();
+        $('#unhideStation').fadeIn('slow');
+        $('#unhideCoach').hide();
+    }
 
+    if(isPlatform){
+
+        $('#unhidePlatformNumber').fadeIn('slow');
+    }else{
+        $('#unhidePlatformNumber').hide();
     }
 }
 
@@ -238,6 +155,7 @@ function toCamera(){
             alert('Invalid File Type');
         }else{
             readURL(this);
+            $('#additionInformation').focus();
         }
 
     });
