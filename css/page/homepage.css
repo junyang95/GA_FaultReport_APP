@@ -35,7 +35,7 @@
 
 }
 
-#homeSection, #reportFaultFormSection, #loginSection, #viewFaultSection{
+#homeSection, #reportFaultFormSection, #loginSection, #viewFaultSection, #faultDetailSection{
     margin-top: 65px;
     margin-bottom:100px;
 }
@@ -93,7 +93,7 @@
     margin-right: 10px;
 }
 
-#reportFaultFormSection, #loginSection, #viewFaultSection{
+#reportFaultFormSection, #loginSection, #viewFaultSection, #faultDetailSection{
     display: none;
 }
 

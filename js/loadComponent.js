@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('#reportFaultFormSection').load("component/page/faultReport.html");
     $('#loginSection').load("component/page/logIn.html");
     $('#viewFaultSection').load("component/page/viewFault.html");
-
+    $('#faultDetailSection').load("component/page/faultDetail.html");
 
     //Components
     $('#navFooter').load("component/component/navFooter.html");
