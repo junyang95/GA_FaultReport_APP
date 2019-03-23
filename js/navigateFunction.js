@@ -223,11 +223,22 @@ function toCamera(){
       $('#locationType').hide();
       $('#unhideCoach').hide();
       $('#unhideStation').hide();
+
+      $('#unhidePlatformNumber').hide();
      //$('#unhidePlatformNumber').hide();
 
 
 
+
+
     $("#imgInp").change(function(){
-        readURL(this);
+
+        var ext = $('#imgInp').val().split('.').pop().toLowerCase();
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            alert('Invalid File Type');
+        }else{
+            readURL(this);
+        }
+
     });
 }

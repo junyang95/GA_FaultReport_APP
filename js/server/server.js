@@ -77,19 +77,19 @@ http.createServer(function (req, res) {
         case '/getStation':
             if (req.method == 'POST') {
 
-                req.on('data', function () {
-                    req.on('end', async function () {
-                        const {Client} = databaseType;
-                        const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
-                        await client.connect(); // create a database connection
-                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                        const res2 = await client.query('SELECT * FROM station'); // after the insertion, we return the complete table.
-                        await client.end();
-                        json = res2.rows;
-                        var json_str_new = JSON.stringify(json);
-                        //console.log(json_str_new);
-                        res.end(json_str_new);
-                    });
+                console.log("Hi");
+                req.on('data', function () {});
+                req.on('end', async function () {
+                    const {Client} = databaseType;
+                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp');
+                    const res2 = await client.query('SELECT * FROM station');
+                    await client.end();
+                    json = res2.rows;
+                    var json_str_new = JSON.stringify(json);
+                    console.log(json_str_new);
+                    res.end(json_str_new);
                 });
             }
             break;

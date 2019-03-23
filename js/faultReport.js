@@ -78,6 +78,7 @@ function unhideCoach(){
     $('#unhidePlatformNumber').hide();
     $('#otherFault').hide();
 
+    $('#coachNumberInput').focus();
 
 
 
@@ -93,8 +94,17 @@ function unhideStation(){
     $("#unhideCoach").hide();
     $('#stationBox').css('background-color','#D70428');
     $('#coachBox').css('background-color','lightgray');
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    displayStation(getStationPath,"stationList");
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     stationFilter();
-    //displayStation(getStationPath,"stationList");
+
     locationType = $('#stationBox').attr("value");
     $('#nextButtonToReport2').hide();
     $('#coachNumberInput').val("");
@@ -108,13 +118,9 @@ function unhideStation(){
     $('#unhidePlatformNumber').hide();
     $('#otherFault').hide();
 
-
-
+    $('#stationInput').focus();
 
     ///faultReportValidation();
-
-
-
 }
 
 function displayLocationType(path,disp_id){
@@ -145,6 +151,14 @@ function stationFilter(){
 
     $("#stationInput").on("keyup", function() {
 
+        $('#unhideSeatMap').hide();
+        $('#unhideFaultDescriptionDropdown').hide();
+        $('#unhideFaultCondition').hide();
+        $('#otherFault').hide();
+        $('#unhidePlatformNumber').hide();
+        $('#nextButtonToCamera').hide();
+
+
         var value = $(this).val().toLowerCase();
         $("#stationList li").filter(function() {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -162,9 +176,7 @@ function stationDropdownSelect(){
 
     //have a look where to move this may to station filter
 
-
-
-    $("#stationList").find("li").click(function(){
+    $("#stationList").on("click","li",function(){
 
         $('.selectedStation').removeClass('selectedStation');
         $(this).addClass('selectedStation');
@@ -198,14 +210,17 @@ function displayStation(path,disp_id){
         url: path,
         type: "POST",
         //data: json,
+
         success: function(rt) {
             //console.log(rt); // returned data
             var json = JSON.parse(rt); // the returned data will be an array
             $('#'+disp_id).empty();
             $.each(json, function(i,val) {
                 //console.log(val);
-                $('#'+disp_id).html('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
-                //$('#'+disp_id).append('<li class="list-group-item" value="'+ val.stationname_id +'">'+ val.stationname +'</li>');
+
+                //$('#'+disp_id).html('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
+
+                $('#'+disp_id).fadeIn('slow').append('<li class="list-group-item" value="'+ val.station_id +'">'+ val.stationname +'</li>');
             })
         },
         error: function(){
@@ -413,6 +428,9 @@ function unhideSeatNumberRequest(){
             $('#nextButtonToCamera').hide();
             $('#unhideSeatRequest').hide();
             $('#userLocateText').hide();
+            $('#unhideFaultCondition').hide();
+
+            $('#otherFaultInput').focus();
 
             isOtherFaultObject=true;
             isSeatAreaFault=false;
@@ -427,6 +445,7 @@ function unhideSeatNumberRequest(){
             $('#unhideFaultDescriptionDropdown').hide();
             $('#otherFault').hide();
             $('#nextButtonToCamera').hide();
+            $('#unhideFaultCondition').hide();
 
             isOtherFaultObject=false;
             isSeatAreaFault=true;
@@ -447,12 +466,11 @@ function unhideSeatNumberRequest(){
         }else if(subLocationListValue==3) {
 
             $('#unhidePlatformNumber').fadeIn('slow');
+            $('#unhideFaultCondition').hide();
+            $('#platformNumberInput').focus();
+
 
             platformValidation();
-
-
-            //$('#unhideFaultDescriptionDropdown').hide();
-            //$('#otherFault').hide();
 
             $('#nextButtonToCamera').hide();
 
@@ -486,6 +504,7 @@ function unhideSeatNumberRequest(){
             $('#unhidePlatformNumber').hide();
             $('#nextButtonToCamera').hide();
 
+
             scrollToId("#unhideFaultDescriptionDropdown");
         };
     });
@@ -493,6 +512,7 @@ function unhideSeatNumberRequest(){
 }
 
 function unhideCondition(){
+
 
     $("#faultObjectDropdown").change(function () {
 
@@ -555,10 +575,12 @@ function conditionDropdownChanges(){
 
             validCondition=true;
 
+            $('#nextButtonToCamera').fadeIn("slow");
+
         }else{
             validCondition=true;
 
-            //$('#nextButtonToCamera').fadeIn("slow");
+            $('#nextButtonToCamera').fadeIn("slow");
         }
 
     });
@@ -714,6 +736,9 @@ function getCoordinateFromMap(){
         validTrainMapSelect=true;
 
         $('#faultLocationPoint').show();
+
+
+
         if(subLocationListValue==0) {
 
             $('#unhideFaultCondition').hide();
@@ -772,10 +797,10 @@ function otherFaultDescValidation(){
 
             //alert(validOtherFaultDesc);
 
-            //$('#nextButtonToCamera').hide();
+            $('#nextButtonToCamera').hide();
         }else{
 
-            //$('#nextButtonToCamera').show();
+            $('#nextButtonToCamera').fadeIn('slow');
             validOtherFaultDesc=true;
 
             //alert(validOtherFaultDesc);
@@ -909,20 +934,25 @@ function faultReportValidation(){
 
 
 function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#imagePreview').attr('src', e.target.result);
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imagePreview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+            $('#imagePreview').show();
+            $('.addPhotoIcon').hide();
+            $('#replaceImageButton').show();
+            $('#removeImage').show();
         }
 
-        reader.readAsDataURL(input.files[0]);
 
-        $('#imagePreview').show();
-        $('.addPhotoIcon').hide();
-        $('#replaceImageButton').show();
-        $('#removeImage').show();
-    }
+
 }
 
 function removeImage(){
