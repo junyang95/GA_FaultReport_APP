@@ -16,13 +16,3 @@ function filterSelection(ID_listGroup, ID_listGroupItem) {
 
     PostAjax('http://localhost:8081/filter', data, 'viewFaultTableBody', 'filter');
 }
-
-$(document).ready(function () {
-    //jQuery click not working for dynamically created items [duplicate], the ID must be the static part;
-    //https://api.jquery.com/on/#on-events-selector-data-handler
-    //event handler  for static element
-    $('#viewFaultSection').on('click', 'tbody > tr', function (event) {
-        var report_id =  $(this).find('th').text();
-    });
-
-});

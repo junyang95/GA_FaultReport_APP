@@ -210,6 +210,111 @@ http.createServer(function (req, res) {
                 });
             }
             break;
+        case '/detail':
+            if (req.method == 'POST') {
+                console.log("POST /detail");
+                var body = '';
+
+                req.on('data', function (data) {
+                    body += data;
+                    req.on('end', async function () {
+                        var json_str_new = '';
+                        var json_array = [];
+
+                        var jsObject = JSON.parse(body);
+                        console.log(body);
+                        console.log(jsObject);
+                        console.log(jsObject.report_id);
+                        const {Client} = databaseType;
+                        const client = new Client({
+                            user: user,
+                            password: password,
+                            database: database,
+                            port: port,
+                            host: host,
+                            ssl: ssl
+                        });
+                        await client.connect(); // create a database connection
+                        client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
+                        const res1 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource \n' +
+                            'FROM report\n' +
+                            'INNER JOIN staff ON report.staff_id = staff.staff_id\n' +
+                            'INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
+                            'INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id\n' +
+                            'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
+                            'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                            'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
+                            'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
+                            'INNER JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
+                            'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
+                            'FULL JOIN station ON report.station_id = station.station_id\n' +
+                            'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
+                            'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                            'WHERE report_id = ' + jsObject.report_id + ';');
+                        await client.end();
+                        console.log(res1);
+                        const json_db = res1.rows;
+
+                        for (let i = 0; i < json_db.length; i++) {
+                            const report_id = json_db[i].report_id;
+                            const staff_id = json_db[i].staff_id;
+                            const coachnumber = json_db[i].coachnumber;
+                            const seatno = json_db[i].seatno;
+                            const coordinate = json_db[i].coordinate;
+                            const faultdescription = json_db[i].faultdescription;
+                            const timestamp = json_db[i].timestamp;
+                            const firstname = json_db[i].firstname;
+                            const lastname = json_db[i].lastname;
+                            const email = json_db[i].email;
+                            //const issuetype = json_db[i].issuetype;
+                            //const fault = json_db[i].fault;
+                            const condition = json_db[i].condition;
+                            const coachmap_id = json_db[i].coachmap_id;
+                            const stationname = json_db[i].stationname;
+                            const faultstatus = json_db[i].faultstatus;
+                            const sublocation = json_db[i].sublocation;
+                            const locationtype = json_db[i].locationtype;
+                            const faultreference = json_db[i].faultreference;
+                            const roletype = json_db[i].roletype;
+                            const mapsource = json_db[i].mapsource;
+
+                            var data = {
+                                report_id: report_id,
+                                staff_id: staff_id,
+                                coachnumber: coachnumber,
+                                seatno: seatno,
+                                coordinate: coordinate,
+                                faultdescription: faultdescription,
+                                timestamp: timestamp,
+                                firstname: firstname,
+                                lastname: lastname,
+                                email: email,
+                                //issuetype:      issuetype,
+                                //fault:          fault,
+                                condition: condition,
+                                coachmap_id: coachmap_id,
+                                stationname: stationname,
+                                faultstatus: faultstatus,
+                                sublocation: sublocation,
+                                locationtype: locationtype,
+                                faultreference: faultreference,
+                                roletype: roletype,
+                                mapsource: mapsource
+                            };
+
+                            json_array.push(data);
+                        }
+
+
+                        json_str_new = JSON.stringify(json_array);
+                        console.log('success: ' + json_str_new);
+                        res.end(json_str_new);
+                    });
+                });
+            }
+
+
+            break;
         case '/filter':
             if (req.method == 'POST') {
                 console.log("POST /filter");

@@ -108,7 +108,55 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                         $('#viewFaultTableBody').append(htmlFaultTable);
                     }
                     break;
-                case 'case2':
+                case 'detail':
+                    $('#viewFaultSection').hide();
+                    $('#faultDetailSection').show();
+                    for (var i = 0; i < json_array.length; i++) {
+                        if (json_array[i].locationtype == 'Train'){
+                            $('#t_coachnumber').show();
+                            $('#d_coachnumber').show();
+
+                            $('#t_seatno').show();
+                            $('#d_seatno').show();
+
+                            $('#t_stationname').hide();
+                            $('#d_stationname').hide();
+
+                            $('#d_coordinateCanvas').show();
+                            $('#d_mapCanvas').show();
+                        }else if(json_array[i].locationtype == 'Station'){
+                            $('#t_coachnumber').hide();
+                            $('#d_coachnumber').hide();
+
+                            $('#t_seatno').hide();
+                            $('#d_seatno').hide();
+
+                            $('#t_stationname').show();
+                            $('#d_stationname').show();
+
+                            $('#d_coordinateCanvas').hide();
+                            $('#d_mapCanvas').hide();
+                        }
+
+                        $('#d_report_id').append(json_array[i].report_id);
+                        $('#d_timestamp').append(conertTimestamp(json_array[i].timestamp));
+                        $('#d_description').append(json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype);
+                        $('#d_faultdescription').append(json_array[i].faultdescription);
+                        $('#d_staff_id').append(json_array[i].staff_id);
+                        $('#d_name').append(json_array[i].firstname + ' ' + json_array[i].lastname);
+                        $('#d_roletype').append(json_array[i].roletype);
+                        $('#d_email').append(json_array[i].email);
+
+                        $('#d_locationtype').append(json_array[i].locationtype);
+                        $('#d_coachnumber').append(json_array[i].coachnumber);
+                        $('#d_seatno').append(json_array[i].seatno);
+                        $('#d_stationname').append(json_array[i].stationname);
+
+                        //still got bug on the map.
+                        $('#d_mapCanvas').append('<img id="trainMapStyle1" src="image/trainMap/'+ json_array[i].mapsource +'">');
+
+                        //$('#d_coordinateCanvas').append();
+                    }
 
                     break;
                 case 'logincheck':
