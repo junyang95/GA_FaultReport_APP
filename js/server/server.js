@@ -200,7 +200,7 @@ http.createServer(function (req, res) {
                     const client = new Client({user: user,password: password,database: database,port: port,host: host,ssl: ssl});
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                    const res2 = await client.query('select condition from condition order by condition ASC;'); // after the insertion, we return the complete table.
+                    const res2 = await client.query('select * from condition order by condition ASC;'); // after the insertion, we return the complete table.
                     await client.end();
                     json = res2.rows;
                     var json_str_new = JSON.stringify(json);

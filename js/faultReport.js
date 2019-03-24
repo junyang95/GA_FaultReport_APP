@@ -2,12 +2,13 @@
 
 var outputCoachNumber;
 var locationType;
-var xPercentage;
-var yPercentage;
+var xPercentage=null;
+var yPercentage=null;
 var subLocationListValue;
 var faultListValue;
 var conditionValue;
 var stationValue;
+
 
 
 // variables for storing purpose
@@ -62,7 +63,7 @@ function unhideCoach(){
 
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
-    otherFaultDescValidation();
+
 
     locationType = $('#coachBox').attr("value");
 
@@ -97,11 +98,13 @@ function unhideStation(){
     $('#coachBox').css('background-color','lightgray');
 
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     displayStation(getStationPath,"stationList");
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
     stationFilter();
@@ -118,6 +121,7 @@ function unhideStation(){
     $('#userLocateText').hide();
     $('#unhidePlatformNumber').hide();
     $('#otherFault').hide();
+
 
     $('#stationInput').focus();
 
@@ -151,6 +155,8 @@ function displayLocationType(path,disp_id){
 function stationFilter(){
 
     $("#stationInput").on("keyup", function() {
+
+        //$('#stationList').fadeIn('slow');
 
         $('#unhideSeatMap').hide();
         $('#unhideFaultDescriptionDropdown').hide();
@@ -222,6 +228,7 @@ function displayStation(path,disp_id){
                 //$('#'+disp_id).html('<li class="list-group-item" value='+ val.stationname_id +'">'+ val.stationname +'</li>');
 
                 $('#'+disp_id).fadeIn('slow').append('<li class="list-group-item" value="'+ val.station_id +'">'+ val.stationname +'</li>');
+
             })
         },
         error: function(){
@@ -432,11 +439,14 @@ function unhideSeatNumberRequest(){
             $('#unhideFaultCondition').hide();
 
             $('#otherFaultInput').focus();
+            $('#otherFault').fadeIn("slow");
+            otherFaultDescValidation();
 
             isOtherFaultObject=true;
             isSeatAreaFault=false;
             validSublocation=true;
             isPlatform=false;
+
 
 
         }else if(subLocationListValue==4){ // if the list was 'seating area'
@@ -472,6 +482,8 @@ function unhideSeatNumberRequest(){
             $('#unhideFaultCondition').hide();
             $('#platformNumberInput').focus();
 
+            $('#otherFault').hide();
+            $('#unhideFaultDescriptionDropdown').hide();
 
             isPlatform=true;
             platformValidation();
@@ -532,12 +544,16 @@ function unhideCondition(){
         }else if(faultListValue=="o"){
 
             getFaultCondition(getFaultConditiontPath,faultListValue,'faultConditionDropdown');
-            $('#otherFault').fadeIn("slow");
+
             $('#unhideFaultCondition').hide();
             $('#nextButtonToCamera').hide();
 
             isOtherFaultObject=true;
             validFaultObject=true;
+
+            $('#otherFaultInput').focus();
+            $('#otherFault').fadeIn("slow");
+            otherFaultDescValidation();
 
             scrollToId("#otherFault");
 
@@ -576,16 +592,25 @@ function conditionDropdownChanges(){
         if(conditionValue==0){
             validCondition=false;
 
-        }else if(conditionValue=="o"){
+        }else if(conditionValue=="other"){
 
             validCondition=true;
+            isOtherFaultObject=true;
 
-            $('#nextButtonToCamera').fadeIn("slow");
+            //$('#nextButtonToCamera').fadeIn("slow");
+            $('#otherFaultInput').focus();
+            $('#otherFault').fadeIn("slow");
+            otherFaultDescValidation();
+
+            $('#nextButtonToCamera').hide();
+            scrollToId("#otherFault");
 
         }else{
             validCondition=true;
+            isOtherFaultObject=false;
 
             $('#nextButtonToCamera').fadeIn("slow");
+            $('#otherFault').hide();
         }
 
     });
@@ -598,16 +623,24 @@ function unhideOtherOption(){
 
     faultListValue = $('#faultObjectDropdown').find('option:selected').attr("value");
 
-
-    //alert(faultObject);
+    conditionValue = $('#faultConditionDropdown').find('option:selected').attr("value");
 
     if(faultListValue==0){
-        $('#unhideFaultDescriptionDropdown').hide();
+        //$('#unhideFaultDescriptionDropdown').hide();
 
     } else if(faultListValue == "o"){
-        $('#otherFault').show();
+        $('#otherFault').fadeIn('slow');
         $('#unhideFaultCondition').hide();
 
+    }else{
+        $('#otherFault').hide();
+    }
+
+    if(conditionValue==0){
+        //$('#unhideFaultConditionDropdown').hide();
+
+    }else if(conditionValue=="other"){
+        $('#otherFault').fadeIn('slow');
     }else{
         $('#otherFault').hide();
     }
@@ -742,8 +775,6 @@ function getCoordinateFromMap(){
 
         $('#faultLocationPoint').show();
 
-
-
         if(subLocationListValue==0) {
 
             $('#unhideFaultCondition').hide();
@@ -751,8 +782,9 @@ function getCoordinateFromMap(){
 
         }else if(subLocationListValue==4){
 
-            $('#unhideFaultDescriptionDropdown').show();
-            $('#faultObjectDropdown').show();
+
+            $('#unhideFaultDescriptionDropdown').fadeIn('slow');
+            unhideCondition();
             $('#otherFault').hide();
 
             scrollToId("#faultObjectDropdown");
@@ -760,7 +792,7 @@ function getCoordinateFromMap(){
 
         if(isOtherFaultObject){
 
-            $('#otherFault').show();
+            $('#otherFault').fadeIn('slow');
         }else{
             $('#otherFault').hide();
         }
@@ -780,8 +812,11 @@ function getFaultCondition(path,faultListValue,disp_id){
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<option value="'+ val.condition_id +'">'+ val.condition +'</option>'));
+
+                console.log(val);
             });
             $('#'+disp_id).append($('<option value="other">Other</option>'));
+
         },
         error: function(){
             alert("error");
@@ -792,7 +827,11 @@ function getFaultCondition(path,faultListValue,disp_id){
 
 function otherFaultDescValidation(){
 
+    $('#otherFaultInput').val("");
+
     $("#otherFaultInput").on("keyup", function() {
+
+        $('#nextButtonToCamera').fadeIn('slow');
 
         var otherFaultInputValue = $('#otherFaultInput').val();
 
@@ -800,18 +839,13 @@ function otherFaultDescValidation(){
 
             validOtherFaultDesc=false;
 
-            //alert(validOtherFaultDesc);
-
             $('#nextButtonToCamera').hide();
+
         }else{
 
             $('#nextButtonToCamera').fadeIn('slow');
             validOtherFaultDesc=true;
-
-            //alert(validOtherFaultDesc);
         }
-
-
     });
 }
 
@@ -974,4 +1008,30 @@ function uploadImage(){
 
     $('#imgInp')[0];
 }
+
+function emailValidation(){
+
+    $("#staffEmailInput").on("keyup", function() {
+
+        var email = $('#staffEmailInput').val();
+
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+
+        if(!emailReg.test(email) || !email){
+
+            $('#staffEmailInput').css('border','1px solid #D70428');
+            $('#submitButton').hide();
+
+        }else{
+
+            $('#staffEmailInput').css('border','1px solid #ccc');
+            $('#submitButton').fadeIn('slow');
+
+        }
+
+    });
+
+
+}
+
 

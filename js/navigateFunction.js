@@ -126,26 +126,20 @@ function toCamera(){
       $('#unhideFaultCondition').hide();
       $('#otherFault').hide();
       $('#unhideSeatNumber').hide();
-
       $('#backButtonToReport1').hide();
       $('#nextButtonToCamera').hide();
       $('#backButtonToHome').hide();
-
       $('#backButtonToReport2').show();
-      $('#submitButton').show();
       $('#unhideSeatRequest').hide();
       $('#trainMapContainer').hide();
       $('#userLocateText').hide();
-
       $('#locationType').hide();
       $('#unhideCoach').hide();
       $('#unhideStation').hide();
-
       $('#unhidePlatformNumber').hide();
-     //$('#unhidePlatformNumber').hide();
+      $('#nextButtonToCamera').hide();
 
-
-
+    emailValidation();
 
 
     $("#imgInp").change(function(){
@@ -156,6 +150,7 @@ function toCamera(){
         }else{
             readURL(this);
             $('#additionInformation').focus();
+
         }
 
     });

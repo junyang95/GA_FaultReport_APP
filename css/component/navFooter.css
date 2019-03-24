@@ -68,3 +68,15 @@ button{
     margin-right: 5px;
 }
 
+.boldText{
+
+    font-family: Gilroy-Medium;
+}
+
+#submitButton{
+    display: none;
+}
+
+#submitButton:focus {
+    outline:0;
+}
