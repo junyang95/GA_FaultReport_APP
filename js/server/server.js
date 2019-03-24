@@ -234,10 +234,10 @@ http.createServer(function (req, res) {
                         });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue \n' +
+                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue, platformnumber \n' +
                             'FROM report\n' +
-                            'INNER JOIN staff ON report.email = staff.email\n' +
-                            'INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
+                            'FULL JOIN staff ON report.email = staff.email\n' +
+                            'FULL JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
                             'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                             'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                             'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
@@ -275,6 +275,7 @@ http.createServer(function (req, res) {
                             const roletype = json_db[i].roletype;
                             const mapsource = json_db[i].mapsource;
                             const othervalue = json_db[i].othervalue;
+                            const platformnumber = json_db[i].platformnumber;
 
                             var data = {
                                 report_id: report_id,
@@ -298,7 +299,8 @@ http.createServer(function (req, res) {
                                 faultreference: faultreference,
                                 roletype: roletype,
                                 mapsource: mapsource,
-                                othervalue: othervalue
+                                othervalue: othervalue,
+                                platformnumber: platformnumber
                             };
 
                             json_array.push(data);
@@ -362,7 +364,7 @@ http.createServer(function (req, res) {
 
                         const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                             'FROM report\n' +
-                            'INNER JOIN staff ON report.email = staff.email\n' +
+                            'FULL JOIN staff ON report.email = staff.email\n' +
                             'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                             'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                             'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
@@ -467,7 +469,7 @@ http.createServer(function (req, res) {
                             const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
                             const res3 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                                 'FROM report\n' +
-                                'INNER JOIN staff ON report.email = staff.email\n' +
+                                'FULL JOIN staff ON report.email = staff.email\n' +
                                 'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                                 'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                                 'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +

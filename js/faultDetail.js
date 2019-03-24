@@ -13,6 +13,7 @@ function setAllddNone() {
     $('#d_coachnumber').empty();
     $('#d_seatno').empty();
     $('#d_stationname').empty();
+    $('#d_platformnumber').empty();
 
     $('#d_coordinateCanvas').empty();
     $('#d_mapCanvas').empty();

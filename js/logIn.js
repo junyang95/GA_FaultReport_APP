@@ -122,6 +122,9 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#t_stationname').hide();
                             $('#d_stationname').hide();
 
+                            $('#t_platformnumber').hide();
+                            $('#d_platformnumber').hide();
+
                             $('#d_coordinateCanvas').show();
                             $('#d_mapCanvas').show();
                         }else if(json_array[i].locationtype == 'Station'){
@@ -133,6 +136,9 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                             $('#t_stationname').show();
                             $('#d_stationname').show();
+
+                            $('#t_platformnumber').show();
+                            $('#d_platformnumber').show();
 
                             $('#d_coordinateCanvas').hide();
                             $('#d_mapCanvas').hide();
@@ -153,6 +159,7 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                         $('#d_coachnumber').append(json_array[i].coachnumber);
                         $('#d_seatno').append(json_array[i].seatno);
                         $('#d_stationname').append(json_array[i].stationname);
+                        $('#d_platformnumber').append(json_array[i].platformnumber);
 
                         //still have not been implemented
                         //>>>>>>json_array[i].othervalue;
