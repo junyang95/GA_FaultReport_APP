@@ -1,11 +1,28 @@
 <div class="container">
     <p id="statusFaultDetail">There is no data transmission between front end and back end!</p>
 
+    <div class="row mb-1">
+        <p class="col-6 text-left font-weight-bold mb-0" style="font-size: 22pt; color: #D70428" id="d_faultstatus">No Status</p>
+
+        <div class="col-6 dropdown text-right">
+            <button class="btn btn-primary dropdown-toggle align-middle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Change Status
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">Reported</a>
+                <a class="dropdown-item">In Progress</a>
+                <a class="dropdown-item">Completed</a>
+            </div>
+        </div>
+
+    </div>
+
     <div id="detailAccordion">
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h5 class="mb-0">
-                    <button class="btn btn-link text-decoration-none" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                    <button class="btn btn-link text-decoration-none" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true"
                             aria-controls="collapseOne">
                         Fault Details
                     </button>
@@ -47,7 +64,8 @@
         <div class="card">
             <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse" data-target="#collapseTwo"
+                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse"
+                            data-target="#collapseTwo"
                             aria-expanded="false" aria-controls="collapseTwo">
                         Fault Location
                     </button>
@@ -68,8 +86,10 @@
                         <dt class="col-3 text-muted" id="t_stationname">Station</dt>
                         <dd class="col-9 text-right" id="d_stationname">Cambridge</dd>
                     </dl>
-                    <canvas id="d_coordinateCanvas"></canvas>
-                    <div id="d_mapCanvas"></div>
+                    <div id="d_mapContainer">
+                        <div id="d_coordinateCanvas"></div>
+                        <div id="d_mapCanvas"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -78,7 +98,8 @@
         <div class="card">
             <div class="card-header" id="headingThree">
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse" data-target="#collapseThree"
+                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse"
+                            data-target="#collapseThree"
                             aria-expanded="false" aria-controls="collapseThree">
                         Fault Photos
                     </button>

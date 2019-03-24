@@ -138,10 +138,12 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#d_mapCanvas').hide();
                         }
 
+                        $('#d_faultstatus').append(json_array[i].faultstatus);
+
                         $('#d_report_id').append(json_array[i].report_id);
                         $('#d_timestamp').append(conertTimestamp(json_array[i].timestamp));
                         $('#d_description').append(json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype);
-                        $('#d_faultdescription').append(json_array[i].faultdescription);
+                        $('#d_faultdescription').append(json_array[i].faultadditionalinfo);
                         $('#d_staff_id').append(json_array[i].staff_id);
                         $('#d_name').append(json_array[i].firstname + ' ' + json_array[i].lastname);
                         $('#d_roletype').append(json_array[i].roletype);
@@ -152,8 +154,11 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                         $('#d_seatno').append(json_array[i].seatno);
                         $('#d_stationname').append(json_array[i].stationname);
 
+                        //still have not been implemented
+                        //>>>>>>json_array[i].othervalue;
+
                         //still got bug on the map.
-                        $('#d_mapCanvas').append('<img id="trainMapStyle1" src="image/trainMap/'+ json_array[i].mapsource +'">');
+                        $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/'+ json_array[i].mapsource +'">');
 
                         //$('#d_coordinateCanvas').append();
                     }

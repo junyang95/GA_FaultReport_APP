@@ -1,4 +1,5 @@
 function setAllddNone() {
+    $('#d_faultstatus').empty();
     $('#d_report_id').empty();
     $('#d_timestamp').empty();
     $('#d_description').empty();

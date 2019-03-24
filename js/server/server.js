@@ -222,9 +222,7 @@ http.createServer(function (req, res) {
                         var json_array = [];
 
                         var jsObject = JSON.parse(body);
-                        console.log(body);
-                        console.log(jsObject);
-                        console.log(jsObject.report_id);
+
                         const {Client} = databaseType;
                         const client = new Client({
                             user: user,
@@ -236,23 +234,22 @@ http.createServer(function (req, res) {
                         });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                        const res1 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource \n' +
+                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue \n' +
                             'FROM report\n' +
-                            'INNER JOIN staff ON report.staff_id = staff.staff_id\n' +
+                            'INNER JOIN staff ON report.email = staff.email\n' +
                             'INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
-                            'INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id\n' +
                             'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                             'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                             'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
                             'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
-                            'INNER JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
+                            'FULL JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
                             'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
                             'FULL JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
                             'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
                             'WHERE report_id = ' + jsObject.report_id + ';');
                         await client.end();
-                        console.log(res1);
+                        //console.log(res1);
                         const json_db = res1.rows;
 
                         for (let i = 0; i < json_db.length; i++) {
@@ -261,7 +258,7 @@ http.createServer(function (req, res) {
                             const coachnumber = json_db[i].coachnumber;
                             const seatno = json_db[i].seatno;
                             const coordinate = json_db[i].coordinate;
-                            const faultdescription = json_db[i].faultdescription;
+                            const faultadditionalinfo = json_db[i].faultadditionalinfo;
                             const timestamp = json_db[i].timestamp;
                             const firstname = json_db[i].firstname;
                             const lastname = json_db[i].lastname;
@@ -277,6 +274,7 @@ http.createServer(function (req, res) {
                             const faultreference = json_db[i].faultreference;
                             const roletype = json_db[i].roletype;
                             const mapsource = json_db[i].mapsource;
+                            const othervalue = json_db[i].othervalue;
 
                             var data = {
                                 report_id: report_id,
@@ -284,7 +282,7 @@ http.createServer(function (req, res) {
                                 coachnumber: coachnumber,
                                 seatno: seatno,
                                 coordinate: coordinate,
-                                faultdescription: faultdescription,
+                                faultadditionalinfo: faultadditionalinfo,
                                 timestamp: timestamp,
                                 firstname: firstname,
                                 lastname: lastname,
@@ -299,7 +297,8 @@ http.createServer(function (req, res) {
                                 locationtype: locationtype,
                                 faultreference: faultreference,
                                 roletype: roletype,
-                                mapsource: mapsource
+                                mapsource: mapsource,
+                                othervalue: othervalue
                             };
 
                             json_array.push(data);
@@ -361,10 +360,9 @@ http.createServer(function (req, res) {
 
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
 
-                        const res1 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
+                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                             'FROM report\n' +
-                            'INNER JOIN staff ON report.staff_id = staff.staff_id\n' +
-                            'INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id\n' +
+                            'INNER JOIN staff ON report.email = staff.email\n' +
                             'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                             'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                             'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
@@ -384,7 +382,7 @@ http.createServer(function (req, res) {
                             const coachnumber = json_db[i].coachnumber;
                             const seatno = json_db[i].seatno;
                             const coordinate = json_db[i].coordinate;
-                            const faultdescription = json_db[i].faultdescription;
+                            const faultadditionalinfo = json_db[i].faultadditionalinfo;
                             const timestamp = json_db[i].timestamp;
                             const firstname = json_db[i].firstname;
                             const lastname = json_db[i].lastname;
@@ -405,7 +403,7 @@ http.createServer(function (req, res) {
                                 coachnumber: coachnumber,
                                 seatno: seatno,
                                 coordinate: coordinate,
-                                faultdescription: faultdescription,
+                                faultadditionalinfo: faultadditionalinfo,
                                 timestamp: timestamp,
                                 firstname: firstname,
                                 lastname: lastname,
@@ -458,7 +456,7 @@ http.createServer(function (req, res) {
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
 
                         const res1 = await client.query('SELECT password FROM staff WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
-                        //console.log(res1);
+                        console.log(res1);
 
                         if (res1.rowCount >= 1) {
                             //there is the user in database
@@ -467,10 +465,9 @@ http.createServer(function (req, res) {
                             const db_hash = json_db_hash[0].password;
 
                             const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
-                            const res3 = await client.query('SELECT report_id, report.staff_id, report.coachnumber, seatno, coordinate, faultdescription, timestamp, firstname, lastname, email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
+                            const res3 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, coordinate, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                                 'FROM report\n' +
-                                'INNER JOIN staff ON report.staff_id = staff.staff_id\n' +
-                                'INNER JOIN issuetype ON report.issuetype_id = issuetype.issuetype_id\n' +
+                                'INNER JOIN staff ON report.email = staff.email\n' +
                                 'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
                                 'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
                                 'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
@@ -514,7 +511,7 @@ http.createServer(function (req, res) {
                                         const coachnumber = json_db[i].coachnumber;
                                         const seatno = json_db[i].seatno;
                                         const coordinate = json_db[i].coordinate;
-                                        const faultdescription = json_db[i].faultdescription;
+                                        const faultadditionalinfo = json_db[i].faultadditionalinfo;
                                         const timestamp = json_db[i].timestamp;
                                         const firstname = json_db[i].firstname;
                                         const lastname = json_db[i].lastname;
@@ -535,7 +532,7 @@ http.createServer(function (req, res) {
                                             coachnumber: coachnumber,
                                             seatno: seatno,
                                             coordinate: coordinate,
-                                            faultdescription: faultdescription,
+                                            faultadditionalinfo: faultadditionalinfo,
                                             timestamp: timestamp,
                                             firstname: firstname,
                                             lastname: lastname,
