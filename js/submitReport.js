@@ -42,6 +42,8 @@ function submitReport(){ //this function submits the report
         console.log(reportData);
 
     submitForm(submitFormPath,reportObject);
+
+    alert("You have Successfully Reported a Fault. Thank You!");
 }
 
 function submitForm(path,reportData){

@@ -50,32 +50,24 @@ http.createServer(function (req, res) {
                     await client.connect(); // create a database connection
                     client.query('SET search_path to faultreportapp');
 
-                    /*const getMaxReportId =  await client.query('SELECT MAX(report_id) AS report_id FROM report');
+                    const insertReport = 'INSERT INTO report (locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,faultStatus_id,staff_id,email) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *';
+                    const insertImage = 'INSERT INTO image (report_id,imageSource) VALUES($1, $2) RETURNING *';
 
-                    var maxNumberJson = getMaxReportId.rows;
-                    var maxNumberString = JSON.stringify(maxNumberJson);*/
-
-                    //console.log("Max report number: "+maxNumberString);
-
-                    //(locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,timeStamp,faultStatus_id,staff_id,email)
-                    const insert = 'INSERT INTO report (locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,faultStatus_id,staff_id,email) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *';
-
-
-                    //const insert = 'INSERT INTO report (report_id, locationType_id, coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,timeStamp,faultStatus_id,staff_id,email) VALUES(DEFAULT,'+json.locationType+', '+json.coachNumber+', '+json.station+', '+json.sublocation+', '+json.fault+', '+json.condition+', "'+json.otherValue+'", '+json.seatNumber+', '+json.xCoordinate+', '+json.yCoordinate+', "'+json.platformNumber+'", "'+json.additionInformation+'", CURRENT_TIMESTAMP, '+json.faultStatus+', '+json.staff_id+', "'+json.email+'");';
-
-                    console.log("sql query: "+insert);
+                    //console.log("sql query: "+insertReport);
                     const value = [json.locationType, json.coachNumber, json.station, json.sublocation, json.fault, json.condition, json.otherValue, json.seatNumber, json.xCoordinate, json.yCoordinate, json.platformNumber,json.additionInformation, json.faultStatus, json.staff_id,json.email];
 
-                    //console.log("insert data: "+value);
+                    const res2 = await client.query(insertReport, value);
+                    //const res3 = await client.query(insertImage, value);
 
-                    //const res2 = await client.query(insert);
-                    const res2 = await client.query(insert, value);
+                    //var json_str_new = JSON.stringify(json);
 
-                    console.log(res2.rows);
+                    //console.log(json_str_new.report_id);
+                    console.log(res2.rows.report_id);
                     //json = res2.rows;
 
                     //console.log(json_str_new);
                     res.end();
+
                 });
             }
             break;

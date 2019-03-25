@@ -12,8 +12,6 @@ const getLocationType = "http://localhost:8081/getLocationType";
     $('#faultReport1').show(); //show the first nav footer
       //$('#nextButtonToReport2').hide();
 
-
-
 }
 
 //proceed to login page
@@ -60,9 +58,6 @@ function backToReport2(){
     $('#nextButtonToReport2').hide();
     $('#locationType').fadeIn('slow');
     $('#unhideSeatMap').fadeIn('slow');
-
-
-
 
     if(isSeatAreaFault){
         $('#unhideSeatRequest').fadeIn('slow');
