@@ -289,15 +289,15 @@ http.createServer(function (req, res) {
                             'FROM report\n' +
                             'FULL JOIN staff ON report.email = staff.email\n' +
                             'FULL JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
-                            'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
-                            'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                            'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
+                            'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
+                            'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                            'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
                             'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
                             'FULL JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
                             'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
                             'FULL JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                            'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                            'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
                             'WHERE report_id = ' + jsObject.report_id + ';');
                         await client.end();
                         //console.log(res1);
@@ -418,14 +418,14 @@ http.createServer(function (req, res) {
                         const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                             'FROM report\n' +
                             'FULL JOIN staff ON report.email = staff.email\n' +
-                            'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
-                            'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                            'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
+                            'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
+                            'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                            'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
                             'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
                             'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
                             'FULL JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                            'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                            'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
                             sortCondition + ';');
                         //console.log(res1);
                         await client.end();
@@ -521,14 +521,14 @@ http.createServer(function (req, res) {
                             const res3 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
                                 'FROM report\n' +
                                 'FULL JOIN staff ON report.email = staff.email\n' +
-                                'INNER JOIN fault ON report.fault_id = fault.fault_id\n' +
-                                'INNER JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                                'INNER JOIN condition ON report.condition_id = condition.condition_id\n' +
+                                'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
+                                'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                                'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
                                 'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
                                 'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
                                 'FULL JOIN station ON report.station_id = station.station_id\n' +
                                 'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                                'INNER JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                                'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
                                 'ORDER BY report_id;');
                             await client.end();
 
