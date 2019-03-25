@@ -102,6 +102,9 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
             $('#' + html_position_id).empty(); //empty the area before display
 
             switch (page) {
+                case 'updatestatus':
+                    $('#' + html_position_id).append(json_array[0].faultstatus);
+                    break;
                 case 'filter':
                     for (var i = 0; i < json_array.length; i++) {
                         let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
@@ -109,6 +112,13 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                     }
                     break;
                 case 'detail':
+                    //hide the previous button on footer
+                    $('#backButtonToHome').hide();
+                    //show the new buttons on footer
+                    $('#backButtonToViewFault').show();
+                    $('#nextButtonToHome').show();
+
+                    //move to the next page
                     $('#viewFaultSection').hide();
                     $('#faultDetailSection').show();
                     for (var i = 0; i < json_array.length; i++) {
@@ -125,8 +135,13 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#t_platformnumber').hide();
                             $('#d_platformnumber').hide();
 
+
+
                             $('#d_coordinateCanvas').show();
                             $('#d_mapCanvas').show();
+                            if (json_array[i].mapsource != 'null'){
+                                $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/'+ json_array[i].mapsource +'">');
+                            }
                         }else if(json_array[i].locationtype == 'Station'){
                             $('#t_coachnumber').hide();
                             $('#d_coachnumber').hide();
@@ -164,8 +179,6 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                         //still have not been implemented
                         //>>>>>>json_array[i].othervalue;
 
-                        //still got bug on the map.
-                        $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/'+ json_array[i].mapsource +'">');
 
                         //$('#d_coordinateCanvas').append();
                     }
