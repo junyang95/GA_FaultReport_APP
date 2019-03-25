@@ -5,15 +5,26 @@ function submitReport(){ //this function submits the report
 
     var otherValue = $('#otherFaultInput').val()||null;
     var seatNumberValue = $('#seatNumberInput').val()||null;
-    var mapPinValue = xPercentage+","+yPercentage||null;
     var additionalInformation = $('#additionInformation').val()||null;
     var email = $('#staffEmailInput').val();
-    var imageSource = $('#imgInp')[0].files[0]||null;//$('#imgInp').val().lastIndexOf("\\") + 1;
-    var timeStamp = new Date();
+    var imageSource = $('#imgInp')[0].files[0]||null;
+
 
     //alert(imageSource)
+    //$('#imgInp').val().lastIndexOf("\\") + 1;
     //var imageSource = $('#imgInp').val().substr(imageNameIndex);
     var platformValue = $('#platformNumberInput').val()||null;
+
+
+    console.log();
+    //if option value is other which is == null
+
+    if(faultListValue=="o"||subLocationListValue=="others"||conditionValue=="other"){
+
+        faultListValue==null;
+        subLocationListValue==null;
+        conditionValue=null;
+    }
 
     //coach value for insert
 
@@ -26,22 +37,28 @@ function submitReport(){ //this function submits the report
         reportData.condition = parseInt(conditionValue);
         reportData.otherValue = otherValue;
         reportData.seatNumber = parseInt(seatNumberValue);
-        //reportData.mapLocation = '('+ mapPinValue +')';
         reportData.xCoordinate = parseFloat(xPercentage);
         reportData.yCoordinate = parseFloat(yPercentage);
         reportData.platformNumber = platformValue;
         reportData.additionInformation = additionalInformation;
         reportData.email = email;
         reportData.image = imageSource;
-        reportData.timeStamp = timeStamp.getDate();
         reportData.faultStatus = 1;
         reportData.staff_id = null;
 
         var reportObject = JSON.stringify(reportData);
 
-        console.log(reportData);
+
+
+        //console.log(reportData);
 
     submitForm(submitFormPath,reportObject);
+
+    getFileFromId("imgInp");
+
+
+
+
 
     alert("You have Successfully Reported a Fault. Thank You!");
 }
@@ -52,27 +69,23 @@ function submitForm(path,reportData){
         url: path,
         type: "POST",
         data: reportData,
-        /*success: function(rt) {
-            //console.log(rt); // returned data
-            var json = JSON.parse(rt); // the returned data will be an array
-            $('#'+disp_id).empty();
-            $('#'+disp_id).append($('<option value="0" disabled selected>Select Property</option>'));
-
-            $.each(json, function(i,val) {
-
-                $('#'+disp_id).append($('<option value="'+ val.fault_id +'">'+ val.faultreference +'</option>'));
-            });
-
-            $('#'+disp_id).append($('<option value="o">Other</option>'));
-        },*/
         error: function(){
             alert("error");
         }
     });
-
 }
 
+function getFileFromId(id){
 
+    document.getElementById(id).onchange = () => {
+        const files = document.getElementById(id).files;
+        const file = files[0];
+        if(file == null){
+            return alert('No file selected.');
+        }
+        getSignedRequest(file);
+    };
+}
 
 function getSignedRequest(file){
     const xhr = new XMLHttpRequest();
@@ -82,6 +95,8 @@ function getSignedRequest(file){
             if(xhr.status === 200){
                 const response = JSON.parse(xhr.responseText);
                 uploadFile(file, response.signedRequest, response.url);
+
+                aler('got signed request');
             }
             else{
                 alert('Could not get signed URL.');

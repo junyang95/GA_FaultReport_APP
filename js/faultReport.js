@@ -1004,6 +1004,8 @@ function uploadImage(){
 
 function emailValidation(){
 
+    $('#nextButtonToCamera').hide();
+
     $("#staffEmailInput").on("keyup", function() {
 
         var email = $('#staffEmailInput').val();

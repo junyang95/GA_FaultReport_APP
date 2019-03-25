@@ -140,12 +140,12 @@ function toCamera(){
     $("#imgInp").change(function(){
 
         var ext = $('#imgInp').val().split('.').pop().toLowerCase();
-        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+        if($.inArray(ext, ['gif','png','jpg','jpeg','JPG','PNG','GIF','JPEG']) == -1) {
             alert('Invalid File Type');
         }else{
             readURL(this);
             $('#additionInformation').focus();
-            scrollToId('#additionInformation');
+            //scrollToId('#additionInformation');
 
         }
 
