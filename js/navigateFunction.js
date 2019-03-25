@@ -150,6 +150,7 @@ function toCamera(){
         }else{
             readURL(this);
             $('#additionInformation').focus();
+            scrollToId('#additionInformation');
 
         }
 

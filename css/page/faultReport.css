@@ -5,13 +5,13 @@
     margin-right: 10px;
 }
 
-.fa-circle{
+.fa-map-marker-alt{ /*.fa-cirlce*/
     position: absolute;
     font-size:40px;
 
     color:#D70428;
-    top: -20px;
-    left: -20px;
+    top: -40px;
+    left: -15px;
     overflow:hidden;
 }
 
@@ -36,6 +36,9 @@
 
 #trainMapStyle{
     width:100%;
+    margin-top:20px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
 }
 
 #trainMapContainer{

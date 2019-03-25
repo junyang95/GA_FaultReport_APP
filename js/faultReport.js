@@ -1,13 +1,13 @@
 //value to insert into report
 
-var outputCoachNumber;
+var outputCoachNumber=null;
 var locationType;
 var xPercentage=null;
 var yPercentage=null;
 var subLocationListValue;
-var faultListValue;
-var conditionValue;
-var stationValue;
+var faultListValue=null;
+var conditionValue=null;
+var stationValue=null;
 
 
 
@@ -243,11 +243,8 @@ function coachNumberValidation(){
     $("#coachNumberInput").on("keyup", function() {
 
         coachNumberInputValue = $('#coachNumberInput').val();
-        //var regex = /^\d{5,6}$/;
 
         var output = returnCoachNumber(getCoachNumberPath,coachNumberInputValue);
-
-        //!regex.test(coachNumberInputValue) || !coachNumberInputValue ||
 
         if( coachNumberInputValue != output){
 
@@ -262,16 +259,14 @@ function coachNumberValidation(){
             $('#nextButtonToCamera').hide();
             $('#unhideSeatRequest').hide();
             $('#unhideSeatNumber').hide();
-
             $('#otherFault').hide();
+            $('#trainMapContainer').hide();
+            $('#userLocateText').hide();
 
         }else{
             $('#coachNumberInput').css('border','1px solid lightgray');
-
             $('#seatNumberAvailable').css('background-color','#D70428');
             $('#seatNumberUnavailable').css('background-color','#D70428');
-
-
 
             //faultReportValidation();
 
@@ -812,8 +807,6 @@ function getFaultCondition(path,faultListValue,disp_id){
             $.each(json, function(i,val) {
 
                 $('#'+disp_id).append($('<option value="'+ val.condition_id +'">'+ val.condition +'</option>'));
-
-                console.log(val);
             });
             $('#'+disp_id).append($('<option value="other">Other</option>'));
 

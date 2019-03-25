@@ -1,6 +1,13 @@
 var http = require('http');
 var bcrypt = require('bcrypt');
+
 const saltRounds = 10;
+
+//AWS module
+const aws = require('aws-sdk');
+const S3_BUCKET = process.env.S3_BUCKET;
+aws.config.region = 'eu-west-1';
+
 
 // the quick and dirty trick which prevents crashing.
 process.on('uncaughtException', function (err) {
@@ -26,6 +33,84 @@ http.createServer(function (req, res) {
     const ssl = true;
 
     switch (req.url) {
+
+
+        case '/submitForm':
+            if (req.method == 'POST') {
+                var body = '';
+
+                req.on('data', function (data) {
+                    body += data;
+                });
+                req.on('end', async function () {
+                    var json = JSON.parse(body);
+
+                    const {Client} = databaseType;
+                    const client = new Client({user: user,password: password, database: database,port: port,host: host,ssl: ssl});
+                    await client.connect(); // create a database connection
+                    client.query('SET search_path to faultreportapp');
+
+                    /*const getMaxReportId =  await client.query('SELECT MAX(report_id) AS report_id FROM report');
+
+                    var maxNumberJson = getMaxReportId.rows;
+                    var maxNumberString = JSON.stringify(maxNumberJson);*/
+
+                    //console.log("Max report number: "+maxNumberString);
+
+                    //(locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,timeStamp,faultStatus_id,staff_id,email)
+                    const insert = 'INSERT INTO report (locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,faultStatus_id,staff_id,email) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *';
+
+
+                    //const insert = 'INSERT INTO report (report_id, locationType_id, coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,timeStamp,faultStatus_id,staff_id,email) VALUES(DEFAULT,'+json.locationType+', '+json.coachNumber+', '+json.station+', '+json.sublocation+', '+json.fault+', '+json.condition+', "'+json.otherValue+'", '+json.seatNumber+', '+json.xCoordinate+', '+json.yCoordinate+', "'+json.platformNumber+'", "'+json.additionInformation+'", CURRENT_TIMESTAMP, '+json.faultStatus+', '+json.staff_id+', "'+json.email+'");';
+
+                    console.log("sql query: "+insert);
+                    const value = [json.locationType, json.coachNumber, json.station, json.sublocation, json.fault, json.condition, json.otherValue, json.seatNumber, json.xCoordinate, json.yCoordinate, json.platformNumber,json.additionInformation, json.faultStatus, json.staff_id,json.email];
+
+                    //console.log("insert data: "+value);
+
+                    //const res2 = await client.query(insert);
+                    const res2 = await client.query(insert, value);
+
+                    console.log(res2.rows);
+                    //json = res2.rows;
+
+                    //console.log(json_str_new);
+                    res.end();
+                });
+            }
+            break;
+
+
+        case '/sign-s3':
+            if (req.method == 'GET') {
+                req.on('data', function () {});
+                req.on('end', async function () {
+
+                    const s3 = new aws.S3();
+                    const fileName = req.query['file-name'];
+                    const fileType = req.query['file-type'];
+                    const s3Params = {
+                        Bucket: S3_BUCKET,
+                        Key: fileName,
+                        Expires: 60,
+                        ContentType: fileType,
+                        ACL: 'public-read'
+                    };
+                    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+                        if(err){
+                            console.log(err);
+                            return res.end();
+                        }
+                        const returnData = {
+                            signedRequest: data,
+                            url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+                        };
+                        res.write(JSON.stringify(returnData));
+                        res.end();
+                    });
+                });
+            }
+            break;
 
         case '/getLocationType':
             if (req.method == 'POST') {
