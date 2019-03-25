@@ -1,0 +1,123 @@
+<div class="container">
+    <p id="statusFaultDetail">There is no data transmission between front end and back end!</p>
+
+    <div class="row mb-1">
+        <p class="col-6 text-left font-weight-bold mb-0" style="font-size: 22pt; color: #D70428" id="d_faultstatus">No Status</p>
+
+        <div class="col-6 dropdown text-right">
+            <button class="btn btn-primary dropdown-toggle align-middle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Change Status
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item">Reported</a>
+                <a class="dropdown-item">In Progress</a>
+                <a class="dropdown-item">Completed</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="detailAccordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link text-decoration-none" data-toggle="collapse" data-target="#collapseOne"
+                            aria-expanded="true"
+                            aria-controls="collapseOne">
+                        Fault Details
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#detailAccordion">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-3 text-muted">Deport ID</dt>
+                        <dd class="col-9 text-right" id="d_report_id">1</dd>
+
+                        <dt class="col-3 text-muted">Time</dt>
+                        <dd class="col-9 text-right" id="d_timestamp">2019-03-11 16:45:21</dd>
+
+                        <dt class="col-3 text-muted">Description</dt>
+                        <dd class="col-9 text-right" id="d_description">Unclean Fridge in Buffet on Train</dd>
+
+                        <dt class="col-3 text-muted">More Info</dt>
+                        <dd class="col-9 text-right" id="d_faultdescription">The socket does not work.</dd>
+
+                        <dt class="col-3 text-muted">Staff ID</dt>
+                        <dd class="col-9 text-right" id="d_staff_id">1</dd>
+
+                        <dt class="col-3 text-muted">Name</dt>
+                        <dd class="col-9 text-right" id="d_name">Junyang Wang</dd>
+
+                        <dt class="col-3 text-muted">Role</dt>
+                        <dd class="col-9 text-right" id="d_roletype">Engineer</dd>
+
+                        <dt class="col-3 text-muted">Staff Email</dt>
+                        <dd class="col-9 text-right" id="d_email">junyang95@greateranglia.co.uk</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse"
+                            data-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                        Fault Location
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#detailAccordion">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-3 text-muted" id="t_locationtype">Location</dt>
+                        <dd class="col-9 text-right" id="d_locationtype">Train</dd>
+
+                        <dt class="col-3 text-muted" id="t_coachnumber">Coach</dt>
+                        <dd class="col-9 text-right" id="d_coachnumber">10053</dd>
+
+                        <dt class="col-3 text-muted" id="t_seatno">Seat</dt>
+                        <dd class="col-9 text-right" id="d_seatno">15</dd>
+
+                        <dt class="col-3 text-muted" id="t_stationname">Station</dt>
+                        <dd class="col-9 text-right" id="d_stationname">Cambridge</dd>
+
+                        <dt class="col-3 text-muted" id="t_platformnumber">Platform</dt>
+                        <dd class="col-9 text-right" id="d_platformnumber">8</dd>
+                    </dl>
+                    <div id="d_mapContainer">
+                        <div id="d_coordinateCanvas"></div>
+                        <div id="d_mapCanvas"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed text-decoration-none" data-toggle="collapse"
+                            data-target="#collapseThree"
+                            aria-expanded="false" aria-controls="collapseThree">
+                        Fault Photos
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#detailAccordion">
+                <div class="card-body">
+                    <dl class="row">
+
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

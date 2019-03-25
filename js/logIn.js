@@ -102,13 +102,86 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
             $('#' + html_position_id).empty(); //empty the area before display
 
             switch (page) {
+                case 'updatestatus':
+                    $('#' + html_position_id).append(json_array[0].faultstatus);
+                    break;
                 case 'filter':
                     for (var i = 0; i < json_array.length; i++) {
                         let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
                         $('#viewFaultTableBody').append(htmlFaultTable);
                     }
                     break;
-                case 'case2':
+                case 'detail':
+                    //hide the previous button on footer
+                    $('#backButtonToHome').hide();
+                    //show the new buttons on footer
+                    $('#backButtonToViewFault').show();
+                    $('#nextButtonToHome').show();
+
+                    //move to the next page
+                    $('#viewFaultSection').hide();
+                    $('#faultDetailSection').show();
+                    for (var i = 0; i < json_array.length; i++) {
+                        if (json_array[i].locationtype == 'Train'){
+                            $('#t_coachnumber').show();
+                            $('#d_coachnumber').show();
+
+                            $('#t_seatno').show();
+                            $('#d_seatno').show();
+
+                            $('#t_stationname').hide();
+                            $('#d_stationname').hide();
+
+                            $('#t_platformnumber').hide();
+                            $('#d_platformnumber').hide();
+
+
+
+                            $('#d_coordinateCanvas').show();
+                            $('#d_mapCanvas').show();
+                            if (json_array[i].mapsource != 'null'){
+                                $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/'+ json_array[i].mapsource +'">');
+                            }
+                        }else if(json_array[i].locationtype == 'Station'){
+                            $('#t_coachnumber').hide();
+                            $('#d_coachnumber').hide();
+
+                            $('#t_seatno').hide();
+                            $('#d_seatno').hide();
+
+                            $('#t_stationname').show();
+                            $('#d_stationname').show();
+
+                            $('#t_platformnumber').show();
+                            $('#d_platformnumber').show();
+
+                            $('#d_coordinateCanvas').hide();
+                            $('#d_mapCanvas').hide();
+                        }
+
+                        $('#d_faultstatus').append(json_array[i].faultstatus);
+
+                        $('#d_report_id').append(json_array[i].report_id);
+                        $('#d_timestamp').append(conertTimestamp(json_array[i].timestamp));
+                        $('#d_description').append(json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype);
+                        $('#d_faultdescription').append(json_array[i].faultadditionalinfo);
+                        $('#d_staff_id').append(json_array[i].staff_id);
+                        $('#d_name').append(json_array[i].firstname + ' ' + json_array[i].lastname);
+                        $('#d_roletype').append(json_array[i].roletype);
+                        $('#d_email').append(json_array[i].email);
+
+                        $('#d_locationtype').append(json_array[i].locationtype);
+                        $('#d_coachnumber').append(json_array[i].coachnumber);
+                        $('#d_seatno').append(json_array[i].seatno);
+                        $('#d_stationname').append(json_array[i].stationname);
+                        $('#d_platformnumber').append(json_array[i].platformnumber);
+
+                        //still have not been implemented
+                        //>>>>>>json_array[i].othervalue;
+
+
+                        //$('#d_coordinateCanvas').append();
+                    }
 
                     break;
                 case 'logincheck':

@@ -32,20 +32,20 @@ button{
     font-weight:200;
 }
 
-#nextButtonToReport2,#nextButtonToCamera,#submitButton{
+#nextButtonToReport2,#nextButtonToCamera,#submitButton,#nextButtonToHome{
     padding:10px;
     float:right;
     cursor: pointer;
 }
 
-#backButtonToHome,#backButtonToReport1,#backButtonToReport2{
+#backButtonToHome,#backButtonToReport1,#backButtonToReport2,#backButtonToViewFault{
     float:left;
     padding:10px;
     text-decoration: none;
     cursor: pointer;
 }
 
-#backButtonToReport1,#nextButtonToCamera, #nextButtonToReport2,#submitButton,#backButtonToReport2{
+#backButtonToReport1,#nextButtonToCamera, #nextButtonToReport2,#submitButton,#backButtonToReport2, #backButtonToViewFault, #nextButtonToHome{
 
     display:none;
 }
