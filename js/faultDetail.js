@@ -17,6 +17,9 @@ function setAllddNone() {
 
     /////$('#d_coordinateCanvas').empty();
     $('#d_mapCanvas').empty();
+
+
+    $('#localImage').empty();
 }
 
 function backToViewFault() {

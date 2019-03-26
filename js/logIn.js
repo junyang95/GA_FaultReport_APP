@@ -222,7 +222,7 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#d_mapCanvas').show();
                             $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/' + json_array[i].mapsource + '">');
 
-                            $('#localImage').empty();
+                            //$('#localImage').empty();
                             $('#localImage').append(json_array[i].imagesource);
 
                         } else if (json_array[i].locationtype == 'Station') {
@@ -258,6 +258,9 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                             $('#d_coordinateCanvas').hide();
                             $('#d_mapCanvas').hide();
+
+                            //$('#localImage').empty();
+                            $('#localImage').append(json_array[i].imagesource);
                         }
 
 
