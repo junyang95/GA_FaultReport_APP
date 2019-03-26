@@ -25,15 +25,15 @@ http.createServer(function (req, res) {
 
     //set to postgre
     const databaseType = require('pg');
-    const user = "ehhhvbzcacarfb";
-    const password = "eb2a4f3825b5a9d3763ca124ca27be1e7c28ebf11f0ff99498c4328a50b635e2";
-    const database = "dbq2fnkh4o7js8";
+    const user = "grysmyvgqarcud";
+    const password = "54a23367c1e9db4e9390b354912944ae7192a70165527175a5cc888cdb28040b";
+    const database = "d68dbsr2imbev5";
     const port = 5432;
-    const host = "ec2-54-247-70-127.eu-west-1.compute.amazonaws.com";
+    const host = "ec2-54-228-243-238.eu-west-1.compute.amazonaws.com";
     const ssl = true;
+    const sslfactory = "org.postgresql.ssl.NonValidatingFactory";
 
     switch (req.url) {
-
 
         case '/submitForm':
             if (req.method == 'POST') {
@@ -306,7 +306,8 @@ http.createServer(function (req, res) {
                             database: database,
                             port: port,
                             host: host,
-                            ssl: ssl
+                            ssl: ssl,
+                            sslfactory: sslfactory
                         });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
@@ -357,23 +358,24 @@ http.createServer(function (req, res) {
                             database: database,
                             port: port,
                             host: host,
-                            ssl: ssl
+                            ssl: ssl,
+                            sslfactory: sslfactory
                         });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
                         const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, xcoordinatetrainmap, ycoordinatetrainmap,faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue, platformnumber \n' +
                             'FROM report\n' +
-                            'FULL JOIN staff ON report.email = staff.email\n' +
-                            'FULL JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
-                            'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
-                            'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                            'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
-                            'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
-                            'FULL JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
+                            'LEFT JOIN staff ON report.email = staff.email\n' +
+                            'LEFT JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
+                            'LEFT JOIN fault ON report.fault_id = fault.fault_id\n' +
+                            'LEFT JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                            'LEFT JOIN condition ON report.condition_id = condition.condition_id\n' +
+                            'LEFT JOIN coach ON report.coachnumber = coach.coachnumber\n' +
+                            'LEFT JOIN coachmap ON coach.coachmap_id = coachmap.coachmap_id\n' +
                             'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
-                            'FULL JOIN station ON report.station_id = station.station_id\n' +
+                            'LEFT JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                            'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                            'LEFT JOIN sublocation ON report.sublocation_id = sublocation.sublocation_id\n' +
                             'WHERE report_id = ' + jsObject.report_id + ';');
                         await client.end();
                         //console.log(res1);
@@ -465,7 +467,8 @@ http.createServer(function (req, res) {
                             database: database,
                             port: port,
                             host: host,
-                            ssl: ssl
+                            ssl: ssl,
+                            sslfactory: sslfactory
                         });
                         await client.connect(); // create a database connection
 
@@ -491,17 +494,17 @@ http.createServer(function (req, res) {
 
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
 
-                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
+                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, othervalue \n' +
                             'FROM report\n' +
-                            'FULL JOIN staff ON report.email = staff.email\n' +
-                            'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
-                            'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                            'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
-                            'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
+                            'LEFT JOIN staff ON report.email = staff.email\n' +
+                            'LEFT JOIN fault ON report.fault_id = fault.fault_id\n' +
+                            'LEFT JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                            'LEFT JOIN condition ON report.condition_id = condition.condition_id\n' +
+                            'LEFT JOIN coach ON report.coachnumber = coach.coachnumber\n' +
                             'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
-                            'FULL JOIN station ON report.station_id = station.station_id\n' +
+                            'LEFT JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                            'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                            'LEFT JOIN sublocation ON report.sublocation_id = sublocation.sublocation_id\n' +
                             sortCondition + ';');
                         //console.log(res1);
                         await client.end();
@@ -526,6 +529,7 @@ http.createServer(function (req, res) {
                             const sublocation = json_db[i].sublocation;
                             const locationtype = json_db[i].locationtype;
                             const faultreference = json_db[i].faultreference;
+                            const othervalue = json_db[i].othervalue;
 
                             var data = {
                                 report_id: report_id,
@@ -545,7 +549,8 @@ http.createServer(function (req, res) {
                                 faultstatus: faultstatus,
                                 sublocation: sublocation,
                                 locationtype: locationtype,
-                                faultreference: faultreference
+                                faultreference: faultreference,
+                                othervalue: othervalue
                             };
                             json_array.push(data);
                         }
@@ -578,7 +583,8 @@ http.createServer(function (req, res) {
                             database: database,
                             port: port,
                             host: host,
-                            ssl: ssl
+                            ssl: ssl,
+                            sslfactory: sslfactory
                         });
 
                         await client.connect(); // create a database connection
@@ -594,17 +600,17 @@ http.createServer(function (req, res) {
                             const db_hash = json_db_hash[0].password;
 
                             const res2 = await client.query('SELECT staff_id, roletype, firstname, lastname, email FROM staff INNER JOIN roletype ON staff.roletype_id = roletype.roletype_id WHERE staff.email = ' + "'" + jsObject.userEmail + "'" + ';');
-                            const res3 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference \n' +
+                            const res3 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, othervalue \n' +
                                 'FROM report\n' +
-                                'FULL JOIN staff ON report.email = staff.email\n' +
-                                'FULL JOIN fault ON report.fault_id = fault.fault_id\n' +
-                                'FULL JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
-                                'FULL JOIN condition ON report.condition_id = condition.condition_id\n' +
-                                'FULL JOIN coach ON report.coachnumber = coach.coachnumber\n' +
+                                'LEFT JOIN staff ON report.email = staff.email\n' +
+                                'LEFT JOIN fault ON report.fault_id = fault.fault_id\n' +
+                                'LEFT JOIN faultreference ON fault.faultreference_id = faultreference.faultreference_id\n' +
+                                'LEFT JOIN condition ON report.condition_id = condition.condition_id\n' +
+                                'LEFT JOIN coach ON report.coachnumber = coach.coachnumber\n' +
                                 'INNER JOIN locationtype ON report.locationtype_id = locationtype.locationtype_id\n' +
-                                'FULL JOIN station ON report.station_id = station.station_id\n' +
+                                'LEFT JOIN station ON report.station_id = station.station_id\n' +
                                 'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
-                                'FULL JOIN sublocation ON fault.sublocation_id = sublocation.sublocation_id\n' +
+                                'LEFT JOIN sublocation ON report.sublocation_id = sublocation.sublocation_id\n' +
                                 'ORDER BY report_id;');
                             await client.end();
 
@@ -653,6 +659,7 @@ http.createServer(function (req, res) {
                                         const sublocation = json_db[i].sublocation;
                                         const locationtype = json_db[i].locationtype;
                                         const faultreference = json_db[i].faultreference;
+                                        const othervalue = json_db[i].othervalue;
 
                                         var data = {
                                             report_id: report_id,
@@ -672,7 +679,8 @@ http.createServer(function (req, res) {
                                             faultstatus: faultstatus,
                                             sublocation: sublocation,
                                             locationtype: locationtype,
-                                            faultreference: faultreference
+                                            faultreference: faultreference,
+                                            othervalue: othervalue
                                         };
                                         json_array.push(data);
                                     }

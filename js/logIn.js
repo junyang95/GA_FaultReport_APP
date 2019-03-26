@@ -107,7 +107,12 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                     break;
                 case 'filter':
                     for (var i = 0; i < json_array.length; i++) {
-                        let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                        if (json_array[i].condition != null && json_array[i].faultreference != null && json_array[i].sublocation != null) {
+                            var htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                        } else if (json_array[i].condition == null || json_array[i].faultreference == null || json_array[i].sublocation == null) {
+                            var htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].othervalue + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                        }
+
                         $('#viewFaultTableBody').append(htmlFaultTable);
                     }
                     break;
@@ -122,12 +127,79 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                     $('#viewFaultSection').hide();
                     $('#faultDetailSection').show();
                     for (var i = 0; i < json_array.length; i++) {
-                        if (json_array[i].locationtype == 'Train'){
+
+                        $('#d_faultstatus').append(json_array[i].faultstatus);
+
+                        $('#d_report_id').append(json_array[i].report_id);
+                        $('#d_timestamp').append(conertTimestamp(json_array[i].timestamp));
+
+                        if (json_array[i].condition != null && json_array[i].faultreference != null && json_array[i].sublocation != null) {
+                            console.log('Have 3 of 3');
+                            $('#d_description').append(json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype);
+                        } else if (json_array[i].condition == null || json_array[i].faultreference == null || json_array[i].sublocation == null) {
+                            console.log('Missing at 1 or more');
+                            $('#d_description').append(json_array[i].othervalue + " on " + json_array[i].locationtype);
+                        }
+                        //More Info - this is for more info part
+                        $('#d_faultdescription').append(json_array[i].faultadditionalinfo);
+
+                        /////////////////////////////Report from Staff or not//////////////////////////////////
+                        //////Reported by Staff////////
+                        if (json_array[i].staff_id != null) {
+                            //console.log('Reported by Staff');
+                            $('#d_staff_id').show();
+                            $('#t_staff_id').show();
+                            $('#d_name').show();
+                            $('#t_name').show();
+                            $('#d_roletype').show();
+                            $('#t_roletype').show();
+
+                            $('#d_staff_id').append(json_array[i].staff_id);
+                            $('#d_name').append(json_array[i].firstname + ' ' + json_array[i].lastname);
+                            $('#d_roletype').append(json_array[i].roletype);
+                            $('#d_email').append(json_array[i].email);
+                            //////Reported by non-Staff////////
+                        } else if (json_array[i].staff_id == null) {
+                            //console.log('Reported by non-Staff');
+                            $('#d_staff_id').hide();
+                            $('#t_staff_id').hide();
+                            $('#d_name').hide();
+                            $('#t_name').hide();
+                            $('#d_roletype').hide();
+                            $('#t_roletype').hide();
+
+                            $('#d_email').append(json_array[i].email);
+                        }
+
+                        /////////////////////////////Report for Train or Station//////////////////////////////////
+                        if (json_array[i].locationtype == 'Train') {
+                            ///////Determine the sub-location////////
+                            if (json_array[i].sublocation == null) {
+
+                                $('#d_locationtype').append(json_array[i].locationtype + ' - ' + 'Others');
+
+                            } else if (json_array[i].sublocation != null) {
+
+                                $('#d_locationtype').append(json_array[i].locationtype + ' - ' + json_array[i].sublocation);
+
+                            }
+
+
                             $('#t_coachnumber').show();
                             $('#d_coachnumber').show();
+                            $('#d_coachnumber').append(json_array[i].coachnumber);
 
-                            $('#t_seatno').show();
-                            $('#d_seatno').show();
+                            if (json_array[i].seatno != null) {
+                                $('#t_seatno').show();
+                                $('#d_seatno').show();
+                                $('#d_seatno').append(json_array[i].seatno);
+
+                            } else if (json_array[i].seatno == null) {
+                                $('#t_seatno').hide();
+                                $('#d_seatno').hide();
+
+                            }
+
 
                             $('#t_stationname').hide();
                             $('#d_stationname').hide();
@@ -136,13 +208,31 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#d_platformnumber').hide();
 
 
-
                             $('#d_coordinateCanvas').show();
                             $('#d_mapCanvas').show();
-                            if (json_array[i].mapsource != 'null'){
-                                $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/'+ json_array[i].mapsource +'">');
+                            $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/' + json_array[i].mapsource + '">');
+
+                        } else if (json_array[i].locationtype == 'Station') {
+                            ///////Determine the sub-location////////
+                            if (json_array[i].sublocation == null) {
+                                $('#d_locationtype').append(json_array[i].locationtype + ' - ' + 'Others');
+                            } else if (json_array[i].sublocation != null) {
+                                $('#d_locationtype').append(json_array[i].locationtype + ' - ' + json_array[i].sublocation);
                             }
-                        }else if(json_array[i].locationtype == 'Station'){
+
+                            $('#d_stationname').append(json_array[i].stationname);
+
+                            if (json_array[i].platformnumber == null) {
+                                $('#t_platformnumber').hide();
+                                $('#d_platformnumber').hide();
+
+                            }else if (json_array[i].platformnumber != null) {
+                                $('#t_platformnumber').show();
+                                $('#d_platformnumber').show();
+                                $('#d_platformnumber').append(json_array[i].platformnumber);
+                            }
+
+
                             $('#t_coachnumber').hide();
                             $('#d_coachnumber').hide();
 
@@ -152,29 +242,10 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#t_stationname').show();
                             $('#d_stationname').show();
 
-                            $('#t_platformnumber').show();
-                            $('#d_platformnumber').show();
 
                             $('#d_coordinateCanvas').hide();
                             $('#d_mapCanvas').hide();
                         }
-
-                        $('#d_faultstatus').append(json_array[i].faultstatus);
-
-                        $('#d_report_id').append(json_array[i].report_id);
-                        $('#d_timestamp').append(conertTimestamp(json_array[i].timestamp));
-                        $('#d_description').append(json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype);
-                        $('#d_faultdescription').append(json_array[i].faultadditionalinfo);
-                        $('#d_staff_id').append(json_array[i].staff_id);
-                        $('#d_name').append(json_array[i].firstname + ' ' + json_array[i].lastname);
-                        $('#d_roletype').append(json_array[i].roletype);
-                        $('#d_email').append(json_array[i].email);
-
-                        $('#d_locationtype').append(json_array[i].locationtype);
-                        $('#d_coachnumber').append(json_array[i].coachnumber);
-                        $('#d_seatno').append(json_array[i].seatno);
-                        $('#d_stationname').append(json_array[i].stationname);
-                        $('#d_platformnumber').append(json_array[i].platformnumber);
 
                         //still have not been implemented
                         //>>>>>>json_array[i].othervalue;
@@ -189,9 +260,12 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                     if (json_array[0].authentication == 'success') {
                         setAllAlertsNone();
+
+
                         $('#resultFromSQL').empty();
                         $('#resultFromSQL').append(json_array[0].authentication);
                         $('#logInSuccess').css('display', 'block');
+                        $('#logInSuccess').fadeOut(3000);
 
                         $("#loginSection").hide();
                         $("#viewFaultSection").show();
@@ -204,7 +278,14 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                         $('#viewFaultTableBody').empty();   // empty the original table
                         for (var i = 0; i < json_array.length; i++) {
-                            let htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                            //console.log(json_array[i].timestamp + '-' + i);
+
+                            if (json_array[i].condition != null && json_array[i].faultreference != null && json_array[i].sublocation != null) {
+                                var htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].condition + " " + json_array[i].faultreference + " in " + json_array[i].sublocation + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                            } else if (json_array[i].condition == null || json_array[i].faultreference == null || json_array[i].sublocation == null) {
+                                var htmlFaultTable = "<tr><th>" + json_array[i].report_id + "</th><td>" + conertTimestamp(json_array[i].timestamp) + "</td><td>" + json_array[i].othervalue + " on " + json_array[i].locationtype + "</td><td>" + json_array[i].faultstatus + "</td></tr>";
+                            }
+
                             $('#viewFaultTableBody').append(htmlFaultTable);
                         }
                     } else if (json_array[0].authentication == 'fail') {

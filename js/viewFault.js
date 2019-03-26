@@ -14,5 +14,6 @@ function filterSelection(ID_listGroup, ID_listGroupItem) {
 
     console.log(data);
 
+    //empty the original table in here, by using the function
     PostAjax('http://localhost:8081/filter', data, 'viewFaultTableBody', 'filter');
 }
