@@ -9,7 +9,8 @@ function submitReport(){ //this function submits the report
     var seatNumberValue = $('#seatNumberInput').val()||null;
     var additionalInformation = $('#additionInformation').val()||null;
     var email = $('#staffEmailInput').val();
-    var imageSource = $('#imgInp')[0].files[0].name||null;
+    var imageSource = $('#imgInp')[0].files[0]||null;
+
     var platformValue = $('#platformNumberInput').val()||null;
 
     //if option value is other which is == null
@@ -37,11 +38,13 @@ function submitReport(){ //this function submits the report
         reportData.platformNumber = platformValue;
         reportData.additionInformation = additionalInformation;
         reportData.email = email;
-        reportData.image = imageSource;
+        reportData.image = imageSource.name;
         reportData.faultStatus = 1;
         reportData.staff_id = null;
 
         var reportObject = JSON.stringify(reportData);
+
+        alert(reportObject);
 
     submitForm(submitFormPath,reportObject);
 
