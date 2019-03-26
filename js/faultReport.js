@@ -64,7 +64,6 @@ function unhideCoach(){
     coachNumberValidation(); //this function validate the coach number
     seatNumberValidation();
 
-
     locationType = $('#coachBox').attr("value");
 
     $('#nextButtonToReport2').hide();
@@ -105,8 +104,6 @@ function unhideStation(){
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
     stationFilter();
 
     locationType = $('#stationBox').attr("value");
@@ -121,8 +118,6 @@ function unhideStation(){
     $('#userLocateText').hide();
     $('#unhidePlatformNumber').hide();
     $('#otherFault').hide();
-
-
     $('#stationInput').focus();
 
     ///faultReportValidation();
@@ -255,6 +250,9 @@ function coachNumberValidation(){
             $('#unhideFaultDescriptionDropdown').hide();
             $('#unhideFaultCondition').hide();
 
+            $('#invalidCoachNumberMessage').fadeIn('slow');
+            $('#invalidCoachNumberMessage').css('color','#D70428');
+
             validCoachNumber=false;
             $('#nextButtonToCamera').hide();
             $('#unhideSeatRequest').hide();
@@ -264,6 +262,7 @@ function coachNumberValidation(){
             $('#userLocateText').hide();
 
         }else{
+            //$('#invalidCoachNumberMessage').hide();
             $('#coachNumberInput').css('border','1px solid lightgray');
             $('#seatNumberAvailable').css('background-color','#D70428');
             $('#seatNumberUnavailable').css('background-color','#D70428');
@@ -662,6 +661,8 @@ function returnCoachNumber(path,coachNumberInput){
                         $('#coachNumberInput').css('border','1px solid lightgray');
                         //$('#unhideSeatRequest').show();
                         $('#unhideSeatMap').fadeIn("slow");
+
+                        $('#invalidCoachNumberMessage').hide();
 
                         returnSubLocation(getSubLocation,locationType,'subLocationList');
 

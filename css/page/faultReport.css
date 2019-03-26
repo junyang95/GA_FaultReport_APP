@@ -64,7 +64,7 @@
 
 #stationList,#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
 #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
-#unhideFaultObject, #otherFault,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage,#trainMapContainer,#userLocateText,#unhidePlatformNumber{
+#unhideFaultObject, #otherFault,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage,#trainMapContainer,#userLocateText,#unhidePlatformNumber,#invalidCoachNumberMessage{
 
     display:none;
 }

@@ -86,6 +86,9 @@ function backToReport2(){
         $('#unhideFaultCondition').hide();
         $('#unhideFaultDescriptionDropdown').fadeIn('slow');
 
+        //////here to remove some dropdowns
+
+
     }else{
 
         $('#otherFault').hide();

@@ -269,6 +269,7 @@
 
 
         <input class="inputBox" id="coachNumberInput" maxlength="6"  type="number" name="coachNumber" placeholder="Coach Number"required>
+        <p></p><p id="invalidCoachNumberMessage">invalid coach number (5-6 numbers required)</p>
     </div>
 
 
@@ -334,8 +335,29 @@
 
     <div id="unhidePlatformNumber">
 
-        <p>Please Enter the Platform Number<i class='fas fa-question-circle'></i></p>
+        <p>Please Enter the Platform Number<i class='fas fa-question-circle' data-toggle="modal" data-target="#seatNumberModal"></i></p>
         <input class="inputBox" id="platformNumberInput" maxlength="3"  type="text" name="platformNumber" placeholder="Platform Number"required>
+    </div>
+
+    <div id="seatNumberModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Need Help?</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><a class="redBoxQuestion" data-toggle="collapse" href="#collapse13ff" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        Where can I find the platform number?</a></p>
+
+                    <div class="collapse" id="collapse13ff">
+                        <div class="card card-body">
+                            <p class="text-dark"><small>The platform number is displayed on a sign on the wall near the platform </small></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -609,7 +631,7 @@
 
                             <div class="collapse" id="collapse12b">
                                 <div class="card card-body">
-                                    <p class="text-dark"><small>To complete the fault report you are not obligated to write anything further</small></p>
+                                    <p class="text-dark"><small> You must enter information here to progress with the report</small></p>
                                 </div>
                             </div>
 
@@ -619,7 +641,7 @@
                 </div>
             </div>
 
-            <input class="inputBox" id="otherFaultInput" maxlength="500"  type="text" name="otherFaultInput" placeholder="e.g. The lift on the bridge is malfunctioning" required>
+            <input class="inputBox" id="otherFaultInput" maxlength="150"  type="text" name="otherFaultInput" placeholder="e.g. The lift on the bridge is malfunctioning" required>
         </div>
     </a>
 
@@ -637,7 +659,7 @@
             <p>Add a Photo</p>
         </label>
 
-        <input id="imgInp" type="file"/>
+        <input id="imgInp" type="file" name="filetoupload"/>
             <img   src="#" id="imagePreview" />
         </div>
 

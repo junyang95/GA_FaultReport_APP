@@ -2,7 +2,7 @@
 <div class="navFooterStyle">
 
     <div id="faultReport1">
-    <a href="."><div id="backButtonToHome" class="boldText" onclick="backToHomeSectionFromFaultReport()"><i class='fas fa-chevron-left'></i> Cancel</div></a>
+    <a href="."><div id="backButtonToHome" class="boldText" onclick="backToHomeSectionFromFaultReport()"><i class='fas fa-chevron-left'></i> Back</div></a>
     <div id="nextButtonToReport2" onclick="toFaultReport2()" disabled>Next 2<i class='fas fa-chevron-right'></i></div>
         </div>
 
@@ -17,15 +17,13 @@
         <div id="backButtonToReport2" class="boldText" onclick="backToReport2()"><i class='fas fa-chevron-left'></i> Back</div>
         <!--<input id="submitButton" class="boldText" onclick="submitForm()" type="submit" >-->
 
-        <a href=".">
-            <button type="submit" onclick="submitReport()" id="submitButton" class="boldText">Submit<i class='fas fa-chevron-right'></i></button>
-        </a>
+        <a href="."><button type="submit" onclick="submitReport()" id="submitButton" class="boldText">Submit<i class='fas fa-chevron-right'></i></button></a>
 
     </div>
 
     <div id="faultDetail">
         <div id="backButtonToViewFault"  onclick="backToViewFault()"><i class='fas fa-chevron-left'></i> Back to viewFault</div>
-        <a href="."><div id="nextButtonToHome" onclick="backToHomeSectionFromViewFault()"> Back Home<i class='fas fa-chevron-right'></i></div></a>
+        <!--<a href=".">--><div id="nextButtonToHome" onclick="backToHomeSectionFromViewFault()"> Back Home<i class='fas fa-chevron-right'></i></div><!--</a>-->
     </div>
 
 </div>

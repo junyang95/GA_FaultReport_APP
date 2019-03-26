@@ -1,12 +1,30 @@
 var http = require('http');
 var bcrypt = require('bcrypt');
 
+var http = require('http');
+var formidable = require('formidable');
+var multiparty = require('multiparty');
+var fs = require('fs');
+var path = require('path');
+var util = require('util');
+
+var dir = './tmp';
+
 const saltRounds = 10;
 
 //AWS module
+
+
 const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 aws.config.region = 'eu-west-1';
+
+//const aws = require('aws-sdk');
+//const fs = require('fs');
+/*const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});*/
 
 
 // the quick and dirty trick which prevents crashing.
@@ -25,15 +43,68 @@ http.createServer(function (req, res) {
 
     //set to postgre
     const databaseType = require('pg');
-    const user = "ehhhvbzcacarfb";
-    const password = "eb2a4f3825b5a9d3763ca124ca27be1e7c28ebf11f0ff99498c4328a50b635e2";
-    const database = "dbq2fnkh4o7js8";
+    const user = "grysmyvgqarcud";
+    const password = "54a23367c1e9db4e9390b354912944ae7192a70165527175a5cc888cdb28040b";
+    const database = "d68dbsr2imbev5";
     const port = 5432;
-    const host = "ec2-54-247-70-127.eu-west-1.compute.amazonaws.com";
+    const host = "ec2-54-228-243-238.eu-west-1.compute.amazonaws.com";
     const ssl = true;
 
     switch (req.url) {
 
+        case '/uploadImage':
+            if (req.method == 'POST') {
+                var body='';
+
+                req.on('data', function (data) {
+                    body += data;
+                });
+                req.on('end', async function () {
+                    var json = JSON.parse(body);
+                    console.log("JSON: "+json);
+                var form = new multiparty.Form();
+                console.log("About to parse...");
+
+                form.parse(req, function(error, fields, files) {
+
+                    /*if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir);
+                    }
+                        var oldpath = dir;
+                        var newpath = '../../image/reportImage/' + json;
+
+                        fs.rename(oldpath, newpath, function (err) {
+                            if (err) throw err;
+                            res.write('File uploaded and moved!');
+
+                            res.end(util.inspect({fields: fields, files: files}));
+
+                        });*/
+
+                        var oldpath = files.filetoupload.path;
+                        var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+                        fs.rename(oldpath, newpath, function (err) {
+                            if (err) throw err;
+                            res.write('File uploaded and moved!');
+                            res.end();
+                        });
+
+                    /*form.parse(req, function(err, fields, files){
+                        console.log(files.file.path);
+                    });*/
+
+                    //console.log("Parsing done.");
+                    //console.dir(req.headers);
+                    //console.log(fields);
+                    //console.log(files);
+                });
+
+
+
+            });
+            }
+
+            break;
 
         case '/submitForm':
             if (req.method == 'POST') {
@@ -71,6 +142,7 @@ http.createServer(function (req, res) {
             }
             break;
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/sign-s3':
             if (req.method == 'GET') {
@@ -286,7 +358,8 @@ http.createServer(function (req, res) {
                 });
             }
             break;
-        case '/updatestatus':
+
+            case '/updatestatus':
             if (req.method == 'POST') {
                 console.log("POST /detail");
                 var body = '';
