@@ -15,7 +15,7 @@ function setAllddNone() {
     $('#d_stationname').empty();
     $('#d_platformnumber').empty();
 
-    $('#d_coordinateCanvas').empty();
+    /////$('#d_coordinateCanvas').empty();
     $('#d_mapCanvas').empty();
 }
 
@@ -58,6 +58,8 @@ $(document).ready(function () {
     $('#viewFaultSection').on('click', 'tbody > tr', function (event) {
         //clear all text file in original fault detail page.
         setAllddNone();
+        $('#logInSuccess').hide();
+        $('#logInSuccess').fadeOut(1);
 
         var report_id = $(this).find('th').text();
         var data = {

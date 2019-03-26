@@ -363,7 +363,7 @@ http.createServer(function (req, res) {
                         });
                         await client.connect(); // create a database connection
                         client.query('SET search_path to faultreportapp'); //to go to the 'faultreportapp' schema rather than public
-                        const res1 = await client.query('SELECT report_id, staff.staff_id, report.coachnumber, seatno, xcoordinatetrainmap, ycoordinatetrainmap,faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue, platformnumber \n' +
+                        const res1 = await client.query('SELECT report.report_id, staff.staff_id, report.coachnumber, seatno, xcoordinatetrainmap, ycoordinatetrainmap,faultadditionalinfo, timestamp, firstname, lastname, report.email, condition, coachmap.coachmap_id, stationname, faultstatus, sublocation, locationtype, faultreference, roletype, mapsource, othervalue, platformnumber, imagesource \n' +
                             'FROM report\n' +
                             'LEFT JOIN staff ON report.email = staff.email\n' +
                             'LEFT JOIN roletype ON staff.roletype_id = roletype.roletype_id\n' +
@@ -376,7 +376,8 @@ http.createServer(function (req, res) {
                             'LEFT JOIN station ON report.station_id = station.station_id\n' +
                             'INNER JOIN faultstatus ON report.faultstatus_id = faultstatus.faultstatus_id\n' +
                             'LEFT JOIN sublocation ON report.sublocation_id = sublocation.sublocation_id\n' +
-                            'WHERE report_id = ' + jsObject.report_id + ';');
+                            'LEFT JOIN image ON report.report_id = image.report_id\n' +
+                            'WHERE report.report_id = ' + jsObject.report_id + ';');
                         await client.end();
                         //console.log(res1);
                         const json_db = res1.rows;
@@ -406,6 +407,7 @@ http.createServer(function (req, res) {
                             const mapsource = json_db[i].mapsource;
                             const othervalue = json_db[i].othervalue;
                             const platformnumber = json_db[i].platformnumber;
+                            const imagesource = json_db[i].imagesource;
 
                             var data = {
                                 report_id: report_id,
@@ -431,7 +433,8 @@ http.createServer(function (req, res) {
                                 roletype: roletype,
                                 mapsource: mapsource,
                                 othervalue: othervalue,
-                                platformnumber: platformnumber
+                                platformnumber: platformnumber,
+                                imagesource: imagesource
                             };
 
                             json_array.push(data);

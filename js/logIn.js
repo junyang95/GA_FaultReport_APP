@@ -87,6 +87,8 @@ function submitLogInForm() {
         $('#unencryptedForm').append('some problem with the form');
     }
 
+    $('#logInSuccess').show();
+
 }
 
 
@@ -207,10 +209,19 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#t_platformnumber').hide();
                             $('#d_platformnumber').hide();
 
+                            if (json_array[i].ycoordinatetrainmap == null || json_array[i].xcoordinatetrainmap ==null) {
+                                $('#d_coordinateCanvas').hide();
+                            }else if (json_array[i].ycoordinatetrainmap != null || json_array[i].xcoordinatetrainmap !=null) {
+                                $('#d_coordinateCanvas').show();
+                                $('#d_coordinateCanvas').css('display', 'block');
+                                $('#d_coordinateCanvas').css({"top":json_array[i].ycoordinatetrainmap + '%'});
+                                $('#d_coordinateCanvas').css({'left':json_array[i].xcoordinatetrainmap+ '%'});
+                            }
 
-                            $('#d_coordinateCanvas').show();
+
                             $('#d_mapCanvas').show();
                             $('#d_mapCanvas').append('<img id="trainMapStyle1" style="width:100%" src="image/trainMap/' + json_array[i].mapsource + '">');
+                            $('#localImage').append(json_array[i].imagesource);
 
                         } else if (json_array[i].locationtype == 'Station') {
                             ///////Determine the sub-location////////
@@ -247,6 +258,8 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                             $('#d_mapCanvas').hide();
                         }
 
+
+
                         //still have not been implemented
                         //>>>>>>json_array[i].othervalue;
 
@@ -264,6 +277,8 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
 
                         $('#resultFromSQL').empty();
                         $('#resultFromSQL').append(json_array[0].authentication);
+
+                        // $('#logInSuccess').show();
                         $('#logInSuccess').css('display', 'block');
                         $('#logInSuccess').fadeOut(3000);
 
