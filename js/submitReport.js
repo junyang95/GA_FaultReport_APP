@@ -1,22 +1,17 @@
 
 const submitFormPath = "http://localhost:8081/submitForm";
 
+const uploadImagePath = "http://localhost:8081/uploadImage";
+
 function submitReport(){ //this function submits the report
 
     var otherValue = $('#otherFaultInput').val()||null;
     var seatNumberValue = $('#seatNumberInput').val()||null;
     var additionalInformation = $('#additionInformation').val()||null;
     var email = $('#staffEmailInput').val();
-    var imageSource = $('#imgInp')[0].files[0]||null;
-
-
-    //alert(imageSource)
-    //$('#imgInp').val().lastIndexOf("\\") + 1;
-    //var imageSource = $('#imgInp').val().substr(imageNameIndex);
+    var imageSource = $('#imgInp')[0].files[0].name||null;
     var platformValue = $('#platformNumberInput').val()||null;
 
-
-    console.log();
     //if option value is other which is == null
 
     if(faultListValue=="o"||subLocationListValue=="others"||conditionValue=="other"){
@@ -48,20 +43,14 @@ function submitReport(){ //this function submits the report
 
         var reportObject = JSON.stringify(reportData);
 
-
-
-        //console.log(reportData);
-
     submitForm(submitFormPath,reportObject);
 
-    getFileFromId("imgInp");
-
-
-
-
-
     alert("You have Successfully Reported a Fault. Thank You!");
+
 }
+
+
+
 
 function submitForm(path,reportData){
 
@@ -73,18 +62,25 @@ function submitForm(path,reportData){
             alert("error");
         }
     });
+
+
 }
 
-function getFileFromId(id){
 
-    document.getElementById(id).onchange = () => {
-        const files = document.getElementById(id).files;
-        const file = files[0];
-        if(file == null){
-            return alert('No file selected.');
+//AWS upload to bucket in progress
+
+function uploadImage(path,imageObject){
+
+
+
+    $.ajax({
+        url: path,
+        type: "POST",
+        data:imageObject,
+        error: function(){
+            alert("error");
         }
-        getSignedRequest(file);
-    };
+    });
 }
 
 function getSignedRequest(file){
@@ -95,8 +91,6 @@ function getSignedRequest(file){
             if(xhr.status === 200){
                 const response = JSON.parse(xhr.responseText);
                 uploadFile(file, response.signedRequest, response.url);
-
-                aler('got signed request');
             }
             else{
                 alert('Could not get signed URL.');
@@ -105,7 +99,6 @@ function getSignedRequest(file){
     };
     xhr.send();
 }
-
 
 function uploadFile(file, signedRequest, url){
     const xhr = new XMLHttpRequest();

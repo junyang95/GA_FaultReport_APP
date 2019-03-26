@@ -1,9 +1,19 @@
 var http = require('http');
 var bcrypt = require('bcrypt');
 
+var formidable = require('formidable');
+var multiparty = require('multiparty');
+var fs = require('fs');
+var path = require('path');
+var util = require('util');
+
+var dir = './tmp';
+
 const saltRounds = 10;
 
 //AWS module
+
+
 const aws = require('aws-sdk');
 const S3_BUCKET = process.env.S3_BUCKET;
 aws.config.region = 'eu-west-1';
@@ -34,6 +44,60 @@ http.createServer(function (req, res) {
     const sslfactory = "org.postgresql.ssl.NonValidatingFactory";
 
     switch (req.url) {
+
+        case '/uploadImage':
+            if (req.method == 'POST') {
+                var body='';
+
+                req.on('data', function (data) {
+                    body += data;
+                });
+                req.on('end', async function () {
+                    var json = JSON.parse(body);
+                    console.log("JSON: "+json);
+                var form = new multiparty.Form();
+                console.log("About to parse...");
+
+                form.parse(req, function(error, fields, files) {
+
+                    /*if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir);
+                    }
+                        var oldpath = dir;
+                        var newpath = '../../image/reportImage/' + json;
+
+                        fs.rename(oldpath, newpath, function (err) {
+                            if (err) throw err;
+                            res.write('File uploaded and moved!');
+
+                            res.end(util.inspect({fields: fields, files: files}));
+
+                        });*/
+
+                        var oldpath = files.filetoupload.path;
+                        var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+                        fs.rename(oldpath, newpath, function (err) {
+                            if (err) throw err;
+                            res.write('File uploaded and moved!');
+                            res.end();
+                        });
+
+                    /*form.parse(req, function(err, fields, files){
+                        console.log(files.file.path);
+                    });*/
+
+                    //console.log("Parsing done.");
+                    //console.dir(req.headers);
+                    //console.log(fields);
+                    //console.log(files);
+                });
+
+
+
+            });
+            }
+
+            break;
 
         case '/submitForm':
             if (req.method == 'POST') {
@@ -71,6 +135,7 @@ http.createServer(function (req, res) {
             }
             break;
 
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         case '/sign-s3':
             if (req.method == 'GET') {
@@ -286,7 +351,8 @@ http.createServer(function (req, res) {
                 });
             }
             break;
-        case '/updatestatus':
+
+            case '/updatestatus':
             if (req.method == 'POST') {
                 console.log("POST /detail");
                 var body = '';

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Greater Anglia Fault Reporting App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
 
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">-->
     <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>-->
@@ -34,6 +35,8 @@
     <script src="js/viewFault.js"></script>
     <script src="js/submitReport.js"></script>
     <script src="js/faultDetail.js"></script>
+    <script src="js/uploadToBucket.js"></script>
+
 
 
 </head>
@@ -55,7 +58,7 @@
 
 
     <!---------------------------------------------------------3. Report Page---------------------------------------------------------------->
-    <form>
+    <form enctype="multipart/form-data">
     <a name="reportForm"><!--Move this section to a new HTML page-->
 
         <div id="reportFaultFormSection"></div>
