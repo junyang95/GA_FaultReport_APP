@@ -62,7 +62,6 @@ $(document).ready(function () {
         //clear all text file in original fault detail page.
         setAllddNone();
         $('#logInSuccess').hide();
-        $('#logInSuccess').fadeOut(1);
 
         var report_id = $(this).find('th').text();
         var data = {

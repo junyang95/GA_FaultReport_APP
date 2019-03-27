@@ -4,7 +4,7 @@ function setAllAlertsNone() {
     $('#passwordCheck').css('display', 'none');
     $('#logInError').css('display', 'none');
     $('#logInNoUser').css('display', 'none');
-    $('#logInSuccess').css('display', 'none');
+    //$('#logInSuccess').css('display', 'none');
 }
 
 function setObject(keyword, value) {
@@ -82,12 +82,14 @@ function submitLogInForm() {
         $('#unencryptedForm').empty();
         $('#unencryptedForm').append('unencryptedForm: ' + 'userEmail: ' + logInFormData.userEmail + 'userPsw: ' + logInFormData.userPsw + 'keepLogin: ' + logInFormData.keepLogin);
 
+        $('#logInSuccess').show();
+        $('#logInSuccess').css('display', 'block');
+        $('#logInSuccess').fadeOut(3500);
         PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'logincheck');
     } else {
         $('#unencryptedForm').append('some problem with the form');
     }
 
-    $('#logInSuccess').show();
 
 }
 
@@ -284,8 +286,8 @@ function PostAjax(http_node_server_path, data, html_position_id, page) {
                         $('#resultFromSQL').append(json_array[0].authentication);
 
                         // $('#logInSuccess').show();
-                        $('#logInSuccess').css('display', 'block');
-                        $('#logInSuccess').fadeOut(3000);
+                        //$('#logInSuccess').css('display', 'block');
+                        //$('#logInSuccess').fadeOut(5000);
 
                         $("#loginSection").hide();
                         $("#viewFaultSection").show();
