@@ -18,7 +18,6 @@ function setAllddNone() {
     /////$('#d_coordinateCanvas').empty();
     $('#d_mapCanvas').empty();
 
-
     $('#localImage').empty();
 }
 
@@ -33,10 +32,14 @@ function backToViewFault() {
 
     $("#backButtonToHome").show();
 
+    //hide the logInSuccess info
+    $('#logInSuccess').hide();
     //try to refresh the page maybe? update in fault detail page it also refresh the original table
     //also refresh the original filter
     var logInFormData = getObject('logInFormData');
     PostAjax('http://localhost:8081/logincheck', logInFormData, 'encryptedForm', 'logincheck');
+
+    //remove the highlight on previous filter
     $("#statusListGroup >li.active").removeClass("active");
     $("#locationListGroup >li.active").removeClass("active");
     $("#sortByListGroup >li.active").removeClass("active");
@@ -61,7 +64,6 @@ $(document).ready(function () {
     $('#viewFaultSection').on('click', 'tbody > tr', function (event) {
         //clear all text file in original fault detail page.
         setAllddNone();
-        $('#logInSuccess').hide();
 
         var report_id = $(this).find('th').text();
         var data = {

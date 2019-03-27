@@ -18,7 +18,10 @@
     "express": "^4.16.4",
     "formidable": "^1.2.1",
     "moment": "^2.24.0",
-    "pg": "^7.9.0"
+    "pg": "^7.9.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
   },
   "devDependencies": {
     "request": "^2.81.0",
