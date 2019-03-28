@@ -9,7 +9,7 @@ function submitReport(){ //this function submits the report
     var seatNumberValue = $('#seatNumberInput').val()||null;
     var additionalInformation = $('#additionInformation').val()||null;
     var email = $('#staffEmailInput').val();
-    var imageSource = $('#imgInp')[0].files[0];
+    var imageSource = $('#imgInp')[0].files[0]||null;
 
     var platformValue = $('#platformNumberInput').val()||null;
 
@@ -22,12 +22,7 @@ function submitReport(){ //this function submits the report
         conditionValue=null;
     }
 
-    if(!imageSource){
-        imageSource==null;
-    }
-
     //coach value for insert
-    //
 
         var reportData = {}; //need to stringfy before send it
         reportData.locationType = parseInt(locationType);
@@ -43,7 +38,13 @@ function submitReport(){ //this function submits the report
         reportData.platformNumber = platformValue;
         reportData.additionInformation = additionalInformation;
         reportData.email = email;
+
+    if(imageSource){
         reportData.image = imageSource.name;
+    }else{
+        reportData.image = null;
+    }
+
         reportData.faultStatus = 1;
         reportData.staff_id = null;
 
