@@ -27,6 +27,7 @@ function submitReport(){ //this function submits the report
     }
 
     //coach value for insert
+    //
 
         var reportData = {}; //need to stringfy before send it
         reportData.locationType = parseInt(locationType);
