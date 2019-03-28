@@ -9,7 +9,7 @@ function submitReport(){ //this function submits the report
     var seatNumberValue = $('#seatNumberInput').val()||null;
     var additionalInformation = $('#additionInformation').val()||null;
     var email = $('#staffEmailInput').val();
-    var imageSource = $('#imgInp')[0].files[0]||null;
+    var imageSource = $('#imgInp')[0].files[0];
 
     var platformValue = $('#platformNumberInput').val()||null;
 
@@ -20,6 +20,10 @@ function submitReport(){ //this function submits the report
         faultListValue==null;
         subLocationListValue==null;
         conditionValue=null;
+    }
+
+    if(!imageSource){
+        imageSource==null;
     }
 
     //coach value for insert
