@@ -32,15 +32,22 @@ button{
     font-weight:200;
 }
 
-#nextButton{
+#nextButtonToReport2,#nextButtonToCamera,#submitButton,#nextButtonToHome{
     padding:10px;
     float:right;
+    cursor: pointer;
 }
 
-#backButton{
+#backButtonToHome,#backButtonToReport1,#backButtonToReport2,#backButtonToViewFault{
     float:left;
     padding:10px;
     text-decoration: none;
+    cursor: pointer;
+}
+
+#backButtonToReport1,#nextButtonToCamera, #nextButtonToReport2,#submitButton,#backButtonToReport2, #backButtonToViewFault, #nextButtonToHome{
+
+    display:none;
 }
 
 .fa-chevron-left{
@@ -61,3 +68,15 @@ button{
     margin-right: 5px;
 }
 
+.boldText{
+
+    font-family: Gilroy-Medium;
+}
+
+#submitButton{
+    display: none;
+}
+
+#submitButton:focus {
+    outline:0;
+}

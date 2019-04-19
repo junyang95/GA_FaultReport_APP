@@ -1,0 +1,9 @@
+#d_mapContainer{
+    position: relative;
+}
+
+#d_coordinateCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

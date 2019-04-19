@@ -5,15 +5,66 @@
     margin-right: 10px;
 }
 
-.fa-question-circle{
+.fa-map-marker-alt{ /*.fa-cirlce*/
+    position: absolute;
+    font-size:40px;
 
+    color:#D70428;
+    top: -40px;
+    left: -15px;
+    overflow:hidden;
+}
+
+.fa-camera{
+
+    color:lightgray;
+    font-size:70px;
+    text-align: center;
+    margin-bottom:10px;
+
+}
+
+#uploadButton{
+    text-align: center;
+}
+
+#faultLocationPoint{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#trainMapStyle{
+    width:100%;
+    margin-top:20px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+}
+
+#trainMapContainer{
+
+    position:relative;
+
+}
+
+.fa-question-circle{
     font-size:20px;
     color:#D70428;
     margin-top:2px;
     float:right;
 }
 
-#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber, #unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultObject, #unhideFaultCondition{
+.smallFont{
+
+    font-size:11pt;
+    font-weight:200;
+    color:darkgray;
+}
+
+
+#stationList,#unhideCoach, #unhideStation, #unhideSeatRequest, #unhideStationNameFilter, #unhideSeatNumber,
+#unhideSeatMap, #unhideStationLocation, #unhideFaultDescriptionDropdown, #unhideFaultCondition,
+#unhideFaultObject, #otherFault,#faultLocationPoint,#cameraSection,#imagePreview,input[type="file"],#replaceImageButton,#removeImage,#trainMapContainer,#userLocateText,#unhidePlatformNumber,#invalidCoachNumberMessage{
 
     display:none;
 }
@@ -36,7 +87,22 @@
     padding:10px;
     width:100%;
     font-size:13pt;
-    margin-bottom:15px;
+}
+
+.form-control{
+
+    border-radius: 0;
+}
+
+.form-group{
+
+    margin-bottom:0;
+}
+
+.list-group-item:first-child{
+
+    border-radius:0;
+
 }
 
 .list-group, #stationList{
@@ -45,17 +111,120 @@
 }
 
 .dropDownOption{
-    border:solid 1px lightgray;
     width: 100%;
-    padding: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: 45px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=) 96% / 15% no-repeat #eee;
+    border-radius:0px;
     background-color: white;
-    height:45px;
-    border-radius: 0;
+    background-size: auto;
 }
+
 
 .list-group-item:last-child,.list-group-item:last-child{
 
     border-radius: 0;
 }
 
+#unhidePlatformNumber, #unhideCoach,#unhideSeatRequest,#unhideFaultDescriptionDropdown,#otherFault,#unhideFaultCondition,#unhideSeatNumber,#unhideSeatMap,#userLocateText,#unhideStation,#unhideStaffEmailInput{
 
+    margin-top:30px;
+}
+
+/*.card-body {*/
+
+    /*padding: 10px;*/
+    /*border: 2px solid #ccc;*/
+/*}*/
+
+.fa-plus{
+
+    color:lightgray;
+    font-size: 20pt;
+    padding:10px;
+}
+
+.addPhoto{
+
+    border:none;
+    box-shadow: 0 0 5px lightgray;
+
+    text-align: center;
+    margin-bottom:20px;
+
+}
+
+.addPhotoButton{
+
+    border:none;
+    box-shadow: 0 0 5px lightgray;
+    padding:5px;
+    text-align: center;
+}
+
+.fa-times-circle{
+    font-size: 20pt;
+    color:black;
+
+
+    z-index: 9;
+
+}
+
+#imagePreview{
+    width:100%;
+
+
+}
+
+#replaceImageButton{
+
+    text-align: right;
+    font-size: 12pt;
+}
+
+.fa-exchange-alt{
+
+    font-size: 15pt;
+    color:black;
+}
+
+#removeImage{
+    float:right;
+    margin:15px;
+
+
+}
+
+.addPhotoIcon{
+
+    padding:30px;
+}
+
+textarea {
+    resize:none;
+}
+
+.card-body{
+
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.img-responsive{
+    width:100%;
+}
+
+.card{
+
+    border-radius: 0;
+}
+
+.close{
+
+    float:right;
+}

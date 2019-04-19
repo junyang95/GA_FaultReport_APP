@@ -1,6 +1,6 @@
 body{
     margin:0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Gilroy-Medium;
     font-size: 12pt;
     font-weight: 200;
 }
@@ -20,4 +20,24 @@ select,ul,li{
 select:focus, ul:focus, input:focus{
 
     outline: none;
+}
+
+@font-face {
+    font-family: Gilroy-Light;
+    src: url('../fonts/gilroy-light.otf');
+}
+
+@font-face {
+    font-family: Gilroy-Bold;
+    src: url('../fonts/Gilroy-Bold.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Medium;
+    src: url('../fonts/Gilroy-Medium.ttf');
+}
+
+@font-face {
+    font-family: Gilroy-Regular;
+    src: url('../fonts/Gilroy-Regular.ttf');
 }

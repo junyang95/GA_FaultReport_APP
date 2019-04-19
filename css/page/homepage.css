@@ -20,10 +20,37 @@
     display: block;
 }
 
+.redBoxQuestion {
+    text-align: center;
+    background-color: #D70428;
+    padding: 10px;
+    margin-top: 10px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 10pt;
+    box-shadow: 0 0 5px lightgray;
+    border: none;
+    display: block;
 
-#homeSection, #reportFaultFormSection, #loginSection{
+}
+
+.redBoxQuestion:hover{
+
+    text-decoration: none;
+    color: white;
+}
+
+a.redBoxQuestion{
+
+    text-decoration: none;
+    color: white;
+}
+
+
+#homeSection, #reportFaultFormSection, #loginSection, #viewFaultSection, #faultDetailSection{
     margin-top: 65px;
-    margin-bottom:183px;
+    margin-bottom:100px;
 }
 
 
@@ -44,6 +71,7 @@
 
 .redTitle{
     color: #D70428;
+    font-family: Gilroy-Bold;
 }
 
 .bottom-left {
@@ -78,7 +106,7 @@
     margin-right: 10px;
 }
 
-#reportFaultFormSection, #loginSection{
+#reportFaultFormSection, #loginSection, #viewFaultSection, #faultDetailSection{
     display: none;
 }
 
