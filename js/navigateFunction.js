@@ -1,5 +1,5 @@
-
-const getLocationType = "http://localhost:8081/getLocationType";
+var ipAddress = 'localhost';
+const getLocationType = "http://"+ ipAddress+":8081/getLocationType";
 
 //proceed to fault report page
   function toReportFault(){ 
