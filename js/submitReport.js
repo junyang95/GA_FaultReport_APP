@@ -38,7 +38,13 @@ function submitReport(){ //this function submits the report
         reportData.platformNumber = platformValue;
         reportData.additionInformation = additionalInformation;
         reportData.email = email;
+
+    if(imageSource){
         reportData.image = imageSource.name;
+    }else{
+        reportData.image = null;
+    }
+
         reportData.faultStatus = 1;
         reportData.staff_id = null;
 

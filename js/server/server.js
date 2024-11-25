@@ -117,7 +117,7 @@ http.createServer(function (req, res) {
                     const insertReport = 'INSERT INTO report (locationType_id,coachNumber,station_id,subLocation_id,fault_id,condition_id,otherValue,seatNo,xCoordinateTrainMap, yCoordinateTrainMap,platformNumber,faultAdditionalInfo,faultStatus_id,staff_id,email) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *';
                     const insertImage = 'INSERT INTO image (report_id, imageSource) VALUES((SELECT MAX(report_id) FROM report), $1)  RETURNING *';
 
-                    if(!json.image){
+                    if(json.image==null){
                         const reportValue = [json.locationType, json.coachNumber, json.station, json.sublocation, json.fault, json.condition, json.otherValue, json.seatNumber, json.xCoordinate, json.yCoordinate, json.platformNumber,json.additionInformation, json.faultStatus, json.staff_id,json.email];
                         await client.query(insertReport, reportValue);
 
